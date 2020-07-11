@@ -16,15 +16,28 @@ from django.views.generic import(
 from .models import (
     Questionnaire,
 )
-from users.models import Profile
 
 # Create your views here.
+posts = [
+    {
+        'author': 'CoreyMS',
+        'title': 'Blog Post 1',
+        'content': 'First Post Content',
+        'date_posted': 'May 4, 2020',
+    },
+    {
+        'author': 'John Doe',
+        'title': 'Blog Post 2',
+        'content': 'Second Post Content',
+        'date_posted': 'May 5, 2020',
+    },
+]
 
 
 @login_required
 def home(request):
     context = {
-        'posts': Profile.objects.filter(user=request.user)
+        'posts': posts
     }
     return render(request, 'blog/home.html', context)
 
