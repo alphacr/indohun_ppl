@@ -144,3 +144,13 @@ def about(request):
     else:
         form = ContactUsForm()
     return render(request, 'blog/about.html', {'form': form})
+
+def tentang_manajement(request):
+    return render(request, 'blog/tentang_manajement.html')
+
+def tentang_biorisiko(request):
+    return render(request, 'blog/tentang_biorisiko.html')
+
+def tentang_SMBL(request):
+    return render(request, 'blog/tentang_SMBL.html')
+

@@ -46,37 +46,66 @@
                             Menu
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                                 data-target="#submenu-1"><i class="fa fa-fw fa-user-circle"></i>Profile<span
                                     class="badge badge-success">6</span></a>
                             <div id="submenu-1" class="collapse submenu">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'profile_page' %}">Halaman Profil<span
-                                                class="badge badge-secondary">New</span></a>
+                                        <a class="nav-link" href="{% url 'profile_page' %}">Halaman Profil</a>
                                         <a class="nav-link" href="{% url 'profile' %}">Update Profil<span
                                                 class="badge badge-secondary">New</span></a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                                 data-target="#submenu-2" aria-controls="submenu-2"><i
                                     class="fa fa-fw fa-rocket"></i>Reports</a>
                             <div id="submenu-2" class="collapse submenu">
                                 <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'questionnaire:report-list' %}">Daftar
-                                            Laporan <span class="badge badge-secondary">New</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'questionnaire:report-create' %}">Buat
-                                            Laporan Baru</a>
-                                    </li>
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-5" aria-controls="submenu-5">Menejement Mutu dan Sarpras</a>
+                                        <div id="submenu-5" class="collapse submenu">
+                                           <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{% url 'questionnaire:tentang_manajement' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'questionnaire:report-list' %}">Daftar Laporan 
+                                                        <span class="badge badge-secondary">New</span></a>
+                                                    <a class="nav-link" href="{% url 'questionnaire:report-create' %}">Buat Laporan Baru</a>
+                                                </li>
+                                            </ul> 
+                                        </div>
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-6" aria-controls="submenu-6">Manajemen Biorisiko</a>
+                                        <div id="submenu-6" class="collapse submenu">
+                                           <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{% url 'questionnaire:tentang_biorisiko' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'questionnaire:report-list' %}">Daftar Laporan 
+                                                        <span class="badge badge-secondary">New</span></a>
+                                                    <a class="nav-link" href="{% url 'questionnaire:report-create' %}">Buat Laporan Baru</a>
+                                                </li>
+                                            </ul> 
+                                        </div>
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-7" aria-controls="submenu-7">SMBL SNI 8340:2016</a>
+                                        <div id="submenu-7" class="collapse submenu">
+                                           <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{% url 'questionnaire:tentang_SMBL' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'questionnaire:report-list' %}">Daftar Laporan 
+                                                        <span class="badge badge-secondary">New</span></a>
+                                                    <a class="nav-link" href="{% url 'questionnaire:report-create' %}">Buat Laporan Baru</a>
+                                                </li>
+                                            </ul> 
+                                        </div>
                                 </ul>
                             </div>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                                 data-target="#submenu-3" aria-controls="submenu-3"><i
