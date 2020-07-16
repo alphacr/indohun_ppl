@@ -6,7 +6,6 @@ from .models import Profile
 
 # Create your views here.
 
-
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -39,3 +38,9 @@ def profile(request):
         'p_form': p_form,
     }
     return render(request, 'users/profile.html', context)
+
+def profile_page(request):
+    context = {
+        'posts': Profile.objects.filter(user=request.user)
+    }
+    return render(request, 'users/profile_page.html', context)
