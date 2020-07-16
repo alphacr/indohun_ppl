@@ -43,7 +43,7 @@ class ReportDetailView(LoginRequiredMixin, DetailView):
 
 class ReportCreateView(LoginRequiredMixin, CreateView):
     model = Questionnaire  # <app>/<model>_form.html
-    fields = ['laboratorium_yang_dinilai', 'penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+    fields = ['penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
               'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
               'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',
@@ -107,7 +107,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
 class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Questionnaire  # <app>/<model>_form.html
     context_object_name = 'report'
-    fields = ['laboratorium_yang_dinilai', 'penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+    fields = ['penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
               'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
               'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',

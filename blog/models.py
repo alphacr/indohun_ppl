@@ -33,8 +33,6 @@ class Questionnaire(models.Model):
          'Penilaian Pendampingan (Technical Assessment)'),
     )
     # Stage 0 fields
-    laboratorium_yang_dinilai = models.OneToOneField(
-        Profile, blank=False, null=True, on_delete=models.CASCADE)
     penilai = models.CharField(max_length=50, blank=False, null=True)
     afiliasi_penilai = models.CharField(max_length=50, blank=False, null=True)
     jenis_penilaian = models.CharField(
