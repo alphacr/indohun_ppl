@@ -1,22 +1,26 @@
 {% extends "blog/base.html"%}
 {% block content %}
 {% load static %} 
-<h1>Menejement Mutu dan Sarpras (Tentang)</h1>
-<img src="{% static 'blog/assets/images/Tentang.jpeg' %}" alt="Background Tentang" style="height: 100%; width: 100%"/>
-<article class="media content-section">
-    <div class="media-body">
-    	<br>
-        <h3><p class="text-justify" >
-        	Kuesioner ini merupakan sistem pemetaan kapasitas dasar laboratorium ilmu hayati (life science) dan Laboratorium Kimia berbasis website yang dikembangkan oleh Indonesia One Health University Network (INDOHUN) melalui program One Health Laboratory Network (OHLN).  
-	        </p>
+	<div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
+	    <div class="card">
+	        <img src="{% static 'blog/assets/images/Tentang.jpeg' %}" alt="Background Tentang" style="height: 100%; width: 100%"/>
+	        <div class="card-body">
+	            <h1 class="card-title">Menejement Mutu dan Sarpras</h1>
+	            <h3><p class="card-text text-justify">
+	            Kuesioner ini merupakan sistem pemetaan kapasitas dasar laboratorium ilmu hayati (life science) dan Laboratorium Kimia berbasis website yang dikembangkan oleh Indonesia One Health University Network (INDOHUN) melalui program One Health Laboratory Network (OHLN). 
+	        	</p>
 
-	        <p class="text-justify">
-        	Sistem ini menggunakan teknologi yang sederhana dan mudah diaplikasikan, sebagai alat bantu untuk melakukan pemetaan kapasitas dasar laboratorium. 
-        	</p>
+	            <p class="card-text text-justify">
+	            Sistem ini menggunakan teknologi yang sederhana dan mudah diaplikasikan, sebagai alat bantu untuk melakukan pemetaan kapasitas dasar laboratorium. 
+	        	</p>
 
-        	<p class="text-justify">
-			Kuesioner pemetan penilaian ini digunakan untuk memantau kapasitas dasar, kekuatan dan kesenjangan suatu organisasi laboratorium di perguruan tinggi, kementerian dan lembaga serta laboratorium pihak swasta.
-			</p>
-    </div>
-</article>
+	            <p class="card-text text-justify">
+	            Kuesioner pemetan penilaian ini digunakan untuk memantau kapasitas dasar, kekuatan dan kesenjangan suatu organisasi laboratorium di perguruan tinggi, kementerian dan lembaga serta laboratorium pihak swasta.
+	            </p></h3>
+	            <br>
+	            <a href="{% url 'questionnaire:report-list' %}" class="btn btn-dark">Daftar Laporan</a>
+	            <a href="{% url 'questionnaire:report-create' %}" class="btn btn-dark">Buat Laporan Baru</a>
+	        </div>
+	    </div>
+	</div>
 {% endblock content%}
