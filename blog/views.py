@@ -16,6 +16,7 @@ from django.views.generic import(
 from .models import (
     Questionnaire,
 )
+from users.models import Profile
 
 # Create your views here.
 posts = [
@@ -37,7 +38,7 @@ posts = [
 @login_required
 def home(request):
     context = {
-        'posts': posts
+        'posts': Profile.objects.filter(user=request.user)
     }
     return render(request, 'blog/home.html', context)
 

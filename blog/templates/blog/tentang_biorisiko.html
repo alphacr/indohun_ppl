@@ -3,10 +3,10 @@
 {% load static %} 
     <div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="card">
-            <img src="{% static 'blog/assets/images/Tentang2.JPG' %}" alt="Background Tentang" style="height: 100%; width: 100%"/>
+            <img src="{% static 'blog/assets/images/Tentang2.JPG' %}" alt="Background Tentang" style="height: 470px; width: 100%"/>
             <div class="card-body">
                 <h1 class="card-title">Menejement Biorisiko</h1>
-                <h3><p class="card-text text-justify">
+                <p class="card-text text-justify">
                 Kuesioner ini merupakan sistem pemetaan kapasitas dasar laboratorium ilmu hayati (life science) berbasis website
                 yang dikembangkan oleh Indonesia One Health University Network (INDOHUN) melalui program One Health
                 Laboratory Network (OHLN). Sistem ini menggunakan teknologi yang sederhana dan mudah diaplikasikan, sebagai
@@ -19,7 +19,7 @@
                 suatu organisasi laboratorium ilmu hayati (life science) maupun fasilitas hewan, khususnya laboratorium di perguruan
                 tinggi, kementerian dan lembaga serta laboratorium pihak swasta dalam mengimplementasikan sistem manajemen
                 biorisiko.
-                </p></h3>
+                </p>
                 <br>
                 <a href="{% url 'questionnaire:report-list' %}" class="btn btn-dark">Daftar Laporan</a>
                 <a href="{% url 'questionnaire:report-create' %}" class="btn btn-dark">Buat Laporan Baru</a>

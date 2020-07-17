@@ -3,10 +3,10 @@
 {% load static %} 
     <div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="card">
-            <img src="{% static 'blog/assets/images/Tentang3.jpeg' %}" alt="Background Tentang" style="height: 100%; width: 100%"/>
+            <img src="{% static 'blog/assets/images/Tentang3.jpeg' %}" alt="Background Tentang" style="height: 470px; width: 100%"/>
             <div class="card-body">
                 <h1 class="card-title">SMBL SNI 8340:2016</h1>
-                <h3><p class="card-text text-justify">
+                <p class="card-text text-justify">
                 Perangkat penilaian laboratorium (PPL) ini merupakan sistem penilaian laboratorium berbasis website yang dikembangkan oleh Indonesia One
                 Health University Network (INDOHUN) melalui program One Health Laboratory Network (OHLN). Sistem ini menggunakan teknologi yang sederhana
                 dan mudah diaplikasikan, sebagai alat bantu untuk melakukan penilaian di laboratorium ilmu hayati (kesehatan manusia, kesehatan hewan,
@@ -37,9 +37,9 @@
                 Kuesioner dalam PPL ini bersifat sistemastis dan semi-quantitatif yang terdiri dari 5 aspek, yakni: 1) Kebijakan Manajemen Biorisiko, 2) Perencanaan
                 Kerja dengan Bahan Biologi, 3) Pengendalian Operasional, 4) Pelaksanaan dan Operasi, 5) Checking dan Perbaikan. Dari 5 aspek tersebut, terbagi
                 menjadi 16 elemen, dan 54 sub elemen pertanyaan.
-                </p></h3>
+                </p>
                 <br>
-                <a href="{% url 'questionnaire:report-list' %}" class="btn btn-dark">Daftar Laporan</a>
+                <a href="{% url 'questionnaire:report-list' %}" class="btn btn-dark" >Daftar Laporan</a>
                 <a href="{% url 'questionnaire:report-create' %}" class="btn btn-dark">Buat Laporan Baru</a>
             </div>
         </div>
