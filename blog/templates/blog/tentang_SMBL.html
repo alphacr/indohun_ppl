@@ -1,6 +1,13 @@
 {% extends "blog/base.html"%}
 {% block content %}
 {% load static %} 
+<style type="text/css">
+    .custom-button {
+    background-color: #4f6790 ;
+    border-color: #4f6790;
+  }
+</style>
+
     <div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="card">
             <img src="{% static 'blog/assets/images/Tentang3.jpeg' %}" alt="Background Tentang" style="height: 470px; width: 100%"/>
@@ -38,9 +45,8 @@
                 Kerja dengan Bahan Biologi, 3) Pengendalian Operasional, 4) Pelaksanaan dan Operasi, 5) Checking dan Perbaikan. Dari 5 aspek tersebut, terbagi
                 menjadi 16 elemen, dan 54 sub elemen pertanyaan.
                 </p>
-                <br>
-                <a href="{% url 'questionnaire:report-list' %}" class="btn btn-dark" >Daftar Laporan</a>
-                <a href="{% url 'questionnaire:report-create' %}" class="btn btn-dark">Buat Laporan Baru</a>
+                <a href="{% url 'questionnaire:report-list' %}" class="btn btn-primary custom-button" >Daftar Laporan</a>
+                <a href="{% url 'questionnaire:report-create' %}" class="btn btn-primary custom-button">Buat Laporan Baru</a>
             </div>
         </div>
     </div>

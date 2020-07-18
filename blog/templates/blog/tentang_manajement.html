@@ -1,6 +1,13 @@
 {% extends "blog/base.html"%}
 {% block content %}
 {% load static %} 
+<style type="text/css">
+    .custom-button {
+    background-color: #4f6790 ;
+    border-color: #4f6790;
+  }
+</style>
+
 	<div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
 	    <div class="card">
 	        <img src="{% static 'blog/assets/images/Tentang.jpeg' %}" alt="Background Tentang" style="height: 470px; width: 100%"/>
@@ -17,9 +24,8 @@
 	            <p class="card-text text-justify">
 	            Kuesioner pemetan penilaian ini digunakan untuk memantau kapasitas dasar, kekuatan dan kesenjangan suatu organisasi laboratorium di perguruan tinggi, kementerian dan lembaga serta laboratorium pihak swasta.
 	            </p>
-	            <br>
-	            <a href="{% url 'questionnaire:report-list' %}" class="btn btn-dark">Daftar Laporan</a>
-	            <a href="{% url 'questionnaire:report-create' %}" class="btn btn-dark">Buat Laporan Baru</a>
+	            <a href="{% url 'questionnaire:report-list' %}" class="btn btn-primary custom-button">Daftar Laporan</a>
+	            <a href="{% url 'questionnaire:report-create' %}" class="btn btn-primary custom-button">Buat Laporan Baru</a>
 	        </div>
 	    </div>
 	</div>
