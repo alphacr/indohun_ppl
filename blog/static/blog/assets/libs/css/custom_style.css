@@ -1,0 +1,9 @@
+.custom-button {
+    background-color: #4f6790 ;
+    border-color: #4f6790;
+}
+.tentang-img {
+    height: 470px; 
+    width: 100%; 
+    object-fit: cover;
+}
