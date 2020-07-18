@@ -38,7 +38,7 @@ posts = [
 @login_required
 def home(request):
     context = {
-        'posts': Profile.objects.filter(user=request.user)
+        'posts': posts
     }
     return render(request, 'blog/home.html', context)
 
