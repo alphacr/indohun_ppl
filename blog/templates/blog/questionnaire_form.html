@@ -3,7 +3,8 @@
 <div class="dashboard-wrapper">
 <div class="container-fluid dashboard-content">
   <div class="row row-body">
-    <form action="" method="">
+    <form action="" method="POST">
+        {% csrf_token %}
       <section class="quis-body">
         <div class="open-quiz_container">
           <div class="open-quiz">
@@ -1637,7 +1638,7 @@
             </div>
             <div class="tab" data-value="5">
               <div class="spot">
-                <span class="txt">5</span>
+                <span class="txt"></span>
               </div>
               <label
                 class="form-check-label answer-quiz"
