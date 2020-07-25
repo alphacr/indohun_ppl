@@ -3,7 +3,7 @@
     border-color: #4f6790;
 }
 .tentang-img {
-    height: 470px; 
+    height: 100%px; 
     width: 100%; 
     object-fit: cover;
 }

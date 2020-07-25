@@ -1,42 +1,103 @@
 {% extends "blog/base.html"%}
 {% block content %}
 {% load static %} 
-<div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
         <img src="{% static 'blog/assets/images/Tentang3.jpeg' %}" alt="Background Tentang" class="tentang-img"/>
         <div class="card-body">
             <h1 class="card-title">SMBL SNI 8340:2016</h1>
             <p class="card-text text-justify">
-            Perangkat penilaian laboratorium (PPL) ini merupakan sistem penilaian laboratorium berbasis website yang dikembangkan oleh Indonesia One
-            Health University Network (INDOHUN) melalui program One Health Laboratory Network (OHLN). Sistem ini menggunakan teknologi yang sederhana
-            dan mudah diaplikasikan, sebagai alat bantu untuk melakukan penilaian di laboratorium ilmu hayati (kesehatan manusia, kesehatan hewan,
-            lingkungan, perikanan, dan makanan).
+                Perangkat penilaian laboratorium (PPL) ini merupakan sistem penilaian laboratorium berbasis website yang dikembangkan oleh Indonesia One
+                Health University Network (INDOHUN) melalui program One Health Laboratory Network (OHLN). Sistem ini menggunakan teknologi yang sederhana
+                dan mudah diaplikasikan, sebagai alat bantu untuk melakukan penilaian di laboratorium ilmu hayati (kesehatan manusia, kesehatan hewan,
+                lingkungan, perikanan, dan makanan).
+                <br>
+                <br>
+                Sistem penilaian ini juga dapat digunakan untuk memantau kapasitas, kekuatan dan kesenjangan suatu organisasi laboratorium ilmu hayati (life
+                science) maupun fasilitas hewan, khususnya laboratorium di perguruan tinggi, kementerian dan lembaga serta laboratorium pihak swasta dalam
+                mengimplementasikan sistem manajemen biorisiko.
+                <br>
+                <br>
+                PPL ini dikembangkan merujuk pada Standar Nasional Indonesia (SNI) 8340:2016 dan CEN Workshop Agreement (CWA) 15793:2011 dengan desain
+                yang dapat digunakan untuk memantau kapasitas, kekuatan dan kesenjangan suatu organisasi laboratorium ilmu hayati (life science) maupun
+                fasilitas hewan, khususnya laboratorium di perguruan tinggi, kementerian dan lembaga serta laboratorium pihak swasta dalam
+                mengimplementasikan sistem manajemen biorisiko.
+                <br>
+                <br>
+                Selain itu, sistem ini juga dapat digunakan sebagai patokan perbaikan dan peningkatan implementasi sistem manajemen biorisiko di laboratorium,
+                serta menyediakan data dan informasi yang akurat bagi pengelola laboratorium, pengambil kebijakan, dan stakeholder terkait dalam bentuk yang
+                siap digunakan. Data dan informasi yang disediakan bagi pengguna PPL berupa laporan hasil analisis kapasitas real-time dalam bentuk tabel, grafik,
+                spreadsheet, dan catatan yang dibuat oleh sistem secara otomatis.
+                <br>
+                <br>
+                Kuesioner dalam PPL ini bersifat sistemastis dan semi-quantitatif yang terdiri dari 5 aspek, yakni: 1) Kebijakan Manajemen Biorisiko, 2) Perencanaan
+                Kerja dengan Bahan Biologi, 3) Pengendalian Operasional, 4) Pelaksanaan dan Operasi, 5) Checking dan Perbaikan. Dari 5 aspek tersebut, terbagi
+                menjadi 16 elemen, dan 54 sub elemen pertanyaan.
             </p>
-
+            <br>
+            <h2 class="card-title">Petunjuk</h2>
             <p class="card-text text-justify">
-            Sistem penilaian ini juga dapat digunakan untuk memantau kapasitas, kekuatan dan kesenjangan suatu organisasi laboratorium ilmu hayati (life
-            science) maupun fasilitas hewan, khususnya laboratorium di perguruan tinggi, kementerian dan lembaga serta laboratorium pihak swasta dalam
-            mengimplementasikan sistem manajemen biorisiko.
+                1.  Penilai mengisi informasi organisasi yang dinilai pada bagian “………………………………” dengan lengkap
+                <br>
+                2.  Waktu penilaian dan afiliasi dari penilai diisi pada bagian “……………………..”
+                <br>
+                3.  Setiap pertanyaan dalam kuesioner (1 – 54), pilihlah 1 jawaban sesuai dengan kondisi terkini laboratorium
+                pada bagian ………………… (penilaian saat ini, kolom ……………….)
+                <br>
+                4.  Apabila ada sub elemen pertanyaan dalam kuesioner yang tidak relevan dengan kondisi laboratorium,
+                kolom jawaban diisi dengan NA (not applicable) pada Bagian NA (kolom ………………..)
+                <br>
+                5.  Apabila satu sub elemen pertanyaan memiliki dua jawaban, pilihlah salah satu dan beri keterangan
+                tambahan pada Bagian Keterangan (kolom ……………………)
+                <br>
+                6.  Apabila seluruh pertanyaan pada “Kuesioner” sudah diisi, penilai dapat melihat hasil analisis skor pada
+                bagian “hasil analisis”. Pada bagian “hasil analisis”, hasil skoring akan otomatis berbentuk grafik untuk
+                menggambarkan hasil analisis 16 kategori dan skor total laboratorium. Penilaian skor laboratorium “saat
+                ini” (kolom ……..) dapat dibandingkan dengan skor penilaian sebelumnya apabila datanya tersedia.
             </p>
-
+            <br>
+            <h2 class="card-title">Tim Penyusun</h2>
             <p class="card-text text-justify">
-            PPL ini dikembangkan merujuk pada Standar Nasional Indonesia (SNI) 8340:2016 dan CEN Workshop Agreement (CWA) 15793:2011 dengan desain
-            yang dapat digunakan untuk memantau kapasitas, kekuatan dan kesenjangan suatu organisasi laboratorium ilmu hayati (life science) maupun
-            fasilitas hewan, khususnya laboratorium di perguruan tinggi, kementerian dan lembaga serta laboratorium pihak swasta dalam
-            mengimplementasikan sistem manajemen biorisiko.
-            </p>
+                <span style="font-weight:bold">Pengarah: </span> Prof. drh. Wiku Adisasmito, M.Sc, PhD (INDOHUN/Fakultas Kesehatan Masyarakat, Universitas Indonesia)
+                <br>
+                <span style="font-weight:bold">Ketua Tim: </span> Dr. drh. Joko Pamungkas, M.Sc (Fakultas Kedokteran Hewan, Institut Pertanian Bogor)
+                <br>
+                <br>
+                <span style="font-weight:bold">Anggota: </span> 
+                <br>
+                1. dr. Anis Karuniawati, Sp.MK(K), PhD (Fakultas Kedokteran, Universitas Indonesia)
+                <br>
+                2. Dr. drh. Diah Iskandriati (Pusat Studi Satwa Primata, Institut Pertanian Bogor)
+                <br>
+                3. Aroem Naroeni, DEA, PhD (Pusat Riset Virologi dan Kanker Patobiologi, Fakultas Kedokteran UI - RSCM)
+                <br>
+                4. dr. Tjahjani Mirawati Soediro, PhD (Departemen Mikrobiologi, Fakultas Kedokteran, Universitas Indonesia)
+                <br>
+                5. Dr. drh. Eko Sugeng Pribadi, MS (Fakultas Kedokteran Hewan, Institut Pertanian Bogor)
+                <br>
+                6. Agus Heri Setiawan, SKM, MPH (INDOHUN)
+                <br>
+                7. Rahmi Nuraini, S.Gz (INDOHUN)
+            <br>
+            <br>
+                Perangkat ini dapat digunakan dengan ketentuan sebagai berikut a) memberikan atribut
 
-            <p class="card-text text-justify">
-            Selain itu, sistem ini juga dapat digunakan sebagai patokan perbaikan dan peningkatan implementasi sistem manajemen biorisiko di laboratorium,
-            serta menyediakan data dan informasi yang akurat bagi pengelola laboratorium, pengambil kebijakan, dan stakeholder terkait dalam bentuk yang
-            siap digunakan. Data dan informasi yang disediakan bagi pengguna PPL berupa laporan hasil analisis kapasitas real-time dalam bentuk tabel, grafik,
-            spreadsheet, dan catatan yang dibuat oleh sistem secara otomatis.
-            </p>
+                perangkat atau sitasi, b) dilarang keras menggunakan perangkat ini untuk tujuan komersial dan
 
-            <p class="card-text text-justify">
-            Kuesioner dalam PPL ini bersifat sistemastis dan semi-quantitatif yang terdiri dari 5 aspek, yakni: 1) Kebijakan Manajemen Biorisiko, 2) Perencanaan
-            Kerja dengan Bahan Biologi, 3) Pengendalian Operasional, 4) Pelaksanaan dan Operasi, 5) Checking dan Perbaikan. Dari 5 aspek tersebut, terbagi
-            menjadi 16 elemen, dan 54 sub elemen pertanyaan.
+                penelitian tanpa izin dari INDOHUN, c) dilarang mengubah atau membuat turunan dari perangkat ini.
+            <br>
+            <br>
+                Semua permintaan untuk translasi, penggunaan untuk tujuan penelitian dan komersial harus menghubungi
+
+                nco@indohun.org atau ke 021 2930 2084.
+            
+            <br>
+            <br>
+                Dipublikasikan oleh INDOHUN National Coordinating Office
+
+                Kampus Baru Universitas Indonesia, Fakultas Kesehatan Masyarakat, Gedung G Lantai 3, Ruang 316
+
+                Depok, Jawa Barat, Indonesia 16424.
             </p>
             <a href="{% url 'questionnaire:report-list' %}" class="btn btn-primary custom-button" >Daftar Laporan</a>
             <a href="{% url 'questionnaire:report-create' %}" class="btn btn-primary custom-button">Buat Laporan Baru</a>
