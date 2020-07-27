@@ -59,15 +59,15 @@
                         <li class="nav-divider">
                             Menu
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" role="menu"
                                 data-target="#submenu-1"><i class="fa fa-fw fa-user-circle"></i>Profil<span
                                     class="badge badge-success">6</span></a>
-                            <div id="submenu-1" class="collapse submenu">
+                            <div id="submenu-1" class="collapse submenu tab-content">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'profile_page' %}">Halaman Profil</a>
-                                        <a class="nav-link" href="{% url 'profile' %}">Update Profil<span
+                                        <a class="nav-link tab-pane" href="{% url 'profile_page' %}">Halaman Profil</a>
+                                        <a class="nav-link tab-pane" href="{% url 'profile' %}">Update Profil<span
                                                 class="badge badge-secondary">New</span></a>
                                     </li>
                                 </ul>
