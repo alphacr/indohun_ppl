@@ -47,7 +47,7 @@
                   id="basic-addon3"
                   >Penilai</span
                 >
-                {{form.penilai}}
+                 {{form.penilai}}
               </div>
                 
             </div>
@@ -80,15 +80,8 @@
                   id="basic-addon3"
                   >Personal yang Diwawancara</span
                 >
+                {{form.personel_yang_diwawancarai}}
               </div>
-              <input
-                type="text"
-                class="form-control"
-                name="personel_yang_diwawancarai"
-                maxlength="50"
-                required id="id_personel_yang_diwawancarai"
-                aria-describedby="basic-addon3"
-              />
             </div>
           </div>
         </div>
@@ -212,12 +205,7 @@
                 <label for="exampleFormControlTextarea1"
                   >* KETERANGAN</label
                 >
-                <textarea
-                  class="form-control"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  placeholder="Isi keterangan anda disini"
-                ></textarea>
+                {{ form.keterangan_kebijakan_sistem_manajemen_biorisiko }}
               </div>
             </div>
             <div class="keterangan">
