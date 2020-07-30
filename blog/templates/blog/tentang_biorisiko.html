@@ -1,0 +1,29 @@
+{% extends "blog/base.html"%}
+{% block content %}
+{% load static %} 
+<div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
+    <div class="card">
+        <img src="{% static 'blog/assets/images/Tentang2.jpg' %}" alt="Background Tentang" class="tentang-img"/>
+        <div class="card-body">
+            <h1 class="card-title">Menejement Biorisiko</h1>
+            <p class="card-text text-justify">
+            Kuesioner ini merupakan sistem pemetaan kapasitas dasar laboratorium ilmu hayati (life science) berbasis website
+            yang dikembangkan oleh Indonesia One Health University Network (INDOHUN) melalui program One Health
+            Laboratory Network (OHLN). Sistem ini menggunakan teknologi yang sederhana dan mudah diaplikasikan, sebagai
+            alat bantu untuk melakukan pemetaan kapasitas dasar di laboratorium ilmu hayati (kesehatan manusia, kesehatan
+            hewan, lingkungan, perikanan, dan makanan).
+            </p>
+
+            <p class="card-text text-justify">
+            Kuesioner pemetan penilaian ini juga dapat digunakan untuk memantau kapasitas dasar, kekuatan dan kesenjangan
+            suatu organisasi laboratorium ilmu hayati (life science) maupun fasilitas hewan, khususnya laboratorium di perguruan
+            tinggi, kementerian dan lembaga serta laboratorium pihak swasta dalam mengimplementasikan sistem manajemen
+            biorisiko.
+            </p>
+            <a href="{% url 'questionnaire:report-list' %}" class="btn btn-primary custom-button">Daftar Laporan</a>
+            <a href="{% url 'questionnaire:report-create' %}" class="btn btn-primary custom-button">Buat Laporan Baru</a>
+            <a href="{% url 'questionnaire:tentang_SMBL' %}" class="btn btn-primary custom-button" style="float: right">Lanjut</a>
+        </div>
+    </div>
+</div>
+{% endblock content%}

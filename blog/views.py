@@ -16,6 +16,7 @@ from django.views.generic import(
 from .models import (
     Questionnaire,
 )
+from users.models import Profile
 
 # Create your views here.
 posts = [
@@ -34,7 +35,6 @@ posts = [
 ]
 
 
-@login_required
 def home(request):
     return render(request, 'blog/home.html')
 
@@ -199,7 +199,6 @@ class ReportDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-
 def about(request):
     if request.method == 'POST':
         form = ContactUsForm(request.POST)
@@ -210,3 +209,13 @@ def about(request):
     else:
         form = ContactUsForm()
     return render(request, 'blog/about.html', {'form': form})
+@login_required
+def tentang_manajement(request):
+    return render(request, 'blog/tentang_manajement.html')
+@login_required
+def tentang_biorisiko(request):
+    return render(request, 'blog/tentang_biorisiko.html')
+@login_required
+def tentang_SMBL(request):
+    return render(request, 'blog/tentang_SMBL.html')
+
