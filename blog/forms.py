@@ -3,6 +3,7 @@ from django.forms import HiddenInput
 from django.forms.models import ModelForm
 from django import forms
 from .models import ContactUs
+from .models import Questionnaire
 
 
 class ContactUsForm(forms.ModelForm):

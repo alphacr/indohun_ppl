@@ -111,7 +111,8 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
               'nilai_no_51', 'keterangan_keamanan_fisik_dan_pengendalian_personel', 'rekomendasi_keamanan_fisik_dan_pengendalian_personel',
               'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
               'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
-              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden', ]
+              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden',
+               ]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
