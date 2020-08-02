@@ -13,18 +13,51 @@
     <link rel="stylesheet" href="{% static 'blog/assets/libs/css/custom_style.css' %}">
     <link rel="stylesheet" href="{% static 'blog/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
 
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/libs/css/custom_style.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css'%}">
+
+    <link
+      rel="stylesheet"
+      href="{% static 'blog/assets/vendor/datepicker/tempusdominus-bootstrap-4.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'blog/assets/vendor/inputmask/css/inputmask.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.css"
+    />
+
     {% if title %}
     <title>IndoHun PPL - {{ title }}</title>
     {% else %}
     <title>IndoHun PPL</title>
     {% endif %}
 </head>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
 
 <body>
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" href="{% url 'questionnaire:blog-home' %}"><img
+            <a class="navbar-brand" href="{% url 'blog-home' %}"><img
                     src="{% static 'blog/assets/images/indohun.png' %}" alt="Indohun Logo"
                     style="height: 50%; width: 50%"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -47,7 +80,7 @@
                             Menu
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
                                 data-target="#submenu-1"><i class="fa fa-fw fa-user-circle"></i>Profil<span
                                     class="badge badge-success">6</span></a>
                             <div id="submenu-1" class="collapse submenu">
@@ -127,7 +160,7 @@
                             <div id="submenu-4" class="collapse submenu">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'questionnaire:blog-about' %}">Hubungi
+                                        <a class="nav-link" href="{% url 'blog-about' %}">Hubungi
                                             Kami</a>
                                     </li>
                                 </ul>
@@ -162,6 +195,49 @@
         <script src="{% static 'blog/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
         <script src="{% static 'blog/assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
         <script src="{% static 'blog/assets/libs/js/main-js.js' %}"></script>
+
+         <script src="{% static 'blog/assets/vendor/inputmask/js/jquery.inputmask.bundle.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.js"></script>
+        <!-- Questionnaire JavaScript -->
+        <script>
+          /*global $, document, alert, console*/
+          $(function () {
+            "use strict";
+            $(".open-quiz_container").slice(0, 1).show();
+            $("#loadmore").on("click", function (e) {
+              e.preventDefault();
+              $(".open-quiz_container:hidden").slice(0, 1).slideDown();
+              if ($(".open-quiz_container:hidden").length === 0) {
+                $("#loadmore").replaceWith(
+                  "<button type='submit' class='p'>Simpan Hasil</button>"
+                );
+              }
+            });
+            // $('#top').on('click', function (e) {
+            //   e.preventDefault();
+            //   $('html, body').animate({
+            //     scrollTop: 0
+            //   }, 600);
+            //   return false;
+            // });
+            $(window).scroll(function () {
+              if ($(this).scrollTop() > 750) {
+                $("#top a").fadeIn();
+              } else {
+                $("#top a").fadeOut();
+              }
+            });
+          });
+        </script>
+        <script>
+          //Switcher function:
+          $(".tab").click(function () {
+            //Spot switcher:
+            $(this).parent().find(".tab").removeClass("activeTab");
+            $(this).addClass("activeTab");
+          });
+        </script>
 </body>
 
 </html>

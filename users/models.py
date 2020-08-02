@@ -9,13 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     negara_choices = (
         ('Indonesia', 'Indonesia'),
-        ('Malaysia', 'Malaysia'),
-        ('Thailand', 'Thailand'),
-        ('Kamboja', 'Kamboja'),
-        ('Laos', 'Laos'),
-        ('Vietnam', 'Vietnam'),
-        ('Brunei', 'Brunei'),
-        ('Singapura', 'Singapura'),
+        ('Luar Negeri', 'Luar Negeri'),
     )
     negara = models.CharField(
         max_length=30, blank=False, null=True, choices=negara_choices)
@@ -57,7 +51,7 @@ class Profile(models.Model):
     )
     provinsi = models.CharField(
         max_length=50, blank=True, null=True, choices=provinsi_choices)
-    provinsi_selain_indo = models.CharField(
+    provinsi_selain_indonesia = models.CharField(
         max_length=50, blank=True, null=True)
     nama_lengkap_laboratorium = models.CharField(
         max_length=100)
@@ -99,4 +93,4 @@ class Profile(models.Model):
     tambahan_info = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
-        return f'{self.user} Profile'
+        return f'{self.nama_lengkap_laboratorium}'
