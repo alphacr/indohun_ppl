@@ -105,10 +105,10 @@
                                         <div id="submenu-5" class="collapse submenu">
                                            <ul class="nav flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="{% url 'questionnaire:tentang_manajement' %}">Tentang</a>
-                                                    <a class="nav-link" href="{% url 'questionnaire:report-list' %}">Daftar Laporan 
+                                                    <a class="nav-link active" href="{% url 'tentang_manajement' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'report-list' %}">Daftar Laporan 
                                                         <span class="badge badge-secondary">New</span></a>
-                                                    <a class="nav-link" href="{% url 'questionnaire:report-create' %}">Buat Laporan Baru</a>
+                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
                                                 </li>
                                             </ul> 
                                         </div>
@@ -117,10 +117,10 @@
                                         <div id="submenu-6" class="collapse submenu">
                                            <ul class="nav flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="{% url 'questionnaire:tentang_biorisiko' %}">Tentang</a>
-                                                    <a class="nav-link" href="{% url 'questionnaire:report-list' %}">Daftar Laporan 
+                                                    <a class="nav-link" href="{% url 'tentang_biorisiko' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'report-list' %}">Daftar Laporan 
                                                         <span class="badge badge-secondary">New</span></a>
-                                                    <a class="nav-link" href="{% url 'questionnaire:report-create' %}">Buat Laporan Baru</a>
+                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
                                                 </li>
                                             </ul> 
                                         </div>
@@ -129,10 +129,10 @@
                                         <div id="submenu-7" class="collapse submenu">
                                            <ul class="nav flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="{% url 'questionnaire:tentang_SMBL' %}">Tentang</a>
-                                                    <a class="nav-link" href="{% url 'questionnaire:report-list' %}">Daftar Laporan 
+                                                    <a class="nav-link" href="{% url 'tentang_SMBL' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'report-list' %}">Daftar Laporan 
                                                         <span class="badge badge-secondary">New</span></a>
-                                                    <a class="nav-link" href="{% url 'questionnaire:report-create' %}">Buat Laporan Baru</a>
+                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
                                                 </li>
                                             </ul> 
                                         </div>
@@ -175,16 +175,15 @@
         <div class="container-fluid dashboard-content">
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="col-md-8">
-                        {% if messages %}
-                        {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
-                        {% endif %}
-                        {% block content %}{% endblock %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
                     </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% block content %}{% endblock %}
+                
                 </div>
             </div>
         </div>
