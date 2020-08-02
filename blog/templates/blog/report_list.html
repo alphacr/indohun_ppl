@@ -1,6 +1,7 @@
 {% extends "blog/base.html"%}
 {% block content %}
-<h1>Reports</h1>
+<h1>Perangkat Penilaian Laboratorium (PPL) Manajemen Biorisiko</h1>
+{% if reports %}
 {% for report in reports %}
 <article class="media content-section">
     <div class="media-body">
@@ -8,8 +9,14 @@
             <a class="mr-2" href="#">{{ report.author }}</a>
             <small class="text-muted">{{ report.date_posted|date:"F d, Y" }}</small>
         </div>
-        <h2><a class="article-title" href="{% url 'questionnaire:report-detail' report.id %}">Hasil Laporan</a>
+        <h2><a class="article-title" href="{% url 'report-detail' report.id %}">Hasil Laporan Penilaian Bulan
+                {{ report.date_posted|date:"F" }}</a>
     </div>
 </article>
 {% endfor %}
+{% else %}
+<div class="alert alert-warning">
+    Belum ada laporan yang dibuat
+</div>
+{% endif %}
 {% endblock content%}

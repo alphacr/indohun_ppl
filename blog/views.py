@@ -1,17 +1,17 @@
-from django.forms import modelform_factory
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.urls import reverse
-from .forms import ContactUsForm, QuestionnaireForm
-from . import constants
+from .forms import ContactUsForm
 from django.views.generic import(
     ListView,
     DetailView,
     CreateView,
-    FormView
+    FormView,
+    UpdateView,
+    DeleteView
 )
 from .models import (
     Questionnaire,
@@ -36,10 +36,7 @@ posts = [
 
 
 def home(request):
-    context = {
-        'posts': posts
-    }
-    return render(request, 'blog/home.html', context)
+    return render(request, 'blog/home.html')
 
 
 class ReportListView(LoginRequiredMixin, ListView):
@@ -48,90 +45,160 @@ class ReportListView(LoginRequiredMixin, ListView):
     context_object_name = 'reports'
     ordering = ['-date_posted']
 
+    def get_queryset(self):
+        user = self.request.user
+        return Questionnaire.objects.filter(author=user)
+
 
 class ReportDetailView(LoginRequiredMixin, DetailView):
     model = Questionnaire  # <app>/<model>_<viewtype>.html
     context_object_name = 'report'
 
 
-def get_questionnaire_from_hash(session_hash):
-    return Questionnaire.objects.filter(
-        session_hash=session_hash,
-    ).exclude(
-        stage=constants.COMPLETE
-    ).first()
-
-
-class ReportCreateView(LoginRequiredMixin, FormView):
-    template_name = 'blog/questionnaire_form.html'  # <app>/<model>_<viewtype>.html
-    questionnaire = None
-    form_class = None
-
-    def dispatch(self, request, *args, **kwargs):
-        session_hash = request.session.get("session_hash", None)
-        self.questionnaire = get_questionnaire_from_hash(
-            session_hash)
-        self.request = request
-        return super().dispatch(request, *args, **kwargs)
+class ReportCreateView(LoginRequiredMixin, CreateView):
+    model = Questionnaire  # <app>/<model>_form.html
+    fields = ['penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+              'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
+              'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
+              'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',
+              'nilai_no_4', 'keterangan_pencatatan_dokumen_dan_pengendalian_dokumen', 'rekomendasi_pencatatan_dokumen_dan_pengendalian_dokumen',
+              'nilai_no_5', 'keterangan_perubahan_terkait_manajemen_biorisiko', 'rekomendasi_perubahan_terkait_manajemen_biorisiko',
+              'nilai_no_6', 'keterangan_komunikasi_dan_konsultasi', 'rekomendasi_komunikasi_dan_konsultasi',
+              'nilai_no_7', 'keterangan_perencanaan_dan_program_kerja', 'rekomendasi_perencanaan_dan_program_kerja',
+              'nilai_no_8', 'keterangan_persyaratan_legal_aturan_atau_izin', 'rekomendasi_persyaratan_legal_aturan_atau_izin',
+              'nilai_no_9', 'keterangan_inspeksi_dan_audit', 'rekomendasi_inspeksi_dan_audit',
+              'nilai_no_10', 'keterangan_pengendalian_ketidaksesuaian_dan_perbaikan', 'rekomendasi_pengendalian_ketidaksesuaian_dan_perbaikan',
+              'nilai_no_11', 'keterangan_pengembangan_berkelanjutan', 'rekomendasi_pengembangan_berkelanjutan',
+              'nilai_no_12', 'keterangan_kontraktor_dan_suplier_purchasing', 'rekomendasi_kontraktor_dan_suplier_purchasing',
+              'nilai_no_13', 'keterangan_review_dan_perbaikan_manajemen_biorisiko', 'rekomendasi_review_dan_perbaikan_manajemen_biorisiko',
+              'nilai_no_14', 'keterangan_proses_metode_dan_prosedur', 'rekomendasi_proses_metode_dan_prosedur',
+              'nilai_no_15', 'keterangan_ruang_lingkup_dan_penjadwalan', 'rekomendasi_ruang_lingkup_dan_penjadwalan',
+              'nilai_no_16', 'keterangan_peran_dan_tanggung_jawab', 'rekomendasi_peran_dan_tanggung_jawab',
+              'nilai_no_17', 'keterangan_identifikasi_hazard', 'rekomendasi_identifikasi_hazard',
+              'nilai_no_18', 'keterangan_pengendalian_risiko', 'rekomendasi_pengendalian_risiko',
+              'nilai_no_19', 'keterangan_inventarisasi_informasi_dan_pencatatan', 'rekomendasi_inventarisasi_informasi_dan_pencatatan',
+              'nilai_no_20', 'keterangan_penyimpanan_bahan_biologik_dan_bahan_berbahaya_lainnya', 'rekomendasi_penyimpanan_bahan_biologik_dan_bahan_berbahaya_lainnya',
+              'nilai_no_21', 'keterangan_transfer_bahan_biologik_dan_bahan_berbahaya_lainnya', 'rekomendasi_transfer_bahan_biologik_dan_bahan_berbahaya_lainnya',
+              'nilai_no_22', 'keterangan_pengendalian_dan_monitoring', 'rekomendasi_pengendalian_dan_monitoring',
+              'nilai_no_23', 'keterangan_general_safety', 'rekomendasi_general_safety',
+              'nilai_no_24', 'keterangan_rekrutmen_pelatihan_dan_kompetensi', 'rekomendasi_rekrutmen_pelatihan_dan_kompetensi',
+              'nilai_no_25', 'keterangan_suksesi_dan_eksklusi', 'rekomendasi_suksesi_dan_eksklusi',
+              'nilai_no_26', 'keterangan_GMT_personel', 'rekomendasi_GMT_personel',
+              'nilai_no_27', 'keterangan_GMT_peralatan', 'rekomendasi_GMT_peralatan',
+              'nilai_no_28', 'keterangan_pelabelan', 'rekomendasi_pelabelan',
+              'nilai_no_29', 'keterangan_pengadaan_alat_pelindung_diri', 'rekomendasi_pengadaan_alat_pelindung_diri',
+              'nilai_no_30', 'keterangan_APD_personel', 'rekomendasi_APD_personel',
+              'nilai_no_31', 'keterangan_pemeliharaan_dan_dekontaminasi_reusable_apd', 'rekomendasi_pemeliharaan_dan_dekontaminasi_reusable_apd',
+              'nilai_no_32', 'keterangan_latar_belakang_sdm', 'rekomendasi_latar_belakang_sdm',
+              'nilai_no_33', 'keterangan_program_kesehatan_kerja', 'rekomendasi_program_kesehatan_kerja',
+              'nilai_no_34', 'keterangan_vaksinasi', 'rekomendasi_vaksinasi',
+              'nilai_no_35', 'keterangan_kedaruratan_medik', 'rekomendasi_kedaruratan_medik',
+              'nilai_no_36', 'keterangan_identifikasi_perencanaan_dan_respon_keadaan_darurat', 'rekomendasi_identifikasi_perencanaan_dan_respon_keadaan_darurat',
+              'nilai_no_37', 'keterangan_simulasi_dan_pelatihan_tanggap_darurat', 'rekomendasi_simulasi_dan_pelatihan_tanggap_darurat',
+              'nilai_no_38', 'keterangan_rencana_tanggap_darurat_menghadapi_kejadian_luar_duga', 'rekomendasi_rencana_tanggap_darurat_menghadapi_kejadian_luar_duga',
+              'nilai_no_39', 'keterangan_ketersediaan_peralatan_keselamatan_untuk_tanggap_darurat', 'rekomendasi_ketersediaan_peralatan_keselamatan_untuk_tanggap_darurat',
+              'nilai_no_40', 'keterangan_perencanaan_desain_dan_verifikasi_mencakup_commissioning_dan_decommisioning', 'rekomendasi_perencanaan_desain_dan_verifikasi_mencakup_commissioning_dan_decommisioning',
+              'nilai_no_41', 'keterangan_infrastruktur_dan_operasional', 'rekomendasi_infrastruktur_dan_operasional',
+              'nilai_no_42', 'keterangan_manajemen_pemeliharaan', 'rekomendasi_manajemen_pemeliharaan',
+              'nilai_no_43', 'keterangan_monitoring_peralatan', 'rekomendasi_monitoring_peralatan',
+              'nilai_no_44', 'keterangan_kalibrasi', 'rekomendasi_kalibrasi',
+              'nilai_no_45', 'keterangan_sertifikasi', 'rekomendasi_sertifikasi',
+              'nilai_no_46', 'keterangan_validasi', 'rekomendasi_validasi',
+              'nilai_no_47', 'keterangan_pengolahan_limbah_dan_bahan_berbahaya_biologi_kimia', 'rekomendasi_pengolahan_limbah_dan_bahan_berbahaya_biologi_kimia',
+              'nilai_no_48', 'keterangan_inaktivasi_bahan_biologik_dan_bahan_berbahaya_lainnya', 'rekomendasi_inaktivasi_bahan_biologik_dan_bahan_berbahaya_lainnya',
+              'nilai_no_49', 'keterangan_dekontaminasi_dan_disinfeksi_peralatan', 'rekomendasi_dekontaminasi_dan_disinfeksi_peralatan',
+              'nilai_no_50', 'keterangan_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya', 'rekomendasi_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya',
+              'nilai_no_51', 'keterangan_keamanan_fisik_dan_pengendalian_personel', 'rekomendasi_keamanan_fisik_dan_pengendalian_personel',
+              'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
+              'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
+              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden',
+               ]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        self.request.session['session_hash'] = form.instance.session_hash
-        current_stage = form.cleaned_data.get('stage')
-        new_stage = constants.STAGE_ORDER[constants.STAGE_ORDER.index(
-            current_stage)+1]
-        form.instance.stage = new_stage
-        form.save()
-        if new_stage == constants.COMPLETE:
-            return redirect(reverse('questionnaire:blog-home'))
-        else:
-            return redirect(reverse('questionnaire:report-create'))
-
-    def get_form_class(self):
-        stage = self.questionnaire.stage if self.questionnaire else constants.STAGE_1
-        fields = Questionnaire.get_fields_by_stage(stage)
-        return modelform_factory(Questionnaire, QuestionnaireForm, fields)
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.questionnaire
-        return kwargs
+        return super().form_valid(form)
 
 
-class ReportUpdateView(LoginRequiredMixin, FormView):
-    template_name = 'blog/questionnaire_form.html'  # <app>/<model>_<viewtype>.html
-    questionnaire = None
-    form_class = None
-
-    def dispatch(self, request, *args, **kwargs):
-        session_hash = request.session.get("session_hash", None)
-        self.questionnaire = get_questionnaire_from_hash(
-            session_hash)
-        self.request = request
-        return super().dispatch(request, *args, **kwargs)
+class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Questionnaire  # <app>/<model>_form.html
+    context_object_name = 'report'
+    fields = ['penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+              'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
+              'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
+              'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',
+              'nilai_no_4', 'keterangan_pencatatan_dokumen_dan_pengendalian_dokumen', 'rekomendasi_pencatatan_dokumen_dan_pengendalian_dokumen',
+              'nilai_no_5', 'keterangan_perubahan_terkait_manajemen_biorisiko', 'rekomendasi_perubahan_terkait_manajemen_biorisiko',
+              'nilai_no_6', 'keterangan_komunikasi_dan_konsultasi', 'rekomendasi_komunikasi_dan_konsultasi',
+              'nilai_no_7', 'keterangan_perencanaan_dan_program_kerja', 'rekomendasi_perencanaan_dan_program_kerja',
+              'nilai_no_8', 'keterangan_persyaratan_legal_aturan_atau_izin', 'rekomendasi_persyaratan_legal_aturan_atau_izin',
+              'nilai_no_9', 'keterangan_inspeksi_dan_audit', 'rekomendasi_inspeksi_dan_audit',
+              'nilai_no_10', 'keterangan_pengendalian_ketidaksesuaian_dan_perbaikan', 'rekomendasi_pengendalian_ketidaksesuaian_dan_perbaikan',
+              'nilai_no_11', 'keterangan_pengembangan_berkelanjutan', 'rekomendasi_pengembangan_berkelanjutan',
+              'nilai_no_12', 'keterangan_kontraktor_dan_suplier_purchasing', 'rekomendasi_kontraktor_dan_suplier_purchasing',
+              'nilai_no_13', 'keterangan_review_dan_perbaikan_manajemen_biorisiko', 'rekomendasi_review_dan_perbaikan_manajemen_biorisiko',
+              'nilai_no_14', 'keterangan_proses_metode_dan_prosedur', 'rekomendasi_proses_metode_dan_prosedur',
+              'nilai_no_15', 'keterangan_ruang_lingkup_dan_penjadwalan', 'rekomendasi_ruang_lingkup_dan_penjadwalan',
+              'nilai_no_16', 'keterangan_peran_dan_tanggung_jawab', 'rekomendasi_peran_dan_tanggung_jawab',
+              'nilai_no_17', 'keterangan_identifikasi_hazard', 'rekomendasi_identifikasi_hazard',
+              'nilai_no_18', 'keterangan_pengendalian_risiko', 'rekomendasi_pengendalian_risiko',
+              'nilai_no_19', 'keterangan_inventarisasi_informasi_dan_pencatatan', 'rekomendasi_inventarisasi_informasi_dan_pencatatan',
+              'nilai_no_20', 'keterangan_penyimpanan_bahan_biologik_dan_bahan_berbahaya_lainnya', 'rekomendasi_penyimpanan_bahan_biologik_dan_bahan_berbahaya_lainnya',
+              'nilai_no_21', 'keterangan_transfer_bahan_biologik_dan_bahan_berbahaya_lainnya', 'rekomendasi_transfer_bahan_biologik_dan_bahan_berbahaya_lainnya',
+              'nilai_no_22', 'keterangan_pengendalian_dan_monitoring', 'rekomendasi_pengendalian_dan_monitoring',
+              'nilai_no_23', 'keterangan_general_safety', 'rekomendasi_general_safety',
+              'nilai_no_24', 'keterangan_rekrutmen_pelatihan_dan_kompetensi', 'rekomendasi_rekrutmen_pelatihan_dan_kompetensi',
+              'nilai_no_25', 'keterangan_suksesi_dan_eksklusi', 'rekomendasi_suksesi_dan_eksklusi',
+              'nilai_no_26', 'keterangan_GMT_personel', 'rekomendasi_GMT_personel',
+              'nilai_no_27', 'keterangan_GMT_peralatan', 'rekomendasi_GMT_peralatan',
+              'nilai_no_28', 'keterangan_pelabelan', 'rekomendasi_pelabelan',
+              'nilai_no_29', 'keterangan_pengadaan_alat_pelindung_diri', 'rekomendasi_pengadaan_alat_pelindung_diri',
+              'nilai_no_30', 'keterangan_APD_personel', 'rekomendasi_APD_personel',
+              'nilai_no_31', 'keterangan_pemeliharaan_dan_dekontaminasi_reusable_apd', 'rekomendasi_pemeliharaan_dan_dekontaminasi_reusable_apd',
+              'nilai_no_32', 'keterangan_latar_belakang_sdm', 'rekomendasi_latar_belakang_sdm',
+              'nilai_no_33', 'keterangan_program_kesehatan_kerja', 'rekomendasi_program_kesehatan_kerja',
+              'nilai_no_34', 'keterangan_vaksinasi', 'rekomendasi_vaksinasi',
+              'nilai_no_35', 'keterangan_kedaruratan_medik', 'rekomendasi_kedaruratan_medik',
+              'nilai_no_36', 'keterangan_identifikasi_perencanaan_dan_respon_keadaan_darurat', 'rekomendasi_identifikasi_perencanaan_dan_respon_keadaan_darurat',
+              'nilai_no_37', 'keterangan_simulasi_dan_pelatihan_tanggap_darurat', 'rekomendasi_simulasi_dan_pelatihan_tanggap_darurat',
+              'nilai_no_38', 'keterangan_rencana_tanggap_darurat_menghadapi_kejadian_luar_duga', 'rekomendasi_rencana_tanggap_darurat_menghadapi_kejadian_luar_duga',
+              'nilai_no_39', 'keterangan_ketersediaan_peralatan_keselamatan_untuk_tanggap_darurat', 'rekomendasi_ketersediaan_peralatan_keselamatan_untuk_tanggap_darurat',
+              'nilai_no_40', 'keterangan_perencanaan_desain_dan_verifikasi_mencakup_commissioning_dan_decommisioning', 'rekomendasi_perencanaan_desain_dan_verifikasi_mencakup_commissioning_dan_decommisioning',
+              'nilai_no_41', 'keterangan_infrastruktur_dan_operasional', 'rekomendasi_infrastruktur_dan_operasional',
+              'nilai_no_42', 'keterangan_manajemen_pemeliharaan', 'rekomendasi_manajemen_pemeliharaan',
+              'nilai_no_43', 'keterangan_monitoring_peralatan', 'rekomendasi_monitoring_peralatan',
+              'nilai_no_44', 'keterangan_kalibrasi', 'rekomendasi_kalibrasi',
+              'nilai_no_45', 'keterangan_sertifikasi', 'rekomendasi_sertifikasi',
+              'nilai_no_46', 'keterangan_validasi', 'rekomendasi_validasi',
+              'nilai_no_47', 'keterangan_pengolahan_limbah_dan_bahan_berbahaya_biologi_kimia', 'rekomendasi_pengolahan_limbah_dan_bahan_berbahaya_biologi_kimia',
+              'nilai_no_48', 'keterangan_inaktivasi_bahan_biologik_dan_bahan_berbahaya_lainnya', 'rekomendasi_inaktivasi_bahan_biologik_dan_bahan_berbahaya_lainnya',
+              'nilai_no_49', 'keterangan_dekontaminasi_dan_disinfeksi_peralatan', 'rekomendasi_dekontaminasi_dan_disinfeksi_peralatan',
+              'nilai_no_50', 'keterangan_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya', 'rekomendasi_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya',
+              'nilai_no_51', 'keterangan_keamanan_fisik_dan_pengendalian_personel', 'rekomendasi_keamanan_fisik_dan_pengendalian_personel',
+              'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
+              'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
+              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden', ]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        self.request.session['session_hash'] = form.instance.session_hash
-        current_stage = form.cleaned_data.get('stage')
-        new_stage = constants.STAGE_ORDER[constants.STAGE_ORDER.index(
-            current_stage)+1]
-        form.instance.stage = new_stage
-        form.save()
-        if new_stage == constants.COMPLETE:
-            return redirect(reverse('questionnaire:blog-home'))
-        else:
-            return redirect(reverse('questionnaire:report-create'))
+        return super().form_valid(form)
 
-    def get_form_class(self):
-        stage = self.questionnaire.stage if self.questionnaire else constants.STAGE_1
-        fields = Questionnaire.get_fields_by_stage(stage)
-        return modelform_factory(Questionnaire, QuestionnaireForm, fields)
+    def test_func(self):
+        questionnaire = self.get_object()
+        if self.request.user == questionnaire.author:
+            return True
+        return False
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.questionnaire
-        return kwargs
+
+class ReportDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Questionnaire  # <app>/<model>_<viewtype>.html
+    context_object_name = 'report'
+    success_url = '/report'
+
+    def test_func(self):
+        questionnaire = self.get_object()
+        if self.request.user == questionnaire.author:
+            return True
+        return False
 
 def about(request):
     if request.method == 'POST':

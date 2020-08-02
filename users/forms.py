@@ -23,6 +23,6 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['negara', 'provinsi', 'provinsi_selain_indo', 'nama_lengkap_laboratorium', 'akronim_laboratorium', 'alamat_lengkap',
+        fields = ['negara', 'provinsi', 'provinsi_selain_indonesia', 'nama_lengkap_laboratorium', 'akronim_laboratorium', 'alamat_lengkap',
                   'kab_kota', 'kode_pos', 'posisi_lintang', 'posisi_bujur', 'nomor_telepon', 'fax', 'website', 'afiliasi_laboratorium',
                   'administrasi_laboratorium', 'aktivitas_laboratorium', 'tambahan_info']
