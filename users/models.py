@@ -56,12 +56,12 @@ class Profile(models.Model):
     nama_lengkap_laboratorium = models.CharField(
         max_length=100)
     akronim_laboratorium = models.CharField(max_length=100)
-    alamat_lengkap = models.CharField(max_length=100, blank=True)
+    alamat_lengkap = models.CharField(max_length=100)
     kab_kota = models.CharField(max_length=50)
     kode_pos = models.CharField(max_length=10, blank=True)
     posisi_lintang = models.CharField(max_length=100, blank=True)
     posisi_bujur = models.CharField(max_length=100, blank=True)
-    nomor_telepon = models.CharField(max_length=20, blank=True)
+    nomor_telepon = models.CharField(max_length=20)
     fax = models.CharField(max_length=20, blank=True)
     website = models.CharField(max_length=50, blank=True)
     afiliasi_choices = (

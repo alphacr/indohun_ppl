@@ -36,9 +36,7 @@
             </div>
         </div>
         <br>
-
         <div class="row">
-
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
@@ -46,8 +44,9 @@
                             <i class="fa fa-eye fa-fw fa-sm text-info"></i>
                         </div>
                         <h5 class= "text-muted">Laporan Terakhir</h5>
-                        <h2 class="mb-0">10,000</h2>
-                        
+                        <h3><a class="article-title" href="{% url 'report-detail' report_id.id %}">Hasil Laporan Penilaian Bulan
+                        {{ report_id.date_posted|date:"F" }}</a>
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -59,7 +58,7 @@
                             <i class="fa fa-user fa-fw fa-sm text-primary"></i>
                         </div>
                         <h5 class= "text-muted">Total Laporan</h5>
-                        <h2 class="mb-0">1,000</h2>
+                        <h2 class="mb-0">{{ report_id.id }}</h2>
                         
                     </div>
                 </div>
@@ -85,63 +84,39 @@
             <div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card">
                 <div class="campaign-table table-responsive">
+                    
                     <table class="table">
                         <thead>
                             <tr class="border-0">
-                                <th class="border-0">#</th>
                                 <th class="border-0">Nama Laporan</th>
                                 <th class="border-0">Waktu Terbikin</th>
                                 <th class="border-0">Terakhir Diubah</th>
                                 <th class="border-0">Aksi</th>
                             </tr>
                         </thead>
+                        {% for report in reports %}
                         <tbody>
                             <tr>
-                                <td> 1 </td>
-                                <td>Laporan Januari</td>
-                                <td>11/01/2020</td>
-                                <td>13/02/2020</td>
                                 <td>
+                                    <a class="article-title" href="{% url 'report-detail' report.id %}">Hasil Laporan Penilaian Bulan
+                                        {{ report.date_posted|date:"F" }}</a>
                                 </td>
-                            </tr>
-                          <tr>
-                              <td> 1 </td>
-                              <td>Laporan Januari</td>
-                              <td>11/01/2020</td>
-                              <td>13/02/2020</td>
-                              <td>
-                              </td>
-                          </tr>
-                          <tr>
-                                <td> 1 </td>
-                                <td>Laporan Januari</td>
-                                <td>11/01/2020</td>
-                                <td>13/02/2020</td>
+                                <td>{{ report.date_posted|date:"F d, Y" }}</td>
+                                <td>{{ report.date_posted|date:"F d, Y" }}</td>
                                 <td>
-                                </td>
-                            </tr>
-                          <tr>
-                                <td> 1 </td>
-                                <td>Laporan Januari</td>
-                                <td>11/01/2020</td>
-                                <td>13/02/2020</td>
-                                <td>
-                                </td>
-                            </tr>
-                          <tr>
-                                <td> 1 </td>
-                                <td>Laporan Januari</td>
-                                <td>11/01/2020</td>
-                                <td>13/02/2020</td>
-                                <td>
+                                    <div style="float: right;">
+                                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report-update' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">Perbaru</a>
+                                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report-delete' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">Hapus</a>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
+                        {% endfor %}
                     </table>
                 </div>
             </div>
             </div>
         </div>
-
 {% endfor %}
+
 {% endblock content%}

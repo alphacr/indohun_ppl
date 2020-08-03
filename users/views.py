@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import Profile
+from blog.models import Questionnaire
 
 # Create your views here.
 
@@ -41,6 +42,8 @@ def profile(request):
 @login_required
 def profile_page(request):
     context = {
-        'posts': Profile.objects.filter(user=request.user)
+        'posts': Profile.objects.filter(user=request.user),
+        'reports': Questionnaire.objects.filter(author=request.user),
+        'report_id': Questionnaire.objects.latest('id')
     }
     return render(request, 'users/profile_page.html', context)
