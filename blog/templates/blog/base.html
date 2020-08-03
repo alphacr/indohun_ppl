@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'blog/assets/libs/css/custom_style.css' %}">
     <link rel="stylesheet" href="{% static 'blog/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
 
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/libs/css/custom_style.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css'%}">
 
     <link
@@ -27,17 +28,39 @@
       rel="stylesheet"
       href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.css"
     />
+<<<<<<< HEAD
+=======
+
+>>>>>>> dc296861314b70a454f365681bdac84cd743ad82
     {% if title %}
     <title>IndoHun PPL - {{ title }}</title>
     {% else %}
     <title>IndoHun PPL</title>
     {% endif %}
 </head>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
 
 <body>
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" href="{% url 'questionnaire:blog-home' %}"><img
+            <a class="navbar-brand" href="{% url 'blog-home' %}"><img
                     src="{% static 'blog/assets/images/indohun.png' %}" alt="Indohun Logo"
                     style="height: 50%; width: 50%"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -59,8 +82,9 @@
                         <li class="nav-divider">
                             Menu
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" role="menu"
+
+                        <li class="nav-item ">
+                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
                                 data-target="#submenu-1"><i class="fa fa-fw fa-user-circle"></i>Profil<span
                                     class="badge badge-success">6</span></a>
                             <div id="submenu-1" class="collapse submenu tab-content">
@@ -85,10 +109,10 @@
                                         <div id="submenu-5" class="collapse submenu">
                                            <ul class="nav flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="{% url 'questionnaire:tentang_manajement' %}">Tentang</a>
-                                                    <a class="nav-link" href="#">Daftar Laporan 
+                                                    <a class="nav-link active" href="{% url 'tentang_manajement' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'report-list' %}">Daftar Laporan 
                                                         <span class="badge badge-secondary">New</span></a>
-                                                    <a class="nav-link" href="#">Buat Laporan Baru</a>
+                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
                                                 </li>
                                             </ul> 
                                         </div>
@@ -97,10 +121,10 @@
                                         <div id="submenu-6" class="collapse submenu">
                                            <ul class="nav flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="{% url 'questionnaire:tentang_biorisiko' %}">Tentang</a>
-                                                    <a class="nav-link" href="{% url 'questionnaire:report-list' %}">Daftar Laporan 
+                                                    <a class="nav-link" href="{% url 'tentang_biorisiko' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'report-list' %}">Daftar Laporan 
                                                         <span class="badge badge-secondary">New</span></a>
-                                                    <a class="nav-link" href="{% url 'questionnaire:report-create' %}">Buat Laporan Baru</a>
+                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
                                                 </li>
                                             </ul> 
                                         </div>
@@ -109,10 +133,10 @@
                                         <div id="submenu-7" class="collapse submenu">
                                            <ul class="nav flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="{% url 'questionnaire:tentang_SMBL' %}">Tentang</a>
-                                                    <a class="nav-link" href="#">Daftar Laporan 
+                                                    <a class="nav-link" href="{% url 'tentang_SMBL' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'report-list' %}">Daftar Laporan 
                                                         <span class="badge badge-secondary">New</span></a>
-                                                    <a class="nav-link" href="#">Buat Laporan Baru</a>
+                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
                                                 </li>
                                             </ul> 
                                         </div>
@@ -140,7 +164,7 @@
                             <div id="submenu-4" class="collapse submenu">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'questionnaire:blog-about' %}">Hubungi
+                                        <a class="nav-link" href="{% url 'blog-about' %}">Hubungi
                                             Kami</a>
                                     </li>
                                 </ul>
@@ -155,16 +179,15 @@
         <div class="container-fluid dashboard-content">
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="col-md-8">
-                        {% if messages %}
-                        {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
-                        {% endif %}
-                        {% block content %}{% endblock %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
                     </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% block content %}{% endblock %}
+                
                 </div>
             </div>
         </div>

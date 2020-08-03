@@ -38,7 +38,7 @@ def profile(request):
         'p_form': p_form,
     }
     return render(request, 'users/profile.html', context)
-
+@login_required
 def profile_page(request):
     context = {
         'posts': Profile.objects.filter(user=request.user)

@@ -7,6 +7,7 @@
     width: 100%; 
     object-fit: cover;
 }
+
 /* /*------------------------------------*\
 	Owl Center nav
 \*------------------------------------*/
@@ -254,7 +255,11 @@
 }
 
 .input-group-ques{
+<<<<<<< HEAD
     width: 70% !important;
+=======
+    width: 100%;
+>>>>>>> dc296861314b70a454f365681bdac84cd743ad82
 }
 
 .subtitle-questionnaire::after{

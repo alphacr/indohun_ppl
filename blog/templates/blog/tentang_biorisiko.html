@@ -3,7 +3,7 @@
 {% load static %} 
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
-        <img src="{% static 'blog/assets/images/Tentang2.jpg' %}" alt="Background Tentang" class="tentang-img"/>
+        <img src="{% static 'blog/assets/images/Tentang2.JPG' %}" alt="Background Tentang" class="tentang-img"/>
         <div class="card-body">
             <h1 class="card-title">Menejement Biorisiko</h1>
             <h2 class="card-title">Gambaran Umum</h2>
@@ -72,9 +72,9 @@
 
                 Depok, Jawa Barat, Indonesia 16424.
             </p>
-            <a href="{% url 'questionnaire:report-list' %}" class="btn btn-primary custom-button">Daftar Laporan</a>
-            <a href="{% url 'questionnaire:report-create' %}" class="btn btn-primary custom-button">Buat Laporan Baru</a>
-            <a href="{% url 'questionnaire:tentang_SMBL' %}" class="btn btn-primary custom-button" style="float: right">Lanjut</a>
+            <a href="{% url 'report-list' %}" class="btn btn-primary custom-button">Daftar Laporan</a>
+            <a href="{% url 'report-create' %}" class="btn btn-primary custom-button">Buat Laporan Baru</a>
+            <a href="{% url 'tentang_SMBL' %}" class="btn btn-primary custom-button" style="float: right">Lanjut</a>
         </div>
     </div>
 </div>
