@@ -88,7 +88,7 @@
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link tab-pane" href="{% url 'profile_page' %}">Halaman Profil</a>
-                                        <a class="nav-link tab-pane" href="{% url 'profile' %}">Update Profil<span
+                                        <a class="nav-link tab-pane" href="{% url 'profile' %}">Perbarui Profil<span
                                                 class="badge badge-secondary">New</span></a>
                                     </li>
                                 </ul>
@@ -102,18 +102,6 @@
                             <div id="submenu-2" class="collapse submenu">
                                 <ul class="nav flex-column">
                                     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                                    data-target="#submenu-5" aria-controls="submenu-5">Menejement Mutu dan Sarpras</a>
-                                        <div id="submenu-5" class="collapse submenu">
-                                           <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" href="{% url 'tentang_manajement' %}">Tentang</a>
-                                                    <a class="nav-link" href="{% url 'report-list' %}">Daftar Laporan 
-                                                        <span class="badge badge-secondary">New</span></a>
-                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
-                                                </li>
-                                            </ul> 
-                                        </div>
-                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                                     data-target="#submenu-6" aria-controls="submenu-6">Manajemen Biorisiko</a>
                                         <div id="submenu-6" class="collapse submenu">
                                            <ul class="nav flex-column">
@@ -126,13 +114,21 @@
                                             </ul> 
                                         </div>
                                     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-5" aria-controls="submenu-5">Menejement Mutu dan Sarpras</a>
+                                        <div id="submenu-5" class="collapse submenu">
+                                           <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="{% url 'tentang_manajement' %}">Tentang</a>
+                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
+                                                </li>
+                                            </ul> 
+                                        </div>
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                                     data-target="#submenu-7" aria-controls="submenu-7">SMBL SNI 8340:2016</a>
                                         <div id="submenu-7" class="collapse submenu">
                                            <ul class="nav flex-column">
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="{% url 'tentang_SMBL' %}">Tentang</a>
-                                                    <a class="nav-link" href="{% url 'report-list' %}">Daftar Laporan 
-                                                        <span class="badge badge-secondary">New</span></a>
                                                     <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
                                                 </li>
                                             </ul> 

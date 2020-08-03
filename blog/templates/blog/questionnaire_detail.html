@@ -6,7 +6,7 @@
             <a class="mr-2" href="#">{{ report.author }}</a>
             <small class="text-muted">{{ report.date_posted|date:"F d, Y" }}</small>
         </div>
-        <h2 class="article-title">Hasil Laporan Penilaian</h2>
+        <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian</h2>
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
         <div class="container-chart" >
             <div class="row">
@@ -1166,10 +1166,12 @@
         </table>
         {% if report.author == user %}
         <br>
-        
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report-update' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">Perbaru</a>
-        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report-delete' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">
-        Hapus</a>
+        <div style="float: right;">
+
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report-update' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">Perbaru</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report-delete' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">
+                Hapus</a>
+        </div>
 
         {% endif %}
     </div>

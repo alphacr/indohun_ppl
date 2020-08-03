@@ -70,8 +70,8 @@
                         <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
                             <i class="fa fa-money-bill-alt fa-fw fa-sm text-brand"></i>
                         </div>
-                        <h5 class= "text-muted">#TODO fill me</h5>
-                        <h2 class="mb-0">$149.00</h2>
+                        <h5 class= "text-muted">#PLACEHOLDER</h5>
+                        <h2 class="mb-0">PLACEHOLDER</h2>
                         
                     </div>
                 </div>
@@ -103,11 +103,9 @@
                                 </td>
                                 <td>{{ report.date_posted|date:"F d, Y" }}</td>
                                 <td>{{ report.date_posted|date:"F d, Y" }}</td>
-                                <td>
-                                    <div style="float: right;">
-                                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report-update' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">Perbaru</a>
-                                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report-delete' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">Hapus</a>
-                                    </div>
+                                <td>                                    
+                                    <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report-update' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3; color: white;">Perbaru</a>
+                                    <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report-delete' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4; color: white;">Hapus</a>
                                 </td>
                             </tr>
                         </tbody>
