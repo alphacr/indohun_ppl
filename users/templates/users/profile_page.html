@@ -2,6 +2,8 @@
 {% block content %}
     <h1>Halaman Profil</h1>
 {% for post in posts %}
+    {% if post.nama_lengkap_laboratorium != "" %}
+
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card influencer-profile-data">
@@ -16,7 +18,11 @@
                                 <div class="user-avatar-info">
                                     <div class="m-b-20">
                                         <div class="user-avatar-name">
+                                            {% if post.nama_lengkap_laboratorium == "" %}
+                                            <h2 class="mb-1">Nama Lengkap Laboratorium</h2>
+                                            {% else %}
                                             <h2 class="mb-1">{{ post.nama_lengkap_laboratorium }}</h2>
+                                            {% endif %}
                                         </div>
                                         <div class="d-inline-block">
                                         #{{ post.akronim_laboratorium }}
@@ -44,9 +50,13 @@
                             <i class="fa fa-eye fa-fw fa-sm text-info"></i>
                         </div>
                         <h5 class= "text-muted">Laporan Terakhir</h5>
+                        {% if report_id %}
                         <h3><a class="article-title" href="{% url 'report-detail' report_id.id %}">Hasil Laporan Penilaian Bulan
-                        {{ report_id.date_posted|date:"F" }}</a>
-                        </h3>
+                        {{ report_id.date_posted|date:"F" }}</a></h3>
+                        {% else %}
+                        <h2 class="mb-0">-</h2>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -58,7 +68,11 @@
                             <i class="fa fa-user fa-fw fa-sm text-primary"></i>
                         </div>
                         <h5 class= "text-muted">Total Laporan</h5>
-                        <h2 class="mb-0">{{ report_id.id }}</h2>
+                        {% if report_id %}
+                        <h2 class="mb-0">{{ report_id.id }}</h2> <!-- # TODO FIX ME -->
+                        {% else %}
+                        <h2 class="mb-0">0</h2>
+                        {% endif %}
                         
                     </div>
                 </div>
@@ -94,6 +108,7 @@
                                 <th class="border-0">Aksi</th>
                             </tr>
                         </thead>
+                        {% if report_id %}
                         {% for report in reports %}
                         <tbody>
                             <tr>
@@ -110,11 +125,19 @@
                             </tr>
                         </tbody>
                         {% endfor %}
+                        {% else %}
+                        <div class="alert alert-warning">
+                            Belum ada laporan yang dibuat
+                        </div>
+                        {% endif %}
                     </table>
                 </div>
             </div>
             </div>
         </div>
+    {% else %}
+    Please fill in your profile at <a href="{% url 'profile' %}"> over here </a>
+    {% endif %}
 {% endfor %}
 
 {% endblock content%}

@@ -9,7 +9,6 @@ from .views import (
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='blog-home'),
     path('report/', ReportListView.as_view(), name='report-list'),
     path('report/<int:pk>/', ReportDetailView.as_view(), name='report-detail'),
     path('report/new/', ReportCreateView.as_view(), name='report-create'),
