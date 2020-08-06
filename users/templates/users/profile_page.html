@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
                             <div class="text-center">
-                                <img src="../static/blog/assets/images/avatar-1.jpg" alt="User Avatar" class="rounded-circle user-avatar-xxl">
+                                <img src="../static/blog/assets/images/avatar-1.png" alt="User Avatar" class="rounded-circle user-avatar-xxl">
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-8 col-md-8 col-sm-8 col-12">
@@ -136,7 +136,21 @@
             </div>
         </div>
     {% else %}
-    Please fill in your profile at <a href="{% url 'profile' %}"> over here </a>
+
+    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <a href="{% url 'profile' %}">
+                    <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
+                        <i class="fa fa-user fa-fw fa-sm text-primary"></i>
+                    </div>
+                    <h5 class= "text-muted">Halaman profil anda masih kosong!</h5>
+                    <h2 class="mb-0">Klik disini untuk mengisi halaman profil!</h2>
+                </a>
+            </div>
+        </div>
+    </div>
+    
     {% endif %}
 {% endfor %}
 
