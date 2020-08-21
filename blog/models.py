@@ -12,9 +12,10 @@ import sys
 
 
 class ContactUs(models.Model):
-    full_name = models.CharField(max_length=50)
+    nama_lengkap = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
-    message = models.TextField()
+    alamat = models.CharField(max_length=100, blank=True)
+    pesan = models.TextField()
 
 
 class Questionnaire(models.Model):

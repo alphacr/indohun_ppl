@@ -11,4 +11,4 @@ class ContactUsForm(forms.ModelForm):
 
     class Meta:
         model = ContactUs
-        fields = ['full_name', 'email', 'message']
+        fields = ['nama_lengkap', 'email', 'alamat', 'pesan']

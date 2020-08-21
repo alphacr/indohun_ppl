@@ -36,7 +36,15 @@ posts = [
 
 
 def home(request):
-    return render(request, 'blog/home.html')
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f'Terima kasih telah menghubungi One Health Laboratory')
+    else:
+        form = ContactUsForm()
+    return render(request, 'blog/home.html', {'form': form})
 
 
 class ReportListView(LoginRequiredMixin, ListView):

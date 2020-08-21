@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     'crispy_forms',
-    'django_email_verification',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
