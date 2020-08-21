@@ -207,17 +207,7 @@ class ReportDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == questionnaire.author:
             return True
         return False
-
-def about(request):
-    if request.method == 'POST':
-        form = ContactUsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request, f'Terima kasih telah menghubungi One Health Laboratory')
-    else:
-        form = ContactUsForm()
-    return render(request, 'blog/about.html', {'form': form})
+        
 @login_required
 def tentang_manajement(request):
     return render(request, 'blog/tentang_manajement.html')
