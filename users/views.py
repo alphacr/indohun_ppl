@@ -36,8 +36,7 @@ def profile(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {
         'u_form': u_form,
-        'p_form': p_form,
-        'nbar': 'profile'
+        'p_form': p_form
     }
     return render(request, 'users/profile.html', context)
 
@@ -52,7 +51,6 @@ def profile_page(request):
         'posts': Profile.objects.filter(user=request.user),
         'reports': Questionnaire.objects.filter(author=request.user),
         'report_id': latest_id,
-        'report_count': Questionnaire.objects.filter(author=request.user).count(),
-        'nbar': 'profile_page'
+        'report_count': Questionnaire.objects.filter(author=request.user).count()
     }
     return render(request, 'users/profile_page.html', context)
