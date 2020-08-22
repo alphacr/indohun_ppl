@@ -37,19 +37,22 @@ def profile(request):
     context = {
         'u_form': u_form,
         'p_form': p_form,
+        'nbar': 'profile'
     }
     return render(request, 'users/profile.html', context)
 
 @login_required
 def profile_page(request):
     try:
-        latest_id = Questionnaire.objects.latest('id')
+        latest_id = Questionnaire.objects.filter(author=request.user).order_by('-id')[0]
     except:
         latest_id = None
     
     context = {
         'posts': Profile.objects.filter(user=request.user),
         'reports': Questionnaire.objects.filter(author=request.user),
-        'report_id': latest_id
+        'report_id': latest_id,
+        'report_count': Questionnaire.objects.filter(author=request.user).count(),
+        'nbar': 'profile_page'
     }
     return render(request, 'users/profile_page.html', context)
