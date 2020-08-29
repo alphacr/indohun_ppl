@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="{% static 'blog/assets/libs/css/custom_style.css' %}">
     <link rel="stylesheet" href="{% static 'blog/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/libs/css/custom_style.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/libs/css/custom_style.css'%}">
 
     <link
       rel="stylesheet"
@@ -35,29 +35,12 @@
     <title>IndoHun PPL</title>
     {% endif %}
 </head>
-<style>
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
 
-    td,
-    th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-    }
 
-    tr:nth-child(even) {
-        background-color: #dddddd;
-    }
-</style>
-
-<body>
+<body class="base-body">
     <div class="dashboard-header">
-        <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" href="{% url 'blog-home' %}"><img
+        <nav class="navbar navbar-expand-lg bg-white fixed-top base-navbar-top">
+            <a class="navbar-brand " href="{% url 'blog-home' %}"><img
                     src="{% static 'blog/assets/images/indohun.png' %}" alt="Indohun Logo"
                     style="height: 50%; width: 50%"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -69,7 +52,8 @@
     <div class="nav-left-sidebar sidebar-dark">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                <a class="navbar-brand base-navbar-side" href="{% url 'blog-home' %}">
+                    <img class="logo-img" src="{% static 'blog/assets/images/indohun.png' %}" alt="Indohun Logo"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -85,7 +69,8 @@
                             href="#" data-toggle="collapse" aria-expanded="false"
                                 data-target="#submenu-1"><i class="fa fa-fw fa-user-circle"></i>Profil<span
                                     class="badge badge-success">6</span></a>
-                            <div id="submenu-1" class="collapse submenu tab-content">
+                            <div id="submenu-1" 
+                            class="{% if request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'tentang_manajement' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail'%}collapse{% endif %} submenu tab-content">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link tab-pane {% if request.resolver_match.url_name == 'profile_page' %}active{% endif %}" 
@@ -103,49 +88,57 @@
                             href="#" data-toggle="collapse" aria-expanded="false"
                                 data-target="#submenu-2" aria-controls="submenu-2"><i
                                     class="fa fa-fw fa-file-alt"></i>Laporan</a>
-                            <div id="submenu-2" class="collapse submenu">
+                            <div id="submenu-2" class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' %}collapse{% endif %} submenu">
                                 <ul class="nav flex-column">
-                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail' %}active{% endif %}" 
+                                    <!-- Advance Questionnaire -->
+                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail' %}active{% endif %}" 
+                                    href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-7" aria-controls="submenu-7">SMBL SNI 8340:2016</a>
+                                    <div id="submenu-7" 
+                                    class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' or request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'tentang_manajement' %}collapse{% endif %} submenu">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link {% if request.resolver_match.url_name == 'tentang_SMBL' %}active{% endif %}" 
+                                                href="{% url 'tentang_SMBL' %}">Tentang</a>
+                                                <a class="nav-link {% if request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-detail'%}active{% endif %}" 
+                                                href="{% url 'report-list' %}">Daftar Laporan 
+                                                    <span class="badge badge-secondary">New</span></a>
+                                                <a class="nav-link {% if request.resolver_match.url_name == 'report-create' %}active{% endif %}" 
+                                                href="{% url 'report-create' %}">Buat Laporan Baru</a>
+                                            </li>
+                                        </ul> 
+                                    </div>
+
+                                    <!-- Basic Questionnaire -->
+                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_biorisiko' %}active {% endif %}" 
                                     href="#" data-toggle="collapse" aria-expanded="false"
                                     data-target="#submenu-6" aria-controls="submenu-6">Manajemen Biorisiko</a>
-                                        <div id="submenu-6" class="collapse submenu">
-                                           <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_biorisiko' %}active{% endif %}" 
-                                                    href="{% url 'tentang_biorisiko' %}">Tentang</a>
-                                                        <a class="nav-link {% if request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-detail'%}active{% endif %}" 
-                                                        href="{% url 'report-list' %}">Daftar Laporan 
-                                                            <span class="badge badge-secondary">New</span></a>
-                                                    <a class="nav-link {% if request.resolver_match.url_name == 'report-create' %}active{% endif %}" 
-                                                    href="{% url 'report-create' %}">Buat Laporan Baru</a>
-                                                </li>
-                                            </ul> 
-                                        </div>
+                                    <div id="submenu-6" 
+                                    class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' or request.resolver_match.url_name == 'tentang_manajement' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail'%}collapse{% endif %} submenu">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link {% if request.resolver_match.url_name == 'tentang_biorisiko' %}active{% endif %}" 
+                                                href="{% url 'tentang_biorisiko' %}">Tentang</a>
+                                                <a class="nav-link" href="https://forms.gle/PLvwYkRssMo11kXZA">Buat Laporan Baru</a>
+                                            </li>
+                                        </ul> 
+                                    </div>
+
+                                    <!-- Basic Questionnaire 2-->
                                     <a class="nav-link {% if request.resolver_match.url_name == 'tentang_manajement' %}active{% endif %}" 
                                     href="#" data-toggle="collapse" aria-expanded="false"
                                     data-target="#submenu-5" aria-controls="submenu-5">Menejement Mutu dan Sarpras</a>
-                                        <div id="submenu-5" class="collapse submenu">
-                                           <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_manajement' %}active{% endif %}" 
-                                                    href="{% url 'tentang_manajement' %}">Tentang</a>
-                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
-                                                </li>
-                                            </ul> 
-                                        </div>
-                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_SMBL' %}active{% endif %}" 
-                                    href="#" data-toggle="collapse" aria-expanded="false"
-                                    data-target="#submenu-7" aria-controls="submenu-7">SMBL SNI 8340:2016</a>
-                                        <div id="submenu-7" class="collapse submenu">
-                                           <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_SMBL' %}active{% endif %}" 
-                                                    href="{% url 'tentang_SMBL' %}">Tentang</a>
-                                                    <a class="nav-link" href="{% url 'report-create' %}">Buat Laporan Baru</a>
-                                                </li>
-                                            </ul> 
-                                        </div>
-                                </ul>
+                                    <div id="submenu-5" 
+                                    class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' or request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail'%}collapse{% endif %} submenu">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link {% if request.resolver_match.url_name == 'tentang_manajement' %}active{% endif %}" \
+                                                href="{% url 'tentang_manajement' %}">Tentang</a>
+                                                <a class="nav-link" href="https://forms.gle/PLvwYkRssMo11kXZA">Buat Laporan Baru</a>
+                                            </li>
+                                        </ul> 
+                                    </div>
+                            </ul>
                             </div>
                         </li>
 
