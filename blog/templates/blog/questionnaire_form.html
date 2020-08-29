@@ -5,7 +5,7 @@
     <form action="" method="POST">
       {% csrf_token %}
       <section class="quis-body">
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer1">
           <div class="open-quiz">
             <div class="input-group input-group-ques mb-3">
               <div class="input-group-prepend">
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer2">
           <div class="title-container section1">
             <div class="title-questionnaire" id="kebijakan-manajemen-biorisiko">
               1. Kebijakan Manajemen Biorisiko
@@ -1014,7 +1014,7 @@
 
         <!-- B -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer3">
           <div class="title-container section2">
             <div class="title-questionnaire">
               2. Perencanaan Kerja dengan Bahan Biologik
@@ -1330,7 +1330,7 @@
 
         <!-- C -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer4">
           <div class="title-container section2">
             <div class="title-questionnaire">
               2. Perencanaan Kerja dengan Bahan Biologik
@@ -1602,7 +1602,7 @@
 
         <!-- D -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer5">
           <div class="title-container section3">
             <div class="title-questionnaire">
               3. Pengendalian operasional
@@ -1682,7 +1682,7 @@
 
         <!-- E -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer6">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -1825,7 +1825,7 @@
 
         <!-- F -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer7">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -2040,7 +2040,7 @@
 
         <!-- G -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer8">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -2180,7 +2180,7 @@
               <label class="form-check-label answer-quiz" for="id_nilai_no_31_1">
                 Terdapat prosedur dekontaminasi <span class="italic">reusable</span> APD
                 <span>tetapi tidak dilakukan</span> pencucian di dalam
-                  fasilitas</label>
+                fasilitas</label>
             </div>
             <div class="tab" data-value="2">
               <label class="spot" for="id_nilai_no_31_2"><span class="text">2</span></label>
@@ -2228,7 +2228,7 @@
 
         <!-- H -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer9">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -2243,7 +2243,8 @@
               <label class="spot" for="id_nilai_no_32_0"><span class="text">4</span></label>
               <input type="radio" name="nilai_no_32" value="4" required id="id_nilai_no_32_0">
               <label class="form-check-label answer-quiz" for="id_nilai_no_32_0">
-                Institusi memiliki prosedur untuk <span>mengantisipasi, mengendalikan dan mendokumentasikan</span> risiko yang
+                Institusi memiliki prosedur untuk <span>mengantisipasi, mengendalikan dan mendokumentasikan</span>
+                risiko yang
                 berhubungan dengan tingkah laku personel yang bekerja
                 dengan bahan biologik dan bahan berbahaya lainnya
               </label>
@@ -2305,7 +2306,7 @@
 
         <!-- I -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer10">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -2359,7 +2360,7 @@
               <input type="radio" name="nilai_no_33" value="1" required id="id_nilai_no_33_3">
               <label class="form-check-label answer-quiz" for="id_nilai_no_33_3">
                 Institusi <span>tidak memiliki, mengimplementasi
-                dan mereview kebijakan</span> mengenai kesehatan personel yang
+                  dan mereview kebijakan</span> mengenai kesehatan personel yang
                 bekerja dengan bahan biologik dan bahan berbahaya
                 lainnya yang meliputi pemeriksaan awal, pemeriksaan
                 kesehatan berkala, pemeriksaan pasca paparan dan tindak
@@ -2454,7 +2455,8 @@
               <input type="radio" name="nilai_no_35" value="4" required id="id_nilai_no_35_0">
               <label class="form-check-label answer-quiz" for="id_nilai_no_35_0">
                 Institusi memiliki prosedur, pelatihan dan perlengkapan
-                pertolongan pertama yang memadai (P3K, <spanc class="italic">emergency shower, emergency eyewash</spanc>) untuk keadaan emergensi medik
+                pertolongan pertama yang memadai (P3K, <spanc class="italic">emergency shower, emergency eyewash</spanc>
+                ) untuk keadaan emergensi medik
                 termasuk didalamnya identifikasi potensi infeksi pada
                 personel, penanganan secara medis akibat pajanan,
                 kejadian sakit maupun terluka
@@ -2517,7 +2519,7 @@
 
         <!-- J -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer11">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -2773,7 +2775,8 @@
               <label class="spot" for="id_nilai_no_39_2"><span class="text">2</span></label>
               <input type="radio" name="nilai_no_39" value="2" required id="id_nilai_no_39_2">
               <label class="form-check-label answer-quiz" for="id_nilai_no_39_2">
-                Institusi menyediakan peralatan keselamatan (APAR, <span class="italic">spill kit, emergency eyewash, emergency shower</span>, P3K),
+                Institusi menyediakan peralatan keselamatan (APAR, <span class="italic">spill kit, emergency eyewash,
+                  emergency shower</span>, P3K),
                 yang dilengkapi dengan petunjuk penggunaan serta seluruh
                 personel mendapat pelatihan penggunaan peralatan
                 keselamatan secara rutin, terdokumentasi dan direview,
@@ -2821,7 +2824,7 @@
 
         <!-- K -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer12">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -2970,7 +2973,7 @@
 
         <!-- L -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer13">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -3015,7 +3018,8 @@
                 mengenai pemeliharaan sarana dan prasarana. <span>Tidak ada perencanaan</span>
                 tahunan untuk pemeliharaan bangunan, gedung,
                 peralatan keamanan (<span class="italic">biosafety dan biosecurity</span>),
-                pemeriksaan kelistrikan, dan komputer. <span>Perbaikan dilakukan bila</span> terjadi malfungsi alat Dokumentasi
+                pemeriksaan kelistrikan, dan komputer. <span>Perbaikan dilakukan bila</span> terjadi malfungsi alat
+                Dokumentasi
                 pelaksanaan pemeliharaan dilakukan
               </label>
             </div>
@@ -3321,7 +3325,7 @@
 
         <!-- M -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer14">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -3545,7 +3549,7 @@
 
         <!-- N -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer15">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -3630,7 +3634,7 @@
 
         <!-- O -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer16">
           <div class="title-container section4">
             <div class="title-questionnaire">
               4. Perlaksanaan dan Operasi
@@ -3846,7 +3850,7 @@
 
         <!-- P -->
 
-        <div class="open-quiz_container">
+        <div class="open-quiz_container" id="quizContainer17">
           <div class="title-container section5">
             <div class="title-questionnaire">
               5. Investigasi Kecelakaan dan Insiden
@@ -3924,9 +3928,7 @@
           </div>
         </div>
 
-        <a href="#" id="loadmore" style="
-            font-family: 'Circular Std Medium', sans-serif !important;
-          ">Selanjutnya</a>
+        <a href="#" id="loadmore" style="font-family: 'Circular Std Medium', sans-serif !important;">Selanjutnya</a>
 
         <!-- <p id="top">
             <a href="#top"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
