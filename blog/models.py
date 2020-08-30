@@ -20,6 +20,7 @@ class ContactUs(models.Model):
 
 class Questionnaire(models.Model):
     # Operational
+    judul_laporan = models.CharField(max_length=50, blank=False, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     jenis_penilaian_choices = (
         ('Penilaian Mandiri (Self Assessment)',
@@ -328,6 +329,7 @@ class Questionnaire(models.Model):
         default='Isi Laporan' , blank=True, null=True)
 
     date_posted = models.DateTimeField(default=timezone.now)
+    date_updated = models.DateTimeField(auto_now_add=True, auto_now=False, blank=True)
 
     def get_absolute_url(self):
         return reverse('report-detail', kwargs={'pk': self.pk})
