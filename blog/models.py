@@ -17,6 +17,9 @@ class ContactUs(models.Model):
     alamat = models.CharField(max_length=100, blank=True)
     pesan = models.TextField()
 
+    def __str__(self):
+        return f'Pesan dari {self.nama_lengkap}'
+
 
 class Questionnaire(models.Model):
     # Operational
@@ -328,8 +331,20 @@ class Questionnaire(models.Model):
     rekomendasi_investigasi_kecelakaan_dan_insiden = models.TextField(
         default='Isi Laporan' , blank=True, null=True)
 
+
+    komentar = models.TextField(default='Isi Laporan', blank=True, null=True)
+    kelemahan_utama = models.TextField(default='Isi Laporan', blank=True, null=True)
+    kekuatan_utama = models.TextField(default='Isi Laporan', blank=True, null=True)
+
+    catatan_utama = models.TextField(default='Isi Laporan', blank=True, null=True)
+    saran_untuk_perbaikan = models.TextField(default='Isi Laporan', blank=True, null=True)
+    kesimpulan = models.TextField(default='Isi Laporan', blank=True, null=True)
+
     date_posted = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now_add=True, auto_now=False, blank=True)
 
     def get_absolute_url(self):
         return reverse('report-detail', kwargs={'pk': self.pk})
+
+    def __str__(self):
+        return f'{self.judul_laporan}'

@@ -65,7 +65,7 @@ class ReportDetailView(LoginRequiredMixin, DetailView):
 
 class ReportCreateView(LoginRequiredMixin, CreateView):
     model = Questionnaire  # <app>/<model>_form.html
-    fields = ['penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+    fields = ['judul_laporan','penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
               'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
               'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',
@@ -120,7 +120,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
               'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
               'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
               'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden',
-               ]
+              'komentar', 'kelemahan_utama', 'kekuatan_utama', 'catatan_utama', 'saran_untuk_perbaikan', 'kesimpulan']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -130,7 +130,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
 class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Questionnaire  # <app>/<model>_form.html
     context_object_name = 'report'
-    fields = ['penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+    fields = ['judul_laporan','penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
               'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
               'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',
@@ -184,7 +184,8 @@ class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
               'nilai_no_51', 'keterangan_keamanan_fisik_dan_pengendalian_personel', 'rekomendasi_keamanan_fisik_dan_pengendalian_personel',
               'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
               'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
-              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden', ]
+              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden', 
+              'komentar', 'kelemahan_utama', 'kekuatan_utama', 'catatan_utama', 'saran_untuk_perbaikan', 'kesimpulan']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
