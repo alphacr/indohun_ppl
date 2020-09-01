@@ -340,8 +340,8 @@ class Questionnaire(models.Model):
     saran_untuk_perbaikan = models.TextField(default='Isi Laporan', blank=True, null=True)
     kesimpulan = models.TextField(default='Isi Laporan', blank=True, null=True)
 
-    date_posted = models.DateTimeField(default=timezone.now)
-    date_updated = models.DateTimeField(auto_now_add=True, auto_now=False, blank=True)
+    date_posted = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
         return reverse('report-detail', kwargs={'pk': self.pk})
