@@ -332,13 +332,9 @@ class Questionnaire(models.Model):
         default='Isi Laporan' , blank=True, null=True)
 
 
-    komentar = models.TextField(default='Isi Laporan', blank=True, null=True)
     kelemahan_utama = models.TextField(default='Isi Laporan', blank=True, null=True)
     kekuatan_utama = models.TextField(default='Isi Laporan', blank=True, null=True)
-
-    catatan_utama = models.TextField(default='Isi Laporan', blank=True, null=True)
     saran_untuk_perbaikan = models.TextField(default='Isi Laporan', blank=True, null=True)
-    kesimpulan = models.TextField(default='Isi Laporan', blank=True, null=True)
 
     date_posted = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
