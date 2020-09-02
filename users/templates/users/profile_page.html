@@ -43,49 +43,35 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
                             <i class="fa fa-eye fa-fw fa-sm text-info"></i>
                         </div>
                         <h5 class= "text-muted">Laporan Terakhir</h5>
-                        {% if report_id %}
-                        <h3><a class="article-title" href="{% url 'report-detail' report_id.id %}">Hasil Laporan Penilaian Bulan
+                        {% if reports %}
+                        <h3><a class="mb-0" href="{% url 'report-detail' report_id.id %}">Hasil Laporan Penilaian Bulan
                         {{ report_id.date_posted|date:"F" }}</a></h3>
                         {% else %}
-                        <h2 class="mb-0">-</h2>
+                        <h3 class="mb-0">-</h3>
                         {% endif %}
-
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
                             <i class="fa fa-user fa-fw fa-sm text-primary"></i>
                         </div>
                         <h5 class= "text-muted">Total Laporan</h5>
-                        {% if report_id %}
-                        <h2 class="mb-0">{{ report_id.id }}</h2> <!-- # TODO FIX ME -->
+                        {% if reports %}
+                        <h2 class="mb-0">{{ report_count }}</h2> <!-- # TODO FIX ME -->
                         {% else %}
                         <h2 class="mb-0">0</h2>
                         {% endif %}
-                        
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
-                            <i class="fa fa-money-bill-alt fa-fw fa-sm text-brand"></i>
-                        </div>
-                        <h5 class= "text-muted">#PLACEHOLDER</h5>
-                        <h2 class="mb-0">PLACEHOLDER</h2>
                         
                     </div>
                 </div>
@@ -95,7 +81,7 @@
         <br>
 
         <div class="row">
-            <div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="campaign-table table-responsive">
                     
