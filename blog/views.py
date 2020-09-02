@@ -120,7 +120,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
               'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
               'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
               'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden',
-              'komentar', 'kelemahan_utama', 'kekuatan_utama', 'catatan_utama', 'saran_untuk_perbaikan', 'kesimpulan']
+              'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan',]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -185,7 +185,7 @@ class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
               'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
               'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
               'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden', 
-              'komentar', 'kelemahan_utama', 'kekuatan_utama', 'catatan_utama', 'saran_untuk_perbaikan', 'kesimpulan']
+              'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan',]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
