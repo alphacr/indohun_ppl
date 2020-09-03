@@ -17,10 +17,6 @@ from .models import (
     Questionnaire,
 )
 from users.models import Profile
-from django.views.generic import View
-from .utils import Render
-from django.template.loader import get_template
-from django.utils import timezone
 
 # Create your views here.
 def home(request):
@@ -207,13 +203,6 @@ def tentang_biorisiko(request):
 @login_required
 def tentang_SMBL(request):
     return render(request, 'blog/tentang_SMBL.html')
-
-class GeneratePDF(View):
-    def get(self, request):
-        params = {
-            'reports': Questionnaire.objects.filter(author=request.user),
-        }
-        return Render.render('blog/report_pdf.html', params)
 
 class ReportPDFView(LoginRequiredMixin, DetailView):
     model = Questionnaire  # <app>/<model>_<viewtype>.html
