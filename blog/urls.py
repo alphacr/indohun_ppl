@@ -4,7 +4,8 @@ from .views import (
     ReportDetailView,
     ReportCreateView,
     ReportUpdateView,
-    ReportDeleteView
+    ReportDeleteView,
+    ReportPDFView,
 )
 from . import views
 
@@ -18,4 +19,5 @@ urlpatterns = [
     path('tentang_manajement/', views.tentang_manajement, name='tentang_manajement'),
     path('tentang_biorisiko/', views.tentang_biorisiko, name='tentang_biorisiko'),
     path('tentang_SMBL/', views.tentang_SMBL, name='tentang_SMBL'),
+    path('pdf_view/<int:pk>/', ReportPDFView.as_view(), name='pdf_view'),
 ]

@@ -1,7 +1,43 @@
-{% extends "blog/base.html"%}
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'blog/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/custom_style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/libs/css/custom_style.css'%}">
+
+    <link
+      rel="stylesheet"
+      href="{% static 'blog/assets/vendor/datepicker/tempusdominus-bootstrap-4.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'blog/assets/vendor/inputmask/css/inputmask.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.css"
+    />
+
+    {% if title %}
+    <title>IndoHun PPL - {{ title }}</title>
+    {% else %}
+    <title>IndoHun PPL</title>
+    {% endif %}
+</head>
+<body>
 <article class="media content-section">
-    <div class="media-body">
+    <div id= 'printableArea' class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ report.author }}</a>
             <small class="text-muted">{{ report.date_posted|date:"F d, Y" }}</small>
@@ -10,10 +46,12 @@
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
         <div class="container-chart" >
             <div class="row">
-                <div class="col-md-6 ">
+                <div class="col-md-8 ">
                     <canvas id="myChart_radar"></canvas>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row">
+                <div class="col-md-8">
                     <canvas id="myChart_bar"></canvas>
                 </div>
             </div>
@@ -452,13 +490,15 @@
 
         <h3>Detail Hasil Penilaian</h3>
         <div class="row">
-                <div class="col-md-6 ">
+                <div class="col-md-8 ">
                     <canvas id="myChart_radar_detail"></canvas>
                 </div>
-                <div class="col-md-6">
+        </div>
+        <div class="row">
+                <div class="col-md-8">
                     <canvas id="myChart_bar_detail"></canvas>
                 </div>
-            </div>
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
         <script>
@@ -1164,16 +1204,10 @@
                 <td>{{ report.rekomendasi_investigasi_kecelakaan_dan_insiden }}</td>
             </tr>
         </table>
-        {% if report.author == user %}
-        <br>
-        <div style="float: right;">
-
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report-update' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">Perbaru</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report-delete' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">
-                Hapus</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'pdf_view' report.id %}" style="background-color: #61b9e2; border-color: #61b9e2;">Download</a>
-        </div>
-
-        {% endif %}
     </div>
-    {% endblock content%}
+    <script type="text/javascript">
+        setTimeout(function () { window.print(); }, 500);
+        window.onfocus = function () { setTimeout(function () { history.back(); }, 500); }
+    </script>
+</body>
+</html>
