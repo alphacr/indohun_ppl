@@ -17,5 +17,5 @@ urlpatterns = [
     path('about/', views.about, name='blog-about'),
     path('tentang_manajement/', views.tentang_manajement, name='tentang_manajement'),
     path('tentang_biorisiko/', views.tentang_biorisiko, name='tentang_biorisiko'),
-    path('tentang_SMBL/', views.tentang_SMBL, name='tentang_SMBL'),
+    path('tentang_smbl/', views.tentang_SMBL, name='tentang_SMBL'),
 ]
