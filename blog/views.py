@@ -223,8 +223,8 @@ def tentang_SMBL(request):
 def compare_laporan(request):
 
     context = {
-        'report_1': Questionnaire.objects.filter(author=request.user, id=2),
-        'report_2': Questionnaire.objects.filter(author=request.user, id=3),
+        'report_1': Questionnaire.objects.filter(author=request.user, id=13),
+        'report_2': Questionnaire.objects.filter(author=request.user, id=12),
     }
     return render(request, 'blog/compare_laporan.html', context)
 

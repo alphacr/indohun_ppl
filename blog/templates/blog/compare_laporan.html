@@ -1,24 +1,31 @@
 {% extends "blog/base.html"%}
 {% block content %}
 <canvas id="myChart" width="400" height="400"></canvas>
-<p>{{ report_1.nilai_no_1 }}</p>
+{% for report1 in report_1 %}
+{% for report2 in report_2 %}
+{{ report1.nilai_no_2 }}
+{{ report2.nilai_no_2 }}
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'radar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Kebijakan sistem manajemen biorisiko', 'Perencanaan Kerja dengan Bahan Biologik', 'Pengendalian Operasional', 'Pelaksanaan dan Operasi', 'Checking dan Perbaikan'],
         datasets: [{
             label: '# of Votes',
-            data: [{{ report_1.nilai_no_1 }}, {{ report_1.nilai_no_2 }}, {{ report_2.nilai_no_1 }}, {{ report_2.nilai_no_2 }}, {{ report_2.nilai_no_2 }}, {{ report_2.nilai_no_2 }}],
+            data: [
+                {{ report1.nilai_no_1 }}, {{ report1.nilai_no_2 }}, {{ report1.nilai_no_3 }}, {{ report1.nilai_no_4 }}, {{ report1.nilai_no_5 }}, {{ report1.nilai_no_6 }},{{ report1.nilai_no_7 }}, {{ report1.nilai_no_8 }}, {{ report1.nilai_no_9 }}, {{ report1.nilai_no_10 }}
+
+                ],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 159, 64, 0.2)',
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -29,7 +36,14 @@ var myChart = new Chart(ctx, {
                 'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
-        }]
+        },
+        {
+            label: '# of Votes',
+            data: [{{ report2.nilai_no_1 }}, {{ report2.nilai_no_2 }}, {{ report2.nilai_no_3 }}, {{ report2.nilai_no_4 }}],
+            
+            borderWidth: 1
+        }
+        ]
     },
     options: {
         scales: {
@@ -42,4 +56,6 @@ var myChart = new Chart(ctx, {
     }
 });
 </script>
+{% endfor %}
+{% endfor %}
 {% endblock content %}
