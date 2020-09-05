@@ -1,7 +1,43 @@
-{% extends "blog/base.html"%}
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'blog/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/custom_style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/libs/css/custom_style.css'%}">
+
+    <link
+      rel="stylesheet"
+      href="{% static 'blog/assets/vendor/datepicker/tempusdominus-bootstrap-4.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'blog/assets/vendor/inputmask/css/inputmask.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.css"
+    />
+
+    {% if title %}
+    <title>IndoHun PPL - {{ title }}</title>
+    {% else %}
+    <title>IndoHun PPL</title>
+    {% endif %}
+</head>
+<body>
 <article class="media content-section">
-    <div class="media-body">
+    <div id= 'printableArea' class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ report.author }}</a>
             <small class="text-muted">{{ report.date_posted|date:"F d, Y" }}</small>
@@ -10,21 +46,18 @@
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
         <div class="container-chart" >
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8 ">
                     <canvas id="myChart_radar"></canvas>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row">
+                <div class="col-md-8">
                     <canvas id="myChart_bar"></canvas>
                 </div>
             </div>
             
             <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
             <script>
-                function round(num) {
-                    num = Math.round(num + "e" + 2);
-                    return Number(num + "e" + -2);
-                }
-
                 var i;
                 var not_applicable = 0;
                 var aspek_1 = [
@@ -50,8 +83,8 @@
                         panjang_aspek_1.push(aspek_1[i]);
                     }
                 }
-                var hasil_akhir_aspek_1 = round(((panjang_aspek_1.reduce((a,b) => a + b, 0))/(panjang_aspek_1.length*3))*100);
-                var confidence_aspek_1 = round((panjang_aspek_1.length/aspek_1.length)*100);
+                var hasil_akhir_aspek_1 = ((panjang_aspek_1.reduce((a,b) => a + b, 0))/(panjang_aspek_1.length*3))*100;
+                var confidence_aspek_1 = (panjang_aspek_1.length/aspek_1.length)*100;
 
                 panjang_aspek_1 = [];
                 aspek_1 = [];
@@ -87,16 +120,13 @@
                     }
                 }
 
-                var hasil_akhir_aspek_2_1 = round(((panjang_aspek_2_1.reduce((a,b) => a + b, 0))/(panjang_aspek_2_1.length*3))*100);
-                var hasil_akhir_aspek_2_2 = round(((panjang_aspek_2_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2_2.length*3))*100);
-
+                var hasil_akhir_aspek_2_1 = ((panjang_aspek_2_1.reduce((a,b) => a + b, 0))/(panjang_aspek_2_1.length*3))*100;
+                var hasil_akhir_aspek_2_2 = ((panjang_aspek_2_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2_2.length*3))*100;
                 var panjang_aspek_2 = panjang_aspek_2_1.concat(panjang_aspek_2_2);
+                var hasil_akhir_aspek_2 = ((panjang_aspek_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2.length*3))*100;
+                var confidence_aspek_2_1 = (panjang_aspek_2_1.length/aspek_2_1.length)*100;
+                var confidence_aspek_2_2 = (panjang_aspek_2_2.length/aspek_2_2.length)*100;
 
-                var confidence_aspek_2_1 = round((panjang_aspek_2_1.length/aspek_2_1.length)*100);
-                var confidence_aspek_2_2 = round((panjang_aspek_2_2.length/aspek_2_2.length)*100);
-                
-                var hasil_akhir_aspek_2 = round(((panjang_aspek_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2.length*3))*100);
-                
                 aspek_2_1 = [];
                 aspek_2_2 = [];
                 panjang_aspek_2_1 = [];
@@ -114,9 +144,8 @@
                         panjang_aspek_3.push(aspek_3[i]);
                     }
                 }
-
-                var hasil_akhir_aspek_3 = round(((panjang_aspek_3.reduce((a,b) => a + b, 0))/(panjang_aspek_3.length*3))*100);
-                var confidence_aspek_3 = round((panjang_aspek_3.length/aspek_3.length)*100);
+                var hasil_akhir_aspek_3 = ((panjang_aspek_3.reduce((a,b) => a + b, 0))/(panjang_aspek_3.length*3))*100;
+                var confidence_aspek_3 = (panjang_aspek_3.length/aspek_3.length)*100;
 
                 aspek_3 = [];
                 panjang_aspek_3 = [];
@@ -274,32 +303,30 @@
                     }
                 }
 
-                var hasil_akhir_aspek_4_1 = round(((panjang_aspek_4_1.reduce((a,b) => a + b, 0))/(panjang_aspek_4_1.length*3))*100);
-                var hasil_akhir_aspek_4_2 = round(((panjang_aspek_4_2.reduce((a,b) => a + b, 0))/(panjang_aspek_4_2.length*3))*100);
-                var hasil_akhir_aspek_4_3 = round(((panjang_aspek_4_3.reduce((a,b) => a + b, 0))/(panjang_aspek_4_3.length*3))*100);
-                var hasil_akhir_aspek_4_4 = round(((panjang_aspek_4_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4_4.length*3))*100);
-                var hasil_akhir_aspek_4_5 = round(((panjang_aspek_4_5.reduce((a,b) => a + b, 0))/(panjang_aspek_4_5.length*3))*100);
-                var hasil_akhir_aspek_4_6 = round(((panjang_aspek_4_6.reduce((a,b) => a + b, 0))/(panjang_aspek_4_6.length*3))*100);
-                var hasil_akhir_aspek_4_7 = round(((panjang_aspek_4_7.reduce((a,b) => a + b, 0))/(panjang_aspek_4_7.length*3))*100);
-                var hasil_akhir_aspek_4_8 = round(((panjang_aspek_4_8.reduce((a,b) => a + b, 0))/(panjang_aspek_4_8.length*3))*100);
-                var hasil_akhir_aspek_4_9 = round(((panjang_aspek_4_9.reduce((a,b) => a + b, 0))/(panjang_aspek_4_9.length*3))*100);
-                var hasil_akhir_aspek_4_10 = round(((panjang_aspek_4_10.reduce((a,b) => a + b, 0))/(panjang_aspek_4_10.length*3))*100);
-                var hasil_akhir_aspek_4_11 = round(((panjang_aspek_4_11.reduce((a,b) => a + b, 0))/(panjang_aspek_4_11.length*3))*100);
-
+                var hasil_akhir_aspek_4_1 = ((panjang_aspek_4_1.reduce((a,b) => a + b, 0))/(panjang_aspek_4_1.length*3))*100;
+                var hasil_akhir_aspek_4_2 = ((panjang_aspek_4_2.reduce((a,b) => a + b, 0))/(panjang_aspek_4_2.length*3))*100;
+                var hasil_akhir_aspek_4_3 = ((panjang_aspek_4_3.reduce((a,b) => a + b, 0))/(panjang_aspek_4_3.length*3))*100;
+                var hasil_akhir_aspek_4_4 = ((panjang_aspek_4_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4_4.length*3))*100;
+                var hasil_akhir_aspek_4_5 = ((panjang_aspek_4_5.reduce((a,b) => a + b, 0))/(panjang_aspek_4_5.length*3))*100;
+                var hasil_akhir_aspek_4_6 = ((panjang_aspek_4_6.reduce((a,b) => a + b, 0))/(panjang_aspek_4_6.length*3))*100;
+                var hasil_akhir_aspek_4_7 = ((panjang_aspek_4_7.reduce((a,b) => a + b, 0))/(panjang_aspek_4_7.length*3))*100;
+                var hasil_akhir_aspek_4_8 = ((panjang_aspek_4_8.reduce((a,b) => a + b, 0))/(panjang_aspek_4_8.length*3))*100;
+                var hasil_akhir_aspek_4_9 = ((panjang_aspek_4_9.reduce((a,b) => a + b, 0))/(panjang_aspek_4_9.length*3))*100;
+                var hasil_akhir_aspek_4_10 = ((panjang_aspek_4_10.reduce((a,b) => a + b, 0))/(panjang_aspek_4_10.length*3))*100;
+                var hasil_akhir_aspek_4_11 = ((panjang_aspek_4_11.reduce((a,b) => a + b, 0))/(panjang_aspek_4_11.length*3))*100;
                 var panjang_aspek_4 = panjang_aspek_4_1.concat(panjang_aspek_4_2, panjang_aspek_4_3, panjang_aspek_4_4, panjang_aspek_4_5, panjang_aspek_4_6, panjang_aspek_4_7, panjang_aspek_4_8, panjang_aspek_4_9, panjang_aspek_4_10, panjang_aspek_4_11 );
-                
-                var hasil_akhir_aspek_4 = round(((panjang_aspek_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4.length*3))*100);
-                var confidence_aspek_4_1 = round((panjang_aspek_4_1.length/aspek_4_1.length)*100);
-                var confidence_aspek_4_2 = round((panjang_aspek_4_2.length/aspek_4_2.length)*100);
-                var confidence_aspek_4_3 = round((panjang_aspek_4_3.length/aspek_4_3.length)*100);
-                var confidence_aspek_4_4 = round((panjang_aspek_4_4.length/aspek_4_4.length)*100);
-                var confidence_aspek_4_5 = round((panjang_aspek_4_5.length/aspek_4_5.length)*100);
-                var confidence_aspek_4_6 = round((panjang_aspek_4_6.length/aspek_4_6.length)*100);
-                var confidence_aspek_4_7 = round((panjang_aspek_4_7.length/aspek_4_7.length)*100);
-                var confidence_aspek_4_8 = round((panjang_aspek_4_8.length/aspek_4_8.length)*100);
-                var confidence_aspek_4_9 = round((panjang_aspek_4_9.length/aspek_4_9.length)*100);
-                var confidence_aspek_4_10 = round((panjang_aspek_4_10.length/aspek_4_10.length)*100);
-                var confidence_aspek_4_11 = round((panjang_aspek_4_11.length/aspek_4_11.length)*100);
+                var hasil_akhir_aspek_4 = ((panjang_aspek_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4.length*3))*100;
+                var confidence_aspek_4_1 = (panjang_aspek_4_1.length/aspek_4_1.length)*100;
+                var confidence_aspek_4_2 = (panjang_aspek_4_2.length/aspek_4_2.length)*100;
+                var confidence_aspek_4_3 = (panjang_aspek_4_3.length/aspek_4_3.length)*100;
+                var confidence_aspek_4_4 = (panjang_aspek_4_4.length/aspek_4_4.length)*100;
+                var confidence_aspek_4_5 = (panjang_aspek_4_5.length/aspek_4_5.length)*100;
+                var confidence_aspek_4_6 = (panjang_aspek_4_6.length/aspek_4_6.length)*100;
+                var confidence_aspek_4_7 = (panjang_aspek_4_7.length/aspek_4_7.length)*100;
+                var confidence_aspek_4_8 = (panjang_aspek_4_8.length/aspek_4_8.length)*100;
+                var confidence_aspek_4_9 = (panjang_aspek_4_9.length/aspek_4_9.length)*100;
+                var confidence_aspek_4_10 = (panjang_aspek_4_10.length/aspek_4_10.length)*100;
+                var confidence_aspek_4_11 = (panjang_aspek_4_11.length/aspek_4_11.length)*100;
 
                 aspek_4_1 = [];
                 aspek_4_2 = [];
@@ -336,8 +363,8 @@
                         panjang_aspek_5.push(aspek_5[i]);
                     }
                 }
-                var hasil_akhir_aspek_5 = round(((panjang_aspek_5.reduce((a,b) => a + b, 0))/(panjang_aspek_5.length*3))*100);
-                var confidence_aspek_5 = round((panjang_aspek_5.length/aspek_5.length)*100);
+                var hasil_akhir_aspek_5 = ((panjang_aspek_5.reduce((a,b) => a + b, 0))/(panjang_aspek_5.length*3))*100;
+                var confidence_aspek_5 = (panjang_aspek_5.length/aspek_5.length)*100;
 
                 aspek_5 = [];
                 panjang_aspek_5 = [];
@@ -350,8 +377,8 @@
                         datasets: [{
                             label: 'Nilai Akhir',
                             data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
-                            backgroundColor:  'rgba(203, 159, 196, 0.3)',
-                            borderColor:  'rgba(203, 159, 196, 0.3)',
+                            backgroundColor:  'rgba(203, 159, 196, 0.5)',
+                            borderColor:  'rgba(203, 159, 196, 1)',
                             pointBorderColor: [
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(255, 206, 86, 1)',
@@ -383,12 +410,12 @@
                             label: 'Nilai Akhir',
                             data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
                             backgroundColor: [
-                                'rgba(54, 162, 235, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(75, 192, 192, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(153, 102, 255, 0.4)',
-                                'rgba(255, 159, 64, 0.4)'
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
                             ],
                             borderColor: [
                                 'rgba(54, 162, 235, 1)',
@@ -419,31 +446,31 @@
             <thead style="background-color: #0e0c28;">
                 <tr>
                     <th style="color: #ffff;">No</th>
-                    <th style="color: #ffff;">Semua Hasil Aspek PPL Terhadap Laboratorium {{ report.author }}</th>
-                    <th style="color: #ffff;">Penilaian Saat Ini {{ report.date_posted|date:"F d, Y" }}</th>
+                    <th style="color: #ffff;">Semua Hasil Aspek PPL terhadap Laboratorium {{ report.author }}</th>
+                    <th style="color: #ffff;">Penilaian Saat ini {{ report.date_posted|date:"F d, Y" }}</th>
                 </tr>
             </thead>
-            <tr style="background-color: rgba(54, 162, 235, 0.4);">
+            <tr style="background-color: rgba(54, 162, 235, 0.2);">
                 <td >I</td>
-                <td >Kebijakan Sistem Manajemen Biorisiko</td>
+                <td >Kebijakan sistem manajemen biorisiko</td>
                 <td id="hasil_akhir_aspek_1"></td>
             </tr>
-            <tr style="background-color: rgba(255, 206, 86, 0.4);">
+            <tr style="background-color: rgba(255, 206, 86, 0.2);">
                 <td>II</td>
-                <td>Perencanaan Kerja Dengan Bahan Biologik</td>
+                <td>Perencanaan Kerja dengan Bahan Biologik</td>
                 <td id="hasil_akhir_aspek_2"></td>
             </tr>
-            <tr style="background-color: rgba(75, 192, 192, 0.4);">
+            <tr style="background-color: rgba(75, 192, 192, 0.2);">
                 <td>III</td>
                 <td>Pengendalian Operasional</td>
                 <td id="hasil_akhir_aspek_3"></td>
             </tr>
-            <tr style="background-color: rgba(255, 99, 132, 0.4);">
+            <tr style="background-color: rgba(255, 99, 132, 0.2);">
                 <td>IV</td>
                 <td>Pelaksanaan dan Operasi</td>
                 <td id="hasil_akhir_aspek_4"></td>
             </tr>
-            <tr style="background-color: rgba(153, 102, 255, 0.4);">
+            <tr style="background-color: rgba(153, 102, 255, 0.2);">
                 <td>V</td>
                 <td>Checking dan Perbaikan</td>
                 <td id="hasil_akhir_aspek_5"></td>
@@ -463,13 +490,15 @@
 
         <h3>Detail Hasil Penilaian</h3>
         <div class="row">
-                <div class="col-md-6 ">
+                <div class="col-md-8 ">
                     <canvas id="myChart_radar_detail"></canvas>
                 </div>
-                <div class="col-md-6">
+        </div>
+        <div class="row">
+                <div class="col-md-8">
                     <canvas id="myChart_bar_detail"></canvas>
                 </div>
-            </div>
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
         <script>
@@ -481,8 +510,8 @@
                     datasets: [{
                         label: 'Nilai Akhir',
                         data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5,],
-                        backgroundColor:  'rgba(203, 159, 196, 0.3)',
-                        borderColor:  'rgba(203, 159, 196, 0.3)',
+                        backgroundColor:  'rgba(203, 159, 196, 0.5)',
+                        borderColor:  'rgba(203, 159, 196, 1)',
                         pointBorderColor: [
                             'rgba(54, 162, 235, 1)',
                             'rgba(255, 206, 86, 1)',
@@ -524,40 +553,40 @@
                         label: 'Nilai Akhir',
                         data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5,],
                         backgroundColor: [
-                            'rgba(54, 162, 235, 0.4)',
-                            'rgba(255, 206, 86, 0.4)',
-                            'rgba(255, 206, 86, 0.4)',
-                            'rgba(75, 192, 192, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(153, 102, 255, 0.4)'
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(54, 162, 235, 0.4)',
-                            'rgba(255, 206, 86, 0.4)',
-                            'rgba(255, 206, 86, 0.4)',
-                            'rgba(75, 192, 192, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(153, 102, 255, 0.4)'
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
                         ],
                         borderWidth: 1
                     }]
@@ -584,98 +613,98 @@
                     <th style="color: white; ">Confidence</th>
                 </tr>
             </thead>
-            <tr style="background-color:rgba(54, 162, 235, 0.4); ">
+            <tr style="background-color:rgba(54, 162, 235, 0.2); ">
                 <td style="font-weight: bold; ">I.I</td>
                 <td>Sistem Manajemen Biorisiko</td>
                 <td id="hasil_akhir_aspek_1_detail"></td>
                 <td id="confidence_aspek_1"></td>
             </tr>
-            <tr style="background-color:rgba(255, 206, 86, 0.4); ">
+            <tr style="background-color:rgba(255, 206, 86, 0.2); ">
                 <td style="font-weight: bold;">II.I</td>
                 <td>Penilaian Risiko</td>
                 <td id="hasil_akhir_aspek_2_1"></td>
                 <td id="confidence_aspek_2_1"></td>
             </tr>
-            <tr style="background-color:rgba(255, 206, 86, 0.4); ">
+            <tr style="background-color:rgba(255, 206, 86, 0.2); ">
                 <td style="font-weight: bold;"> II.II</td>
                 <td>Informasi dan Inventarisasi Bahan Biologik dan Bahan Toksin</td>
                 <td id="hasil_akhir_aspek_2_2"></td>
                 <td id="confidence_aspek_2_2"></td>
             </tr>
-            <tr style="background-color:rgba(75, 192, 192, 0.4); ">
+            <tr style="background-color:rgba(75, 192, 192, 0.2); ">
                 <td style="font-weight: bold;"> III.I</td>
                 <td>General Safety</td>
                 <td id="hasil_akhir_aspek_3_detail"></td>
                 <td id="confidence_aspek_3"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;" >IV.I</td>
                 <td>Personalia dan Kompetensi</td>
                 <td id="hasil_akhir_aspek_4_1"></td>
                 <td id="confidence_aspek_4_1"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;"> IV.II</td>
                 <td>Good Microbiological Technique</td>
                 <td id="hasil_akhir_aspek_4_2"></td>
                 <td id="confidence_aspek_4_2"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;">I V.III</td>
                 <td>Alat Pelindung Diri</td>
                 <td id="hasil_akhir_aspek_4_3"></td>
                 <td id="confidence_aspek_4_3"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;"> IV.IV</td>
                 <td>Latar Belakang SDM</td>
                 <td id="hasil_akhir_aspek_4_4"></td>
                 <td id="confidence_aspek_4_4"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;" >IV.V</td>
                 <td>Program Kesehatan Kerja</td>
                 <td id="hasil_akhir_aspek_4_5"></td>
                 <td id="confidence_aspek_4_5"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;"> IV.VI</td>
                 <td>Tanggap Darurat dan Perencanaan Kontingensi</td>
                 <td id="hasil_akhir_aspek_4_6"></td>
                 <td id="confidence_aspek_4_6"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;">I V.VII</td>
                 <td>Persyaratan Fasilitas Fisik</td>
                 <td id="hasil_akhir_aspek_4_7"></td>
                 <td id="confidence_aspek_4_7"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;">IV .VIII</td>
                 <td>Peralatan dan Pemeliharaan</td>
                 <td id="hasil_akhir_aspek_4_8"></td>
                 <td id="confidence_aspek_4_8"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;"> IV.IX</td>
                 <td>Dekontaminasi, Disinfeksi, dan Sterilisasi</td>
                 <td id="hasil_akhir_aspek_4_9"></td>
                 <td id="confidence_aspek_4_9"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;" >IV.X</td>
                 <td>Transportasi Bahan Biologik dan Bahan Berbahaya lainnya</td>
                 <td id="hasil_akhir_aspek_4_10"></td>
                 <td id="confidence_aspek_4_10"></td>
             </tr>
-            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+            <tr style="background-color:rgba(255, 99, 132, 0.2); ">
                 <td style="font-weight: bold;"> IV.XI</td>
                 <td>Biosecurity</td>
                 <td id="hasil_akhir_aspek_4_11"></td>
                 <td id="confidence_aspek_4_11"></td>
             </tr>
-            <tr style="background-color:rgba(153, 102, 255, 0.4); ">
-                <td style="font-weight: bold;">V.I</td>
+            <tr style="background-color:rgba(153, 102, 255, 0.2); ">
+                <td style="font-weight: bold;"d>V.I</td>
                 <td>Investigasi Kecelakaan dan Insiden</td>
                 <td id="hasil_akhir_aspek_5_detail"></td>
                 <td id="confidence_aspek_5"></td>
@@ -732,7 +761,7 @@
                     <th style="color: white;">Rekomendasi</th>
                 </tr>
             </thead>
-            <tr style="background-color: rgba(54, 162, 235, 0.4);">
+            <tr style="background-color: rgba(54, 162, 235, 0.2);">
                 <td colspan="5" >I. Kebijakan Manajemen Biorisiko</td>
             </tr>
             <tr style="background-color: #c7c8d0;">
@@ -829,7 +858,7 @@
                 <td>{{ report.keterangan_review_dan_perbaikan_manajemen_biorisiko }}</td>
                 <td>{{ report.rekomendasi_review_dan_perbaikan_manajemen_biorisiko }}</td>
             </tr>
-            <tr style="background-color: rgba(255, 206, 86, 0.4);">
+            <tr style="background-color: rgba(255, 206, 86, 0.2);">
                 <td colspan="5" >II. Perencanaan Kerja dengan Bahan Biologik</td>
             </tr>
             <tr style="background-color: #c7c8d0;">
@@ -901,7 +930,7 @@
                 <td>{{ report.keterangan_pengendalian_dan_monitoring }}</td>
                 <td>{{ report.rekomendasi_pengendalian_dan_monitoring }}</td>
             </tr>
-            <tr style="background-color: rgba(75, 192, 192, 0.4);">
+            <tr style="background-color: rgba(75, 192, 192, 0.2);">
                 <td colspan="5" >III. Pengendalian Operasional</td>
             </tr>
             <tr style="background-color: #c7c8d0;">
@@ -914,7 +943,7 @@
                 <td>{{ report.keterangan_general_safety }}</td>
                 <td>{{ report.rekomendasi_general_safety }}</td>
             </tr>
-            <tr style="background-color: rgba(255, 99, 132, 0.4);">
+            <tr style="background-color: rgba(255, 99, 132, 0.2);">
                 <td colspan="5" >IV. Pelaksanaan dan Operasi</td>
             </tr>
             <tr style="background-color: #c7c8d0;">
@@ -1175,17 +1204,10 @@
                 <td>{{ report.rekomendasi_investigasi_kecelakaan_dan_insiden }}</td>
             </tr>
         </table>
-        {% if report.author == user %}
-        <br>
-        <div style="float: right;">
-
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report-update' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">Perbarui</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report-delete' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">
-                Hapus</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'pdf_view' report.id %}" style="background-color: #61b9e2; border-color: #61b9e2;">Download</a>
-        </div>
-
-        {% endif %}
     </div>
-</article>
-{% endblock content%}
+    <script type="text/javascript">
+        setTimeout(function () { window.print(); }, 500);
+        window.onfocus = function () { setTimeout(function () { history.back(); }, 500); }
+    </script>
+</body>
+</html>

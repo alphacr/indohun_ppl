@@ -14,7 +14,8 @@
                 {{ report.date_posted|date:"F" }}</a>
         <div style="float: right;">
     		<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report-update' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">Perbarui</a>
-			<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report-delete' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">Hapus</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report-delete' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">Hapus</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'pdf_view' report.id %}" style="background-color: #61b9e2; border-color: #61b9e2;">Download</a>
 		</div>
     </div>
 </article>

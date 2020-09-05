@@ -19,22 +19,6 @@ from .models import (
 from users.models import Profile
 
 # Create your views here.
-posts = [
-    {
-        'author': 'CoreyMS',
-        'title': 'Blog Post 1',
-        'content': 'First Post Content',
-        'date_posted': 'May 4, 2020',
-    },
-    {
-        'author': 'John Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second Post Content',
-        'date_posted': 'May 5, 2020',
-    },
-]
-
-
 def home(request):
     return render(request, 'blog/home.html')
 
@@ -220,3 +204,8 @@ def tentang_biorisiko(request):
 def tentang_SMBL(request):
     return render(request, 'blog/tentang_SMBL.html')
 
+class ReportPDFView(LoginRequiredMixin, DetailView):
+    model = Questionnaire  # <app>/<model>_<viewtype>.html
+    context_object_name = 'report'
+    template_name = 'blog/report_pdf.html'
+    
