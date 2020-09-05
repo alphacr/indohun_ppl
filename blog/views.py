@@ -227,8 +227,3 @@ def compare_laporan(request):
         'report_2': Questionnaire.objects.filter(author=request.user).get(id=13),
     }
     return render(request, 'blog/compare_laporan.html', context)
-
-class CompareView(LoginRequiredMixin, DetailView):
-    model = Questionnaire  # <app>/<model>_<viewtype>.html
-    context_object_name = 'report'
-    template_name = 'blog/compare_laporan.html'

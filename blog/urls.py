@@ -4,8 +4,7 @@ from .views import (
     ReportDetailView,
     ReportCreateView,
     ReportUpdateView,
-    ReportDeleteView,
-    CompareView
+    ReportDeleteView
 )
 from . import views
 
