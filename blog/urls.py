@@ -17,4 +17,5 @@ urlpatterns = [
     path('tentang_manajement/', views.tentang_manajement, name='tentang_manajement'),
     path('tentang_biorisiko/', views.tentang_biorisiko, name='tentang_biorisiko'),
     path('tentang_SMBL/', views.tentang_SMBL, name='tentang_SMBL'),
+    path('compare_laporan/', views.compare_laporan, name='compare_laporan'),
 ]

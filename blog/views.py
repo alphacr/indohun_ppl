@@ -219,3 +219,12 @@ def tentang_biorisiko(request):
 def tentang_SMBL(request):
     return render(request, 'blog/tentang_SMBL.html')
 
+@login_required
+def compare_laporan(request):
+
+    context = {
+        'report_1': Questionnaire.objects.filter(author=request.user, id=2),
+        'report_2': Questionnaire.objects.filter(author=request.user, id=3),
+    }
+    return render(request, 'blog/compare_laporan.html', context)
+
