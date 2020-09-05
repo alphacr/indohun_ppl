@@ -223,8 +223,12 @@ def tentang_SMBL(request):
 def compare_laporan(request):
 
     context = {
-        'report_1': Questionnaire.objects.filter(author=request.user, id=13),
-        'report_2': Questionnaire.objects.filter(author=request.user, id=12),
+        'report_1': Questionnaire.objects.filter(author=request.user).get(id=12),
+        'report_2': Questionnaire.objects.filter(author=request.user).get(id=13),
     }
     return render(request, 'blog/compare_laporan.html', context)
 
+class CompareView(LoginRequiredMixin, DetailView):
+    model = Questionnaire  # <app>/<model>_<viewtype>.html
+    context_object_name = 'report'
+    template_name = 'blog/compare_laporan.html'
