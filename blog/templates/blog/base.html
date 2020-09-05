@@ -40,7 +40,7 @@
 <body class="base-body">
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top base-navbar-top">
-            <a class="navbar-brand " href="{% url 'blog-home' %}"><img
+            <a class="navbar-brand" href="{% url 'blog-home' %}"><img
                     src="{% static 'blog/assets/images/indohun.png' %}" alt="Indohun Logo"
                     style="height: 50%; width: 50%"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -127,7 +127,7 @@
                                     <!-- Basic Questionnaire 2-->
                                     <a class="nav-link {% if request.resolver_match.url_name == 'tentang_manajement' %}active{% endif %}" 
                                     href="#" data-toggle="collapse" aria-expanded="false"
-                                    data-target="#submenu-5" aria-controls="submenu-5">Menejement Mutu dan Sarpras</a>
+                                    data-target="#submenu-5" aria-controls="submenu-5">Manajemen Mutu dan Sarpras</a>
                                     <div id="submenu-5" 
                                     class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' or request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail'%}collapse{% endif %} submenu">
                                         <ul class="nav flex-column">
