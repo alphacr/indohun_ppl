@@ -228,10 +228,16 @@ def compare_laporan(request):
         if form.is_valid():
             pilihan_1 = form.cleaned_data.get('pilihan_1')
             pilihan_2 = form.cleaned_data.get('pilihan_2')
+            try:
+                report_1 = Questionnaire.objects.filter(author=request.user).get(id=pilihan_1)
+                report_2 = Questionnaire.objects.filter(author=request.user).get(id=pilihan_2)
+            except:
+                report_1 = None
+                report_2 = None
             context = {
                 'form': form,
-                'report_1': Questionnaire.objects.filter(author=request.user).get(id=pilihan_1),
-                'report_2': Questionnaire.objects.filter(author=request.user).get(id=pilihan_2),
+                'report_1': report_1,
+                'report_2': report_2,
             }
             return render(request, 'blog/compare_laporan.html', context)
     else:
