@@ -420,7 +420,7 @@
                 <tr>
                     <th style="color: #ffff;">No</th>
                     <th style="color: #ffff;">Semua Hasil Aspek PPL Terhadap Laboratorium {{ report.author }}</th>
-                    <th style="color: #ffff;">Penilaian Saat Ini {{ report.date_posted|date:"F d, Y" }}</th>
+                    <th style="color: #ffff;">Penilaian {{ report.judul_laporan }}</th>
                 </tr>
             </thead>
             <tr style="background-color: rgba(54, 162, 235, 0.4);">
@@ -580,7 +580,7 @@
                 <tr>
                     <th style="color: white; ">No</th>
                     <th style="color: white; ">Semua Hasil Aspek PPL terhadap Laboratorium {{ report.author }}</th>
-                    <th style="color: white; ">Penilaian Saat ini {{ report.date_posted|date:"F d, Y" }}</th>
+                    <th style="color: white; ">Penilaian Saat ini {{ report.judul_laporan }}</th>
                     <th style="color: white; ">Confidence</th>
                 </tr>
             </thead>
@@ -1174,8 +1174,8 @@
                 <td>{{ report.keterangan_investigasi_kecelakaan_dan_insiden }}</td>
                 <td>{{ report.rekomendasi_investigasi_kecelakaan_dan_insiden }}</td>
             </tr>
-            <tr style="background-color: rgba(153, 102, 255, 1);">
-                <td colspan="5" >Hasil Analisis PPL terhadap Laboratorium {{ report.author }}</td>
+            <tr style="background-color: rgba(0, 12, 255, 0.3);">
+                <td colspan="5" >Hasil Analisis PPL terhadap {{ report.judul_laporan }}</td>
             </tr>
             <tr style="background-color: white;">
                 <td>Kesenjangan/Kelemahan Utama</td>
