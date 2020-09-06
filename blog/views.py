@@ -235,7 +235,6 @@ def compare_laporan(request):
                 report_1 = None
                 report_2 = None
             context = {
-                'form': form,
                 'report_1': report_1,
                 'report_2': report_2,
             }

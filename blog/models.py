@@ -20,10 +20,6 @@ class ContactUs(models.Model):
     def __str__(self):
         return f'Pesan dari {self.nama_lengkap}'
 
-class CompareReport(models.Model):
-    pilihan_1 = models.IntegerField(blank=False, null=True)
-    pilihan_2 = models.IntegerField(blank=False, null=True)
-
 class Questionnaire(models.Model):
     # Operational
     judul_laporan = models.CharField(max_length=50, blank=False, null=True)
@@ -347,3 +343,13 @@ class Questionnaire(models.Model):
 
     def __str__(self):
         return f'{self.judul_laporan}'
+
+class CompareReport(models.Model):
+    pilihan_choices = (
+        (1,'Report 1'),
+        (2,'Report 2'),
+    )
+    pilihan_1 = models.CharField(
+        max_length=50, null=True, choices=pilihan_choices)
+    pilihan_2 = models.CharField(
+        max_length=50, null=True, choices=pilihan_choices)
