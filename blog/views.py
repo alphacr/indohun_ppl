@@ -229,10 +229,11 @@ def compare_laporan(request):
             pilihan_1 = form.cleaned_data.get('pilihan_1')
             pilihan_2 = form.cleaned_data.get('pilihan_2')
             context = {
+                'form': form,
                 'report_1': Questionnaire.objects.filter(author=request.user).get(id=pilihan_1),
                 'report_2': Questionnaire.objects.filter(author=request.user).get(id=pilihan_2),
             }
-            return redirect('compare_laporan', context)
+            return render(request, 'blog/compare_laporan.html', context)
     else:
         form = CompareReportForm(instance=request.user)
     this_form = {

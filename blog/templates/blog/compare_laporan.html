@@ -3,7 +3,7 @@
 {% block content %}
 <article class="media content-section">
     <div class="media-body">
-        <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian: {{ report_1.judul_laporan }}</h2>
+        <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian: {{ report_1.judul_laporan }} dan {{ report_2.judul_laporan }}</h2>
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
