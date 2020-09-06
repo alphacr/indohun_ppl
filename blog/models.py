@@ -24,7 +24,6 @@ class CompareReport(models.Model):
     pilihan_1 = models.IntegerField(blank=False, null=True)
     pilihan_2 = models.IntegerField(blank=False, null=True)
 
-
 class Questionnaire(models.Model):
     # Operational
     judul_laporan = models.CharField(max_length=50, blank=False, null=True)

@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.urls import reverse
 from .forms import ContactUsForm
+from .forms import CompareReportForm
 from django.views.generic import(
     ListView,
     DetailView,
@@ -223,14 +224,18 @@ def tentang_SMBL(request):
 @login_required
 def compare_laporan(request):
     if request.method == 'POST':
-        form = CompareReport(request.POST)
+        form = CompareReportForm(request.POST, instance=request.user)
         if form.is_valid():
             pilihan_1 = form.cleaned_data.get('pilihan_1')
             pilihan_2 = form.cleaned_data.get('pilihan_2')
             context = {
-                'report_1': Questionnaire.objects.filter(author=request.user).get(id={pilihan_1}),
-                'report_2': Questionnaire.objects.filter(author=request.user).get(id={pilihan_2}),
+                'report_1': Questionnaire.objects.filter(author=request.user).get(id=pilihan_1),
+                'report_2': Questionnaire.objects.filter(author=request.user).get(id=pilihan_2),
             }
-            return render(request, 'blog/compare_laporan.html', context)
+            return redirect('compare_laporan', context)
     else:
-        form = CompareReport()
+        form = CompareReportForm(instance=request.user)
+    this_form = {
+        'this_form': form,
+    }
+    return render(request, 'blog/compare_laporan.html', this_form)

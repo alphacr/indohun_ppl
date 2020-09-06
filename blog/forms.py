@@ -15,7 +15,7 @@ class ContactUsForm(forms.ModelForm):
         model = ContactUs
         fields = ['nama_lengkap', 'email', 'alamat', 'pesan']
 
-class CompareReport(forms.ModelForm):
+class CompareReportForm(forms.ModelForm):
     class Meta:
         model = CompareReport
         fields = ['pilihan_1', 'pilihan_2']
