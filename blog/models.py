@@ -20,6 +20,10 @@ class ContactUs(models.Model):
     def __str__(self):
         return f'Pesan dari {self.nama_lengkap}'
 
+class CompareReport(models.Model):
+    pilihan_1 = models.IntegerField(blank=False, null=True)
+    pilihan_2 = models.IntegerField(blank=False, null=True)
+
 
 class Questionnaire(models.Model):
     # Operational

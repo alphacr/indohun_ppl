@@ -4,6 +4,8 @@ from django.forms.models import ModelForm
 from django import forms
 from .models import ContactUs
 from .models import Questionnaire
+from .models import CompareReport
+
 
 
 class ContactUsForm(forms.ModelForm):
@@ -12,3 +14,8 @@ class ContactUsForm(forms.ModelForm):
     class Meta:
         model = ContactUs
         fields = ['nama_lengkap', 'email', 'alamat', 'pesan']
+
+class CompareReport(forms.ModelForm):
+    class Meta:
+        model = CompareReport
+        fields = ['pilihan_1', 'pilihan_2']
