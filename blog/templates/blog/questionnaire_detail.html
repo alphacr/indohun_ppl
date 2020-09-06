@@ -6,7 +6,7 @@
             <a class="mr-2" href="#">{{ report.author }}</a>
             <small class="text-muted">{{ report.date_posted|date:"F d, Y" }}</small>
         </div>
-        <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian</h2>
+        <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian: {{ report.judul_laporan }}</h2>
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
         <div class="container-chart" >
             <div class="row">
@@ -1173,6 +1173,21 @@
                 <td>{{ report.nilai_no_54 }}</td>
                 <td>{{ report.keterangan_investigasi_kecelakaan_dan_insiden }}</td>
                 <td>{{ report.rekomendasi_investigasi_kecelakaan_dan_insiden }}</td>
+            </tr>
+            <tr style="background-color: rgba(153, 102, 255, 1);">
+                <td colspan="5" >Hasil Analisis PPL terhadap Laboratorium {{ report.author }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>Kesenjangan/Kelemahan Utama</td>
+                <td colspan="4">{{ report.kelemahan_utama }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>Kekuatan Utama</td>
+                <td colspan="4">{{ report.kekuatan_utama }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>Saran untuk Perbaikan</td>
+                <td colspan="4">{{ report.saran_untuk_perbaikan }}</td>
             </tr>
         </table>
         {% if report.author == user %}

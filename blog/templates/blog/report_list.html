@@ -1,4 +1,5 @@
 {% extends "blog/base.html"%}
+{% load crispy_forms_tags %}
 {% block content %}
 <h1>Perangkat Penilaian Laboratorium (PPL) Manajemen Biorisiko</h1>
 {% if reports %}
@@ -10,8 +11,7 @@
             <small class="text-muted">{{ report.date_posted|date:"F d, Y" }}</small>
             
         </div>
-        <h2><a class="article-title" href="{% url 'report-detail' report.id %}">Hasil Laporan Penilaian Bulan
-                {{ report.date_posted|date:"F" }}</a>
+        <h2><a class="article-title" href="{% url 'report-detail' report.id %}">Hasil Laporan: {{ report.judul_laporan }}</a>
         <div style="float: right;">
     		<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report-update' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">Perbarui</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report-delete' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">Hapus</a>

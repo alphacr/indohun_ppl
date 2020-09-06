@@ -70,7 +70,7 @@
                                 data-target="#submenu-1"><i class="fa fa-fw fa-user-circle"></i>Profil<span
                                     class="badge badge-success">6</span></a>
                             <div id="submenu-1" 
-                            class="{% if request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'tentang_manajement' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail'%}collapse{% endif %} submenu tab-content">
+                            class="{% if request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'tentang_manajement' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail' or request.resolver_match.url_name == 'compare_laporan' %}collapse{% endif %} submenu tab-content">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link tab-pane {% if request.resolver_match.url_name == 'profile_page' %}active{% endif %}" 
@@ -84,14 +84,14 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {% if  request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'tentang_manajement' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-detail' %}active{% endif %}" 
+                            <a class="nav-link {% if  request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'tentang_manajement' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-detail' or request.resolver_match.url_name == 'compare_laporan'%}active{% endif %}" 
                             href="#" data-toggle="collapse" aria-expanded="false"
                                 data-target="#submenu-2" aria-controls="submenu-2"><i
                                     class="fa fa-fw fa-file-alt"></i>Laporan</a>
                             <div id="submenu-2" class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' %}collapse{% endif %} submenu">
                                 <ul class="nav flex-column">
                                     <!-- Advance Questionnaire -->
-                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail' %}active{% endif %}" 
+                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail' or request.resolver_match.url_name == 'compare_laporan' %}active{% endif %}" 
                                     href="#" data-toggle="collapse" aria-expanded="false"
                                     data-target="#submenu-7" aria-controls="submenu-7">SMBL SNI 8340:2016</a>
                                     <div id="submenu-7" 
@@ -102,6 +102,9 @@
                                                 href="{% url 'tentang_SMBL' %}">Tentang</a>
                                                 <a class="nav-link {% if request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-detail'%}active{% endif %}" 
                                                 href="{% url 'report-list' %}">Daftar Laporan 
+                                                    <span class="badge badge-secondary">New</span></a>
+                                                <a class="nav-link {% if request.resolver_match.url_name == 'compare_laporan' %}active{% endif %}" 
+                                                href="{% url 'compare_laporan' %}">Banding Laporan
                                                     <span class="badge badge-secondary">New</span></a>
                                                 <a class="nav-link {% if request.resolver_match.url_name == 'report-create' %}active{% endif %}" 
                                                 href="{% url 'report-create' %}">Buat Laporan Baru</a>
@@ -114,7 +117,7 @@
                                     href="#" data-toggle="collapse" aria-expanded="false"
                                     data-target="#submenu-6" aria-controls="submenu-6">Manajemen Biorisiko</a>
                                     <div id="submenu-6" 
-                                    class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' or request.resolver_match.url_name == 'tentang_manajement' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail'%}collapse{% endif %} submenu">
+                                    class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' or request.resolver_match.url_name == 'tentang_manajement' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail' or request.resolver_match.url_name == 'compare_laporan' %}collapse{% endif %} submenu">
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
                                                 <a class="nav-link {% if request.resolver_match.url_name == 'tentang_biorisiko' %}active{% endif %}" 
@@ -129,7 +132,7 @@
                                     href="#" data-toggle="collapse" aria-expanded="false"
                                     data-target="#submenu-5" aria-controls="submenu-5">Manajemen Mutu dan Sarpras</a>
                                     <div id="submenu-5" 
-                                    class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' or request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail'%}collapse{% endif %} submenu">
+                                    class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' or request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail' or request.resolver_match.url_name == 'compare_laporan' %}collapse{% endif %} submenu">
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
                                                 <a class="nav-link {% if request.resolver_match.url_name == 'tentang_manajement' %}active{% endif %}" \
@@ -151,19 +154,6 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{% url 'logout' %}">Logout dari PPL<span
                                                 class="badge badge-secondary">New</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                                data-target="#submenu-4" aria-controls="submenu-4"><i
-                                    class="fa fa-fw fa-address-book"></i>Hubungi Kami</a>
-                            <div id="submenu-4" class="collapse submenu">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'blog-about' %}">Hubungi
-                                            Kami</a>
                                     </li>
                                 </ul>
                             </div>

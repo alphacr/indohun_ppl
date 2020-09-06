@@ -99,11 +99,11 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a class="article-title" href="{% url 'report-detail' report.id %}">Hasil Laporan Penilaian Bulan
-                                        {{ report.date_posted|date:"F" }}</a>
+                                    <a class="article-title" href="{% url 'report-detail' report.id %}">Hasil Laporan:
+                                        {{ report.judul_laporan }}</a>
                                 </td>
-                                <td>{{ report.date_posted|date:"F d, Y" }}</td>
-                                <td>{{ report.date_posted|date:"F d, Y" }}</td>
+                                <td>{{ report.date_posted|date:"F d, Y / H:i" }}</td>
+                                <td>{{ report.date_updated|date:"F d, Y / H:i" }}</td>
                                 <td>                                    
                                     <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report-update' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3; color: white;">Perbarui</a>
                                     <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report-delete' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4; color: white;">Hapus</a>

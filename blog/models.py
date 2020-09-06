@@ -12,13 +12,17 @@ import sys
 
 
 class ContactUs(models.Model):
-    full_name = models.CharField(max_length=50)
+    nama_lengkap = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
-    message = models.TextField()
+    alamat = models.CharField(max_length=100, blank=True)
+    pesan = models.TextField()
 
+    def __str__(self):
+        return f'Pesan dari {self.nama_lengkap}'
 
 class Questionnaire(models.Model):
     # Operational
+    judul_laporan = models.CharField(max_length=50, blank=False, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     jenis_penilaian_choices = (
         ('Penilaian Mandiri (Self Assessment)',
@@ -326,7 +330,20 @@ class Questionnaire(models.Model):
     rekomendasi_investigasi_kecelakaan_dan_insiden = models.TextField(
         default='Isi Laporan' , blank=True, null=True)
 
-    date_posted = models.DateTimeField(default=timezone.now)
+
+    kelemahan_utama = models.TextField(default='Isi Laporan', blank=True, null=True)
+    kekuatan_utama = models.TextField(default='Isi Laporan', blank=True, null=True)
+    saran_untuk_perbaikan = models.TextField(default='Isi Laporan', blank=True, null=True)
+
+    date_posted = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
         return reverse('report-detail', kwargs={'pk': self.pk})
+
+    def __str__(self):
+        return f'{self.judul_laporan}'
+
+class CompareReport(models.Model):
+    pilihan_1 = models.CharField(max_length=50, null=True)
+    pilihan_2 = models.CharField(max_length=50, null=True)
