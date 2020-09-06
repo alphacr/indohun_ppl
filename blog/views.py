@@ -231,17 +231,20 @@ def compare_laporan(request):
             try:
                 report_1 = Questionnaire.objects.filter(author=request.user).get(id=pilihan_1)
                 report_2 = Questionnaire.objects.filter(author=request.user).get(id=pilihan_2)
+                reports = Questionnaire.objects.filter(author=request.user)
             except:
                 report_1 = None
                 report_2 = None
             context = {
                 'report_1': report_1,
                 'report_2': report_2,
+                'reports': reports,
             }
             return render(request, 'blog/compare_laporan.html', context)
     else:
         form = CompareReportForm(instance=request.user)
-    this_form = {
+    context_2 = {
         'this_form': form,
+        'reports': Questionnaire.objects.filter(author=request.user)
     }
-    return render(request, 'blog/compare_laporan.html', this_form)
+    return render(request, 'blog/compare_laporan.html', context_2)

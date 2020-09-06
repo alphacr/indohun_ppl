@@ -1,5 +1,4 @@
 {% extends "blog/base.html"%}
-{% load crispy_forms_tags %}
 {% block content %}
 <article class="media content-section">
     <div class="media-body">
@@ -7,9 +6,30 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Perbandingan Laporan</legend>
+                {{ report.id }}
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
-                        {{ this_form|crispy }}
+                        <div id="div_id_pilihan_1" class="form-group"> 
+                            <label for="id_pilihan_1" class=" requiredField">Pilihan 1<span class="asteriskField">*</span> </label> 
+                            <div class=""> 
+                                <select name="pilihan_1" class="select form-control" required id="id_pilihan_1"> 
+                                    {% for report in reports %}
+                                    <option value="{{ report.id }}">Hasil Laporan: {{ report.judul_laporan }}</option> 
+                                    {% endfor %}
+                                </select> 
+                                
+                            </div> 
+                        </div> 
+                        <div id="div_id_pilihan_2" class="form-group"> 
+                            <label for="id_pilihan_2" class=" requiredField">Pilihan 2<span class="asteriskField">*</span></label> 
+                            <div class=""> 
+                                <select name="pilihan_2" class="select form-control" required id="id_pilihan_2"> 
+                                    {% for report in reports %}
+                                    <option value="{{ report.id }}">Hasil Laporan: {{ report.judul_laporan }}</option> 
+                                    {% endfor %}
+                                </select> 
+                            </div> 
+                        </div>
                     </div>
                 </div>
             </fieldset>
@@ -17,6 +37,7 @@
                 <button class="btn btn-primary custom-button" type="submit">Bandingkan</button>
             </div>
         </form>
+        
         {% if report_1 and report_2 %}
         <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian: {{ report_1.judul_laporan }} dan {{ report_2.judul_laporan }}</h2>
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
