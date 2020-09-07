@@ -51,8 +51,8 @@
                         </div>
                         <h5 class= "text-muted">Laporan Terakhir</h5>
                         {% if reports %}
-                        <h3><a class="mb-0" href="{% url 'report-detail' report_id.id %}">Hasil Laporan Penilaian Bulan
-                        {{ report_id.date_posted|date:"F" }}</a></h3>
+                        <h3><a class="mb-0" href="{% url 'report-detail' report_id.id %}">
+                        {{ report_id.judul_laporan }}</a></h3>
                         {% else %}
                         <h3 class="mb-0">-</h3>
                         {% endif %}
@@ -99,8 +99,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a class="article-title" href="{% url 'report-detail' report.id %}">Hasil Laporan:
-                                        {{ report.judul_laporan }}</a>
+                                    <a class="article-title" href="{% url 'report-detail' report.id %}">{{ report.judul_laporan }}</a>
                                 </td>
                                 <td>{{ report.date_posted|date:"F d, Y / H:i" }}</td>
                                 <td>{{ report.date_updated|date:"F d, Y / H:i" }}</td>
