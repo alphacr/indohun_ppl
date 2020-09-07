@@ -232,8 +232,9 @@ def compare_laporan(request):
             return render(request, 'blog/compare_laporan.html', context)
     else:
         form = CompareReportForm(instance=request.user)
-    context_2 = {
-        'this_form': form,
-        'reports': Questionnaire.objects.filter(author=request.user)
-    }
-    return render(request, 'blog/compare_laporan.html', context_2)
+        context_2 = {
+            'this_form': form,
+            'reports': Questionnaire.objects.filter(author=request.user)
+        }
+        return render(request, 'blog/compare_laporan.html', context_2)
+
