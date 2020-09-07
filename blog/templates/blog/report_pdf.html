@@ -42,7 +42,7 @@
             <a class="mr-2" href="#">{{ report.author }}</a>
             <small class="text-muted">{{ report.date_posted|date:"F d, Y" }}</small>
         </div>
-        <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian</h2>
+        <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan: {{ report.judul_laporan }}</h2>
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
         <div class="container-chart" >
             <div class="row">
@@ -58,6 +58,11 @@
             
             <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
             <script>
+                function round(num) {
+                    num = Math.round(num + "e" + 2);
+                    return Number(num + "e" + -2);
+                }
+
                 var i;
                 var not_applicable = 0;
                 var aspek_1 = [
@@ -83,8 +88,8 @@
                         panjang_aspek_1.push(aspek_1[i]);
                     }
                 }
-                var hasil_akhir_aspek_1 = ((panjang_aspek_1.reduce((a,b) => a + b, 0))/(panjang_aspek_1.length*3))*100;
-                var confidence_aspek_1 = (panjang_aspek_1.length/aspek_1.length)*100;
+                var hasil_akhir_aspek_1 = round(((panjang_aspek_1.reduce((a,b) => a + b, 0))/(panjang_aspek_1.length*3))*100);
+                var confidence_aspek_1 = round((panjang_aspek_1.length/aspek_1.length)*100);
 
                 panjang_aspek_1 = [];
                 aspek_1 = [];
@@ -120,13 +125,16 @@
                     }
                 }
 
-                var hasil_akhir_aspek_2_1 = ((panjang_aspek_2_1.reduce((a,b) => a + b, 0))/(panjang_aspek_2_1.length*3))*100;
-                var hasil_akhir_aspek_2_2 = ((panjang_aspek_2_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2_2.length*3))*100;
-                var panjang_aspek_2 = panjang_aspek_2_1.concat(panjang_aspek_2_2);
-                var hasil_akhir_aspek_2 = ((panjang_aspek_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2.length*3))*100;
-                var confidence_aspek_2_1 = (panjang_aspek_2_1.length/aspek_2_1.length)*100;
-                var confidence_aspek_2_2 = (panjang_aspek_2_2.length/aspek_2_2.length)*100;
+                var hasil_akhir_aspek_2_1 = round(((panjang_aspek_2_1.reduce((a,b) => a + b, 0))/(panjang_aspek_2_1.length*3))*100);
+                var hasil_akhir_aspek_2_2 = round(((panjang_aspek_2_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2_2.length*3))*100);
 
+                var panjang_aspek_2 = panjang_aspek_2_1.concat(panjang_aspek_2_2);
+
+                var confidence_aspek_2_1 = round((panjang_aspek_2_1.length/aspek_2_1.length)*100);
+                var confidence_aspek_2_2 = round((panjang_aspek_2_2.length/aspek_2_2.length)*100);
+                
+                var hasil_akhir_aspek_2 = round(((panjang_aspek_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2.length*3))*100);
+                
                 aspek_2_1 = [];
                 aspek_2_2 = [];
                 panjang_aspek_2_1 = [];
@@ -144,8 +152,9 @@
                         panjang_aspek_3.push(aspek_3[i]);
                     }
                 }
-                var hasil_akhir_aspek_3 = ((panjang_aspek_3.reduce((a,b) => a + b, 0))/(panjang_aspek_3.length*3))*100;
-                var confidence_aspek_3 = (panjang_aspek_3.length/aspek_3.length)*100;
+
+                var hasil_akhir_aspek_3 = round(((panjang_aspek_3.reduce((a,b) => a + b, 0))/(panjang_aspek_3.length*3))*100);
+                var confidence_aspek_3 = round((panjang_aspek_3.length/aspek_3.length)*100);
 
                 aspek_3 = [];
                 panjang_aspek_3 = [];
@@ -303,30 +312,32 @@
                     }
                 }
 
-                var hasil_akhir_aspek_4_1 = ((panjang_aspek_4_1.reduce((a,b) => a + b, 0))/(panjang_aspek_4_1.length*3))*100;
-                var hasil_akhir_aspek_4_2 = ((panjang_aspek_4_2.reduce((a,b) => a + b, 0))/(panjang_aspek_4_2.length*3))*100;
-                var hasil_akhir_aspek_4_3 = ((panjang_aspek_4_3.reduce((a,b) => a + b, 0))/(panjang_aspek_4_3.length*3))*100;
-                var hasil_akhir_aspek_4_4 = ((panjang_aspek_4_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4_4.length*3))*100;
-                var hasil_akhir_aspek_4_5 = ((panjang_aspek_4_5.reduce((a,b) => a + b, 0))/(panjang_aspek_4_5.length*3))*100;
-                var hasil_akhir_aspek_4_6 = ((panjang_aspek_4_6.reduce((a,b) => a + b, 0))/(panjang_aspek_4_6.length*3))*100;
-                var hasil_akhir_aspek_4_7 = ((panjang_aspek_4_7.reduce((a,b) => a + b, 0))/(panjang_aspek_4_7.length*3))*100;
-                var hasil_akhir_aspek_4_8 = ((panjang_aspek_4_8.reduce((a,b) => a + b, 0))/(panjang_aspek_4_8.length*3))*100;
-                var hasil_akhir_aspek_4_9 = ((panjang_aspek_4_9.reduce((a,b) => a + b, 0))/(panjang_aspek_4_9.length*3))*100;
-                var hasil_akhir_aspek_4_10 = ((panjang_aspek_4_10.reduce((a,b) => a + b, 0))/(panjang_aspek_4_10.length*3))*100;
-                var hasil_akhir_aspek_4_11 = ((panjang_aspek_4_11.reduce((a,b) => a + b, 0))/(panjang_aspek_4_11.length*3))*100;
+                var hasil_akhir_aspek_4_1 = round(((panjang_aspek_4_1.reduce((a,b) => a + b, 0))/(panjang_aspek_4_1.length*3))*100);
+                var hasil_akhir_aspek_4_2 = round(((panjang_aspek_4_2.reduce((a,b) => a + b, 0))/(panjang_aspek_4_2.length*3))*100);
+                var hasil_akhir_aspek_4_3 = round(((panjang_aspek_4_3.reduce((a,b) => a + b, 0))/(panjang_aspek_4_3.length*3))*100);
+                var hasil_akhir_aspek_4_4 = round(((panjang_aspek_4_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4_4.length*3))*100);
+                var hasil_akhir_aspek_4_5 = round(((panjang_aspek_4_5.reduce((a,b) => a + b, 0))/(panjang_aspek_4_5.length*3))*100);
+                var hasil_akhir_aspek_4_6 = round(((panjang_aspek_4_6.reduce((a,b) => a + b, 0))/(panjang_aspek_4_6.length*3))*100);
+                var hasil_akhir_aspek_4_7 = round(((panjang_aspek_4_7.reduce((a,b) => a + b, 0))/(panjang_aspek_4_7.length*3))*100);
+                var hasil_akhir_aspek_4_8 = round(((panjang_aspek_4_8.reduce((a,b) => a + b, 0))/(panjang_aspek_4_8.length*3))*100);
+                var hasil_akhir_aspek_4_9 = round(((panjang_aspek_4_9.reduce((a,b) => a + b, 0))/(panjang_aspek_4_9.length*3))*100);
+                var hasil_akhir_aspek_4_10 = round(((panjang_aspek_4_10.reduce((a,b) => a + b, 0))/(panjang_aspek_4_10.length*3))*100);
+                var hasil_akhir_aspek_4_11 = round(((panjang_aspek_4_11.reduce((a,b) => a + b, 0))/(panjang_aspek_4_11.length*3))*100);
+
                 var panjang_aspek_4 = panjang_aspek_4_1.concat(panjang_aspek_4_2, panjang_aspek_4_3, panjang_aspek_4_4, panjang_aspek_4_5, panjang_aspek_4_6, panjang_aspek_4_7, panjang_aspek_4_8, panjang_aspek_4_9, panjang_aspek_4_10, panjang_aspek_4_11 );
-                var hasil_akhir_aspek_4 = ((panjang_aspek_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4.length*3))*100;
-                var confidence_aspek_4_1 = (panjang_aspek_4_1.length/aspek_4_1.length)*100;
-                var confidence_aspek_4_2 = (panjang_aspek_4_2.length/aspek_4_2.length)*100;
-                var confidence_aspek_4_3 = (panjang_aspek_4_3.length/aspek_4_3.length)*100;
-                var confidence_aspek_4_4 = (panjang_aspek_4_4.length/aspek_4_4.length)*100;
-                var confidence_aspek_4_5 = (panjang_aspek_4_5.length/aspek_4_5.length)*100;
-                var confidence_aspek_4_6 = (panjang_aspek_4_6.length/aspek_4_6.length)*100;
-                var confidence_aspek_4_7 = (panjang_aspek_4_7.length/aspek_4_7.length)*100;
-                var confidence_aspek_4_8 = (panjang_aspek_4_8.length/aspek_4_8.length)*100;
-                var confidence_aspek_4_9 = (panjang_aspek_4_9.length/aspek_4_9.length)*100;
-                var confidence_aspek_4_10 = (panjang_aspek_4_10.length/aspek_4_10.length)*100;
-                var confidence_aspek_4_11 = (panjang_aspek_4_11.length/aspek_4_11.length)*100;
+                
+                var hasil_akhir_aspek_4 = round(((panjang_aspek_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4.length*3))*100);
+                var confidence_aspek_4_1 = round((panjang_aspek_4_1.length/aspek_4_1.length)*100);
+                var confidence_aspek_4_2 = round((panjang_aspek_4_2.length/aspek_4_2.length)*100);
+                var confidence_aspek_4_3 = round((panjang_aspek_4_3.length/aspek_4_3.length)*100);
+                var confidence_aspek_4_4 = round((panjang_aspek_4_4.length/aspek_4_4.length)*100);
+                var confidence_aspek_4_5 = round((panjang_aspek_4_5.length/aspek_4_5.length)*100);
+                var confidence_aspek_4_6 = round((panjang_aspek_4_6.length/aspek_4_6.length)*100);
+                var confidence_aspek_4_7 = round((panjang_aspek_4_7.length/aspek_4_7.length)*100);
+                var confidence_aspek_4_8 = round((panjang_aspek_4_8.length/aspek_4_8.length)*100);
+                var confidence_aspek_4_9 = round((panjang_aspek_4_9.length/aspek_4_9.length)*100);
+                var confidence_aspek_4_10 = round((panjang_aspek_4_10.length/aspek_4_10.length)*100);
+                var confidence_aspek_4_11 = round((panjang_aspek_4_11.length/aspek_4_11.length)*100);
 
                 aspek_4_1 = [];
                 aspek_4_2 = [];
@@ -363,8 +374,8 @@
                         panjang_aspek_5.push(aspek_5[i]);
                     }
                 }
-                var hasil_akhir_aspek_5 = ((panjang_aspek_5.reduce((a,b) => a + b, 0))/(panjang_aspek_5.length*3))*100;
-                var confidence_aspek_5 = (panjang_aspek_5.length/aspek_5.length)*100;
+                var hasil_akhir_aspek_5 = round(((panjang_aspek_5.reduce((a,b) => a + b, 0))/(panjang_aspek_5.length*3))*100);
+                var confidence_aspek_5 = round((panjang_aspek_5.length/aspek_5.length)*100);
 
                 aspek_5 = [];
                 panjang_aspek_5 = [];
@@ -377,8 +388,8 @@
                         datasets: [{
                             label: 'Nilai Akhir',
                             data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
-                            backgroundColor:  'rgba(203, 159, 196, 0.5)',
-                            borderColor:  'rgba(203, 159, 196, 1)',
+                            backgroundColor:  'rgba(203, 159, 196, 0.3)',
+                            borderColor:  'rgba(203, 159, 196, 0.3)',
                             pointBorderColor: [
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(255, 206, 86, 1)',
@@ -410,12 +421,12 @@
                             label: 'Nilai Akhir',
                             data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
                             backgroundColor: [
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(153, 102, 255, 0.4)',
+                                'rgba(255, 159, 64, 0.4)'
                             ],
                             borderColor: [
                                 'rgba(54, 162, 235, 1)',

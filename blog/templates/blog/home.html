@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +57,7 @@
 			</div>
 		</div>
 	</nav>
-
+		
 	<div id="indexCarousel" class="carousel slide" data-ride="carousel">
 		<ol class="carousel-indicators">
 			<li data-target="#indexCarousel" data-slide-to="0" class="active"></li>
@@ -213,25 +214,38 @@
 
 					<!-- footer copyright -->
 					<div class="col-md-8 mt-5">
-						<form>
-							<div class="form-row">
+						{% if messages %}
+				        {% for message in messages %}
+				        <div class="alert alert-{{ message.tags }}">
+				            {{ message }}
+				        </div>
+				        {% endfor %}
+				        {% endif %}
+					  <form method="POST">
+					   {% csrf_token %}
+						   <fieldset class="form-group">
+						    <div class="form-row">
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" id="inputEmail4" placeholder="Nama Lengkap">
+									<input type="text" name="nama_lengkap" maxlength="50" class="textinput textInput form-control" required id="id_nama_lengkap" placeholder="Nama Lengkap">
 								</div>
 								<div class="form-group col-md-6">
-									<input type="email" class="form-control" id="inputPassword4" placeholder="Email">
+									<input type="email" name="email" class="emailinput form-control" required id="id_email" placeholder="Email">
 								</div>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="inputAddress" placeholder="Alamat">
+								<input type="text" name="alamat" maxlength="100" class="textinput textInput form-control" id="id_alamat" placeholder="Alamat">
 							</div>
 							<div class="form-group">
-								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-									placeholder="Pesan"></textarea>
+								<textarea name="pesan" cols="40" rows="10" class="textarea form-control" required id="id_pesan"></textarea>
 							</div>
-							<button type="submit" class="btn btn-primary btn-footer">Kirim Pesan</button>
-						</form>
-					</div>
+						   </fieldset>
+						   <div class="form-group">
+						    <button type="submit" class="btn btn-primary btn-footer">Kirim Pesan</button>
+						   </div>
+					  </form>
+					  <div class="border-top pt-3">
+					  </div>
+					 </div>
 					<!-- /footer copyright -->
 				</div>
 				<!-- /ROW -->

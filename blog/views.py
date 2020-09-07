@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.urls import reverse
 from .forms import ContactUsForm
+from .forms import CompareReportForm
 from django.views.generic import(
     ListView,
     DetailView,
@@ -15,12 +16,21 @@ from django.views.generic import(
 )
 from .models import (
     Questionnaire,
+    CompareReport
 )
 from users.models import Profile
 
 # Create your views here.
 def home(request):
-    return render(request, 'blog/home.html')
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f'Terima kasih telah menghubungi One Health Laboratory')
+    else:
+        form = ContactUsForm()
+    return render(request, 'blog/home.html', {'form': form})
 
 
 class ReportListView(LoginRequiredMixin, ListView):
@@ -41,7 +51,7 @@ class ReportDetailView(LoginRequiredMixin, DetailView):
 
 class ReportCreateView(LoginRequiredMixin, CreateView):
     model = Questionnaire  # <app>/<model>_form.html
-    fields = ['penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+    fields = ['judul_laporan','penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
               'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
               'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',
@@ -96,7 +106,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
               'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
               'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
               'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden',
-               ]
+              'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan',]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -106,7 +116,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
 class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Questionnaire  # <app>/<model>_form.html
     context_object_name = 'report'
-    fields = ['penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+    fields = ['judul_laporan','penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
               'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
               'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',
@@ -160,7 +170,8 @@ class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
               'nilai_no_51', 'keterangan_keamanan_fisik_dan_pengendalian_personel', 'rekomendasi_keamanan_fisik_dan_pengendalian_personel',
               'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
               'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
-              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden', ]
+              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden', 
+              'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan',]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -183,17 +194,7 @@ class ReportDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == questionnaire.author:
             return True
         return False
-
-def about(request):
-    if request.method == 'POST':
-        form = ContactUsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request, f'Terima kasih telah menghubungi One Health Laboratory')
-    else:
-        form = ContactUsForm()
-    return render(request, 'blog/about.html', {'form': form})
+        
 @login_required
 def tentang_manajement(request):
     return render(request, 'blog/tentang_manajement.html')
@@ -209,3 +210,30 @@ class ReportPDFView(LoginRequiredMixin, DetailView):
     context_object_name = 'report'
     template_name = 'blog/report_pdf.html'
     
+@login_required
+def compare_laporan(request):
+    if request.method == 'POST':
+        form = CompareReportForm(request.POST, instance=request.user)
+        if form.is_valid():
+            pilihan_1 = form.cleaned_data.get('pilihan_1')
+            pilihan_2 = form.cleaned_data.get('pilihan_2')
+            try:
+                report_1 = Questionnaire.objects.filter(author=request.user).get(id=pilihan_1)
+                report_2 = Questionnaire.objects.filter(author=request.user).get(id=pilihan_2)
+                reports = Questionnaire.objects.filter(author=request.user)
+            except:
+                report_1 = None
+                report_2 = None
+            context = {
+                'report_1': report_1,
+                'report_2': report_2,
+                'reports': reports,
+            }
+            return render(request, 'blog/compare_laporan.html', context)
+    else:
+        form = CompareReportForm(instance=request.user)
+    context_2 = {
+        'this_form': form,
+        'reports': Questionnaire.objects.filter(author=request.user)
+    }
+    return render(request, 'blog/compare_laporan.html', context_2)
