@@ -200,6 +200,7 @@
             $("#loadmore").on("click", function (e) {
               e.preventDefault();
               $(".open-quiz_container:hidden").slice(0, 1).slideDown();
+              window.scrollBy(0, 200);
               if ($(".open-quiz_container:hidden").length === 0) {
                 $("#loadmore").replaceWith(
                   "<button type='submit' class='p'>Simpan Hasil</button>"
