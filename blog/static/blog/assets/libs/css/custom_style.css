@@ -365,8 +365,6 @@ tr:nth-child(even) {
 }
 
 
-
-
 @media only screen and (max-width: 415px) {
     .base-body{
         margin-top: 0px;
