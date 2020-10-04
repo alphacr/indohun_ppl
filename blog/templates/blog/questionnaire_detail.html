@@ -80,8 +80,10 @@
                     <canvas id="myChart_bar_detail"></canvas>
                 </div>
         </div>
+
         <br/>
         <br/>
+
         <table class="table">
             <thead style="background-color: #0e0c28;">
                 <tr>
@@ -188,6 +190,7 @@
                 <td class="color-grade-confidence" id="confidence_aspek_5"></td>
             </tr>
         </table>
+
         <br/>
         <br/>
 
@@ -1127,7 +1130,7 @@
         var myChart_bar_detail = new Chart(ctx_bar_detail, {
             type: 'bar',
             data: {
-                labels: ['1.1', '2.1', '2.2', '3.1', '4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.6', '4.7', '4.8', '4.9', '4.10', '4.11', '5.1'],
+                labels: ['1.1', '2.1', '2.2', '3.1', '4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '4.10', '4.11', '5.1'],
                 datasets: [{
                     label: 'Nilai Akhir',
                     data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5,],
@@ -1228,37 +1231,37 @@
                 if ((cell_value <= 20)) {
                     $(this).css({
                         'background-color': '#990000',
-                        'color': 'white',
+                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_value >= 20) && (cell_value <= 40)) {
                     $(this).css({
                         'background-color': '#ff0000',
-                        'color': 'white',
+                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_value >= 40) && (cell_value <= 60)) {
                     $(this).css({
                         'background-color': '#ffcc66',
-                        'color': 'white',
+                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_value >= 60) && (cell_value <= 80)) {
                     $(this).css({
                         'background-color': '#66ff66',
-                        'color': 'white',
+                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if (cell_value >= 80) {
                     $(this).css({
                         'background-color': '#00cc00',
-                        'color': 'white',
+                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else {
                     $(this).css({
-                        'background-color': 'black',
-                        'color': 'white',
+                        'background-color': 'gray',
+                        'color': 'black',
                         'font-weight': '600'
                     });
                 }
@@ -1272,19 +1275,19 @@
                 if ((cell_confidence_value <= 69)) {
                     $(this).css({
                         'background-color': '#ff0000',
-                        'color': 'white',
+                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_confidence_value >= 69) && (cell_confidence_value <= 89)) {
                     $(this).css({
                         'background-color': '#ffcc66',
-                        'color': 'white',
+                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_confidence_value >= 89)) {
                     $(this).css({
                         'background-color': '#00cc00',
-                        'color': 'white',
+                        'color': 'black',
                         'font-weight': '600'
                     });
                 }
