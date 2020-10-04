@@ -35,7 +35,7 @@
     <title>Indohun PPL</title>
     {% endif %}
 </head>
-<body>
+<body style="-webkit-print-color-adjust:exact; color-adjust: exact;">
 <article class="media content-section">
     <div id= 'printableArea' class="media-body">
         <div class="article-metadata">
@@ -43,6 +43,28 @@
             <small class="text-muted">{{ report.date_posted|date:"F d, Y" }}</small>
         </div>
         <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan: {{ report.judul_laporan }}</h2>
+
+        <table>
+            <tr style="background-color: white;">
+                <td  style="background-color: #0e0c28; color: white">Penilai</td>
+                <td colspan="3">{{ report.penilai }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td  style="background-color: #0e0c28; color: white">Afiliasi Penilai</td>
+                <td colspan="3">{{ report.afiliasi_penilai }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td  style="background-color: #0e0c28; color: white">Jenis Penilaian</td>
+                <td colspan="3">{{ report.jenis_penilaian }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td  style="background-color: #0e0c28; color: white">Personel yang Diwawancarai</td>
+                <td colspan="3">{{ report.personel_yang_diwawancarai }}</td>
+            </tr>
+        </table>
+
+        <br/>
+        <br/>
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
         <div class="container-chart" >
             <div class="row">
@@ -59,7 +81,7 @@
         </div>
         <br/>
         <br/>
-        <table class="table">
+        <table>
             <thead style="background-color: #0e0c28;">
                 <tr>
                     <th style="color: #ffff;">No</th>
@@ -114,7 +136,7 @@
         <br/>
 
         <h3>Isi Laporan</h3>
-        <table class="table">
+        <table>
             <thead style="background-color: #0e0c28;">
                 <tr>
                     <th style="color: white; ">No</th>
@@ -628,6 +650,8 @@
     document.getElementById("hasil_akhir_aspek_4").innerHTML = hasil_akhir_aspek_4;
     document.getElementById("hasil_akhir_aspek_5").innerHTML = hasil_akhir_aspek_5;
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
 <script>
     var ctx_radar_detail = document.getElementById('myChart_radar_detail');
     var myChart_radar_detail = new Chart(ctx_radar_detail, {
@@ -729,6 +753,7 @@
         }
     });
 </script>
+
 <script>
     document.getElementById("hasil_akhir_aspek_1_detail").innerHTML = hasil_akhir_aspek_1;
     document.getElementById("hasil_akhir_aspek_2_1").innerHTML = hasil_akhir_aspek_2_1;
@@ -773,38 +798,32 @@
             
             if ((cell_value <= 20)) {
                 $(this).css({
-                    'background-color': '#990000 !important',
-                    'color': 'black',
+                    'background-color': '#FF4242',
                     'font-weight': '600'
                 });
             } else if ((cell_value >= 20) && (cell_value <= 40)) {
                 $(this).css({
-                    'background-color': '#ff0000 !important',
-                    'color': 'black',
+                    'background-color': '#FF8800',
                     'font-weight': '600'
                 });
             } else if ((cell_value >= 40) && (cell_value <= 60)) {
                 $(this).css({
-                    'background-color': '#ffcc66 !important',
-                    'color': 'black',
+                    'background-color': '#ffcc66',
                     'font-weight': '600'
                 });
             } else if ((cell_value >= 60) && (cell_value <= 80)) {
                 $(this).css({
-                    'background-color': '#66ff66 !important',
-                    'color': 'black',
+                    'background-color': '#66ff66',
                     'font-weight': '600'
                 });
             } else if (cell_value >= 80) {
                 $(this).css({
-                    'background-color': '#00cc00 !important',
-                    'color': 'black',
+                    'background-color': '#00cc00',
                     'font-weight': '600'
                 });
             } else {
                 $(this).css({
-                    'background-color': 'gray !important',
-                    'color': 'black',
+                    'background-color': '#ADADAD',
                     'font-weight': '600'
                 });
             }
@@ -817,20 +836,17 @@
             
             if ((cell_confidence_value <= 69)) {
                 $(this).css({
-                    'background-color': '#ff0000 !important',
-                    'color': 'black',
+                    'background-color': '#ff0000',
                     'font-weight': '600'
                 });
             } else if ((cell_confidence_value >= 69) && (cell_confidence_value <= 89)) {
                 $(this).css({
-                    'background-color': '#ffcc66 !important',
-                    'color': 'black',
+                    'background-color': '#ffcc66',
                     'font-weight': '600'
                 });
             } else if ((cell_confidence_value >= 89)) {
                 $(this).css({
-                    'background-color': '#00cc00 !important',
-                    'color': 'black',
+                    'background-color': '#00cc00',
                     'font-weight': '600'
                 });
             }

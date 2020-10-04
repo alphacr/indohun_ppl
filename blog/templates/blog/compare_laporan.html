@@ -38,13 +38,14 @@
                 <button class="btn btn-primary custom-button" type="submit">Bandingkan</button>
             </div>
         </form>
-        <br>
-        <br>
+        <br/>
+        <br/>
         {% if report_1 and report_2 %}
         <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian: {{ report_1.judul_laporan }} dan {{ report_2.judul_laporan }}</h2>
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
     
         <div class="container-chart" >
+            <!-- Table Charts -->
             <div class="row">
                 <div class="col-md-6 ">
                     <canvas id="myChart_radar"></canvas>
@@ -52,1207 +53,249 @@
                 <div class="col-md-6 ">
                     <canvas id="myChart_bar"></canvas>
                 </div>
-            </div>
+            </div> 
             
-            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-            <script>
-                function round(num) {
-                    num = Math.round(num + "e" + 2);
-                    return Number(num + "e" + -2);
-                }
-                var i;
-                var not_applicable = 0;
-                var aspek_1 = [
-                    {{ report_1.nilai_no_1 }} - 1,
-                    {{ report_1.nilai_no_2 }} - 1,
-                    {{ report_1.nilai_no_3 }} - 1,
-                    {{ report_1.nilai_no_4 }} - 1,
-                    {{ report_1.nilai_no_5 }} - 1,
-                    {{ report_1.nilai_no_6 }} - 1,
-                    {{ report_1.nilai_no_7 }} - 1,
-                    {{ report_1.nilai_no_8 }} - 1,
-                    {{ report_1.nilai_no_9 }} - 1,
-                    {{ report_1.nilai_no_10 }} - 1,
-                    {{ report_1.nilai_no_11 }} - 1,
-                    {{ report_1.nilai_no_12 }} - 1,
-                    {{ report_1.nilai_no_13 }} - 1,
-                ];
-                var panjang_aspek_1 = [];
-                for (i=0; i<aspek_1.length; i++){
-                    if (aspek_1[i] == -1){
-                        not_applicable += aspek_1[i];
-                    } else {
-                        panjang_aspek_1.push(aspek_1[i]);
-                    }
-                }
-                var hasil_akhir_aspek_1 = round(((panjang_aspek_1.reduce((a,b) => a + b, 0))/(panjang_aspek_1.length*3))*100);
-                var confidence_aspek_1 = round((panjang_aspek_1.length/aspek_1.length)*100);
+            <br/>
+            <br/>
 
-                panjang_aspek_1 = [];
-                aspek_1 = [];
-
-                var aspek_2_1 = [
-                    {{ report_1.nilai_no_14 }} - 1,
-                    {{ report_1.nilai_no_15 }} - 1,
-                    {{ report_1.nilai_no_16 }} - 1,
-                    {{ report_1.nilai_no_17 }} - 1,
-                    {{ report_1.nilai_no_18 }} - 1,
-                ];
-                var aspek_2_2 = [
-                    {{ report_1.nilai_no_19 }} - 1,
-                    {{ report_1.nilai_no_20 }} - 1,
-                    {{ report_1.nilai_no_21 }} - 1,
-                    {{ report_1.nilai_no_22 }} - 1,
-                ];
-                var panjang_aspek_2_1 = [];
-                var panjang_aspek_2_2 = [];
-                for (i=0; i<aspek_2_1.length; i++){
-                    if (aspek_2_1[i] == -1){
-                        not_applicable += aspek_2_1[i];
-                    } else {
-                        panjang_aspek_2_1.push(aspek_2_1[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_2_2.length; i++){
-                    if (aspek_2_2[i] == -1){
-                        not_applicable += aspek_2_2[i];
-                    } else {
-                        panjang_aspek_2_2.push(aspek_2_2[i]);
-                    }
-                }
-
-                var hasil_akhir_aspek_2_1 = round(((panjang_aspek_2_1.reduce((a,b) => a + b, 0))/(panjang_aspek_2_1.length*3))*100);
-                var hasil_akhir_aspek_2_2 = round(((panjang_aspek_2_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2_2.length*3))*100);
-                var panjang_aspek_2 = panjang_aspek_2_1.concat(panjang_aspek_2_2);
-                var hasil_akhir_aspek_2 = round(((panjang_aspek_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2.length*3))*100);
-                var confidence_aspek_2_1 = round((panjang_aspek_2_1.length/aspek_2_1.length)*100);
-                var confidence_aspek_2_2 = round((panjang_aspek_2_2.length/aspek_2_2.length)*100);
-
-                aspek_2_1 = [];
-                aspek_2_2 = [];
-                panjang_aspek_2_1 = [];
-                panjang_aspek_2_2 = [];
-                panjang_aspek_2= [];
-
-                var aspek_3 = [
-                    {{ report_1.nilai_no_23 }} - 1,
-                ];
-                var panjang_aspek_3 = [];
-                for (i=0; i<aspek_3.length; i++){
-                    if (aspek_3[i] == -1){
-                        not_applicable += aspek_3[i];
-                    } else {
-                        panjang_aspek_3.push(aspek_3[i]);
-                    }
-                }
-                var hasil_akhir_aspek_3 = round(((panjang_aspek_3.reduce((a,b) => a + b, 0))/(panjang_aspek_3.length*3))*100);
-                var confidence_aspek_3 = round((panjang_aspek_3.length/aspek_3.length)*100);
-
-                aspek_3 = [];
-                panjang_aspek_3 = [];
-
-                var aspek_4_1 = [
-                    {{ report_1.nilai_no_24 }} - 1,
-                    {{ report_1.nilai_no_25 }} - 1,
-                ];
-                var aspek_4_2 = [
-                    {{ report_1.nilai_no_26 }} - 1,
-                    {{ report_1.nilai_no_27 }} - 1,
-                    {{ report_1.nilai_no_28 }} - 1,
-                ];
-                var aspek_4_3 = [
-                    {{ report_1.nilai_no_29 }} - 1,
-                    {{ report_1.nilai_no_30 }} - 1,
-                    {{ report_1.nilai_no_31 }} - 1,
-                ];
-                var aspek_4_4 = [
-                    {{ report_1.nilai_no_32 }} - 1,
-                ];
-                var aspek_4_5 = [
-                    {{ report_1.nilai_no_33 }} - 1,
-                    {{ report_1.nilai_no_34 }} - 1,
-                    {{ report_1.nilai_no_35 }} - 1,
-                ];
-                var aspek_4_6 = [
-                    {{ report_1.nilai_no_36 }} - 1,
-                    {{ report_1.nilai_no_37 }} - 1,
-                    {{ report_1.nilai_no_38 }} - 1,
-                    {{ report_1.nilai_no_39 }} - 1,
-                ];
-                var aspek_4_7 = [
-                    {{ report_1.nilai_no_40 }} - 1,
-                    {{ report_1.nilai_no_41 }} - 1,
-                ];
-                var aspek_4_8 = [
-                    {{ report_1.nilai_no_42 }} - 1,
-                    {{ report_1.nilai_no_43 }} - 1,
-                    {{ report_1.nilai_no_44 }} - 1,
-                    {{ report_1.nilai_no_45 }} - 1,
-                    {{ report_1.nilai_no_46 }} - 1,
-                ];
-                var aspek_4_9 = [
-                    {{ report_1.nilai_no_47 }} - 1,
-                    {{ report_1.nilai_no_48 }} - 1,
-                    {{ report_1.nilai_no_49 }} - 1,
-                ];
-                var aspek_4_10 = [
-                    {{ report_1.nilai_no_50 }} - 1,
-                ];
-                var aspek_4_11 = [
-                    {{ report_1.nilai_no_51 }} - 1,
-                    {{ report_1.nilai_no_52 }} - 1,
-                    {{ report_1.nilai_no_53 }} - 1,
-                ];
-
-                var panjang_aspek_4_1 = [];
-                var panjang_aspek_4_2 = [];
-                var panjang_aspek_4_3 = [];
-                var panjang_aspek_4_4 = [];
-                var panjang_aspek_4_5 = [];
-                var panjang_aspek_4_6 = [];
-                var panjang_aspek_4_7 = [];
-                var panjang_aspek_4_8 = [];
-                var panjang_aspek_4_9 = [];
-                var panjang_aspek_4_10 = [];
-                var panjang_aspek_4_11 = [];
-
-                for (i=0; i<aspek_4_1.length; i++){
-                    if (aspek_4_1[i] == -1){
-                        not_applicable += aspek_4_1[i];
-                    } else {
-                        panjang_aspek_4_1.push(aspek_4_1[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_2.length; i++){
-                    if (aspek_4_2[i] == -1){
-                        not_applicable += aspek_4_2[i];
-                    } else {
-                        panjang_aspek_4_2.push(aspek_4_2[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_3.length; i++){
-                    if (aspek_4_3[i] == -1){
-                        not_applicable += aspek_4_3[i];
-                    } else {
-                        panjang_aspek_4_3.push(aspek_4_3[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_4.length; i++){
-                    if (aspek_4_4[i] == -1){
-                        not_applicable += aspek_4_4[i];
-                    } else {
-                        panjang_aspek_4_4.push(aspek_4_4[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_5.length; i++){
-                    if (aspek_4_5[i] == -1){
-                        not_applicable += aspek_4_5[i];
-                    } else {
-                        panjang_aspek_4_5.push(aspek_4_5[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_6.length; i++){
-                    if (aspek_4_6[i] == -1){
-                        not_applicable += aspek_4_6[i];
-                    } else {
-                        panjang_aspek_4_6.push(aspek_4_6[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_7.length; i++){
-                    if (aspek_4_7[i] == -1){
-                        not_applicable += aspek_4_7[i];
-                    } else {
-                        panjang_aspek_4_7.push(aspek_4_7[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_8.length; i++){
-                    if (aspek_4_8[i] == -1){
-                        not_applicable += aspek_4_8[i];
-                    } else {
-                        panjang_aspek_4_8.push(aspek_4_8[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_9.length; i++){
-                    if (aspek_4_9[i] == -1){
-                        not_applicable += aspek_4_9[i];
-                    } else {
-                        panjang_aspek_4_9.push(aspek_4_9[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_10.length; i++){
-                    if (aspek_4_10[i] == -1){
-                        not_applicable += aspek_4_10[i];
-                    } else {
-                        panjang_aspek_4_10.push(aspek_4_10[i]);
-                    }
-                }
-
-                for (i=0; i<aspek_4_11.length; i++){
-                    if (aspek_4_11[i] == -1){
-                        not_applicable += aspek_4_11[i];
-                    } else {
-                        panjang_aspek_4_11.push(aspek_4_11[i]);
-                    }
-                }
-
-                var hasil_akhir_aspek_4_1 = round(((panjang_aspek_4_1.reduce((a,b) => a + b, 0))/(panjang_aspek_4_1.length*3))*100);
-                var hasil_akhir_aspek_4_2 = round(((panjang_aspek_4_2.reduce((a,b) => a + b, 0))/(panjang_aspek_4_2.length*3))*100);
-                var hasil_akhir_aspek_4_3 = round(((panjang_aspek_4_3.reduce((a,b) => a + b, 0))/(panjang_aspek_4_3.length*3))*100);
-                var hasil_akhir_aspek_4_4 = round(((panjang_aspek_4_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4_4.length*3))*100);
-                var hasil_akhir_aspek_4_5 = round(((panjang_aspek_4_5.reduce((a,b) => a + b, 0))/(panjang_aspek_4_5.length*3))*100);
-                var hasil_akhir_aspek_4_6 = round(((panjang_aspek_4_6.reduce((a,b) => a + b, 0))/(panjang_aspek_4_6.length*3))*100);
-                var hasil_akhir_aspek_4_7 = round(((panjang_aspek_4_7.reduce((a,b) => a + b, 0))/(panjang_aspek_4_7.length*3))*100);
-                var hasil_akhir_aspek_4_8 = round(((panjang_aspek_4_8.reduce((a,b) => a + b, 0))/(panjang_aspek_4_8.length*3))*100);
-                var hasil_akhir_aspek_4_9 = round(((panjang_aspek_4_9.reduce((a,b) => a + b, 0))/(panjang_aspek_4_9.length*3))*100);
-                var hasil_akhir_aspek_4_10 = round(((panjang_aspek_4_10.reduce((a,b) => a + b, 0))/(panjang_aspek_4_10.length*3))*100);
-                var hasil_akhir_aspek_4_11 = round(((panjang_aspek_4_11.reduce((a,b) => a + b, 0))/(panjang_aspek_4_11.length*3))*100);
-                var panjang_aspek_4 = panjang_aspek_4_1.concat(panjang_aspek_4_2, panjang_aspek_4_3, panjang_aspek_4_4, panjang_aspek_4_5, panjang_aspek_4_6, panjang_aspek_4_7, panjang_aspek_4_8, panjang_aspek_4_9, panjang_aspek_4_10, panjang_aspek_4_11 );
-                var hasil_akhir_aspek_4 = round(((panjang_aspek_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4.length*3))*100);
-                var confidence_aspek_4_1 = round((panjang_aspek_4_1.length/aspek_4_1.length)*100);
-                var confidence_aspek_4_2 = round((panjang_aspek_4_2.length/aspek_4_2.length)*100);
-                var confidence_aspek_4_3 = round((panjang_aspek_4_3.length/aspek_4_3.length)*100);
-                var confidence_aspek_4_4 = round((panjang_aspek_4_4.length/aspek_4_4.length)*100);
-                var confidence_aspek_4_5 = round((panjang_aspek_4_5.length/aspek_4_5.length)*100);
-                var confidence_aspek_4_6 = round((panjang_aspek_4_6.length/aspek_4_6.length)*100);
-                var confidence_aspek_4_7 = round((panjang_aspek_4_7.length/aspek_4_7.length)*100);
-                var confidence_aspek_4_8 = round((panjang_aspek_4_8.length/aspek_4_8.length)*100);
-                var confidence_aspek_4_9 = round((panjang_aspek_4_9.length/aspek_4_9.length)*100);
-                var confidence_aspek_4_10 = round((panjang_aspek_4_10.length/aspek_4_10.length)*100);
-                var confidence_aspek_4_11 = round((panjang_aspek_4_11.length/aspek_4_11.length)*100);
-
-                aspek_4_1 = [];
-                aspek_4_2 = [];
-                aspek_4_3 = [];
-                aspek_4_4 = [];
-                aspek_4_5 = [];
-                aspek_4_6 = [];
-                aspek_4_7 = [];
-                aspek_4_8 = [];
-                aspek_4_9 = [];
-                aspek_4_10 = [];
-                aspek_4_11 = [];		
-                panjang_aspek_4_1 = [];
-                panjang_aspek_4_2 = [];
-                panjang_aspek_4_3 = [];
-                panjang_aspek_4_4 = [];
-                panjang_aspek_4_5 = [];
-                panjang_aspek_4_6 = [];
-                panjang_aspek_4_7 = [];
-                panjang_aspek_4_8 = [];
-                panjang_aspek_4_9 = [];
-                panjang_aspek_4_10 = [];
-                panjang_aspek_4_11 = [];
-                panjang_aspek_4 = [];
-
-                var aspek_5 = [
-                    {{ report_1.nilai_no_54 }} - 1,
-                ];
-                var panjang_aspek_5 = [];
-                for (i=0; i<aspek_5.length; i++){
-                    if (aspek_5[i] == -1){
-                        not_applicable += aspek_5[i];
-                    } else {
-                        panjang_aspek_5.push(aspek_5[i]);
-                    }
-                }
-                var hasil_akhir_aspek_5 = round(((panjang_aspek_5.reduce((a,b) => a + b, 0))/(panjang_aspek_5.length*3))*100);
-                var confidence_aspek_5 = round((panjang_aspek_5.length/aspek_5.length)*100);
-
-                aspek_5 = [];
-                panjang_aspek_5 = [];
-
-                // variable nilai 2
-                var i;
-                var not_applicable = 0;
-                var aspek2_1 = [
-                    {{ report_2.nilai_no_1 }} - 1,
-                    {{ report_2.nilai_no_2 }} - 1,
-                    {{ report_2.nilai_no_3 }} - 1,
-                    {{ report_2.nilai_no_4 }} - 1,
-                    {{ report_2.nilai_no_5 }} - 1,
-                    {{ report_2.nilai_no_6 }} - 1,
-                    {{ report_2.nilai_no_7 }} - 1,
-                    {{ report_2.nilai_no_8 }} - 1,
-                    {{ report_2.nilai_no_9 }} - 1,
-                    {{ report_2.nilai_no_10 }} - 1,
-                    {{ report_2.nilai_no_11 }} - 1,
-                    {{ report_2.nilai_no_12 }} - 1,
-                    {{ report_2.nilai_no_13 }} - 1,
-                ];
-                var panjang_aspek2_1 = [];
-                for (i=0; i<aspek2_1.length; i++){
-                    if (aspek2_1[i] == -1){
-                        not_applicable += aspek2_1[i];
-                    } else {
-                        panjang_aspek2_1.push(aspek2_1[i]);
-                    }
-                }
-                var hasil_akhir_aspek2_1 = round(((panjang_aspek2_1.reduce((a,b) => a + b, 0))/(panjang_aspek2_1.length*3))*100);
-                var confidence_aspek2_1 = round((panjang_aspek2_1.length/aspek2_1.length)*100);
-
-                panjang_aspek2_1 = [];
-                aspek2_1 = [];
-
-                var aspek2_2_1 = [
-                    {{ report_2.nilai_no_14 }} - 1,
-                    {{ report_2.nilai_no_15 }} - 1,
-                    {{ report_2.nilai_no_16 }} - 1,
-                    {{ report_2.nilai_no_17 }} - 1,
-                    {{ report_2.nilai_no_18 }} - 1,
-                ];
-                var aspek2_2_2 = [
-                    {{ report_2.nilai_no_19 }} - 1,
-                    {{ report_2.nilai_no_20 }} - 1,
-                    {{ report_2.nilai_no_21 }} - 1,
-                    {{ report_2.nilai_no_22 }} - 1,
-                ];
-                var panjang_aspek2_2_1 = [];
-                var panjang_aspek2_2_2 = [];
-                for (i=0; i<aspek2_2_1.length; i++){
-                    if (aspek2_2_1[i] == -1){
-                        not_applicable += aspek2_2_1[i];
-                    } else {
-                        panjang_aspek2_2_1.push(aspek2_2_1[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_2_2.length; i++){
-                    if (aspek2_2_2[i] == -1){
-                        not_applicable += aspek2_2_2[i];
-                    } else {
-                        panjang_aspek2_2_2.push(aspek2_2_2[i]);
-                    }
-                }
-
-                var hasil_akhir_aspek2_2_1 = round(((panjang_aspek2_2_1.reduce((a,b) => a + b, 0))/(panjang_aspek2_2_1.length*3))*100);
-                var hasil_akhir_aspek2_2_2 = round(((panjang_aspek2_2_2.reduce((a,b) => a + b, 0))/(panjang_aspek2_2_2.length*3))*100);
-                var panjang_aspek2_2 = panjang_aspek2_2_1.concat(panjang_aspek2_2_2);
-                var hasil_akhir_aspek2_2 = round(((panjang_aspek2_2.reduce((a,b) => a + b, 0))/(panjang_aspek2_2.length*3))*100);
-                var confidence_aspek2_2_1 = round((panjang_aspek2_2_1.length/aspek2_2_1.length)*100);
-                var confidence_aspek2_2_2 = round((panjang_aspek2_2_2.length/aspek2_2_2.length)*100);
-
-                aspek2_2_1 = [];
-                aspek2_2_2 = [];
-                panjang_aspek2_2_1 = [];
-                panjang_aspek2_2_2 = [];
-                panjang_aspek2_2= [];
-
-                var aspek2_3 = [
-                    {{ report_2.nilai_no_23 }} - 1,
-                ];
-                var panjang_aspek2_3 = [];
-                for (i=0; i<aspek2_3.length; i++){
-                    if (aspek2_3[i] == -1){
-                        not_applicable += aspek2_3[i];
-                    } else {
-                        panjang_aspek2_3.push(aspek2_3[i]);
-                    }
-                }
-                var hasil_akhir_aspek2_3 = round(((panjang_aspek2_3.reduce((a,b) => a + b, 0))/(panjang_aspek2_3.length*3))*100);
-                var confidence_aspek2_3 = round((panjang_aspek2_3.length/aspek2_3.length)*100);
-
-                aspek2_3 = [];
-                panjang_aspek2_3 = [];
-
-                var aspek2_4_1 = [
-                    {{ report_2.nilai_no_24 }} - 1,
-                    {{ report_2.nilai_no_25 }} - 1,
-                ];
-                var aspek2_4_2 = [
-                    {{ report_2.nilai_no_26 }} - 1,
-                    {{ report_2.nilai_no_27 }} - 1,
-                    {{ report_2.nilai_no_28 }} - 1,
-                ];
-                var aspek2_4_3 = [
-                    {{ report_2.nilai_no_29 }} - 1,
-                    {{ report_2.nilai_no_30 }} - 1,
-                    {{ report_2.nilai_no_31 }} - 1,
-                ];
-                var aspek2_4_4 = [
-                    {{ report_2.nilai_no_32 }} - 1,
-                ];
-                var aspek2_4_5 = [
-                    {{ report_2.nilai_no_33 }} - 1,
-                    {{ report_2.nilai_no_34 }} - 1,
-                    {{ report_2.nilai_no_35 }} - 1,
-                ];
-                var aspek2_4_6 = [
-                    {{ report_2.nilai_no_36 }} - 1,
-                    {{ report_2.nilai_no_37 }} - 1,
-                    {{ report_2.nilai_no_38 }} - 1,
-                    {{ report_2.nilai_no_39 }} - 1,
-                ];
-                var aspek2_4_7 = [
-                    {{ report_2.nilai_no_40 }} - 1,
-                    {{ report_2.nilai_no_41 }} - 1,
-                ];
-                var aspek2_4_8 = [
-                    {{ report_2.nilai_no_42 }} - 1,
-                    {{ report_2.nilai_no_43 }} - 1,
-                    {{ report_2.nilai_no_44 }} - 1,
-                    {{ report_2.nilai_no_45 }} - 1,
-                    {{ report_2.nilai_no_46 }} - 1,
-                ];
-                var aspek2_4_9 = [
-                    {{ report_2.nilai_no_47 }} - 1,
-                    {{ report_2.nilai_no_48 }} - 1,
-                    {{ report_2.nilai_no_49 }} - 1,
-                ];
-                var aspek2_4_10 = [
-                    {{ report_2.nilai_no_50 }} - 1,
-                ];
-                var aspek2_4_11 = [
-                    {{ report_2.nilai_no_51 }} - 1,
-                    {{ report_2.nilai_no_52 }} - 1,
-                    {{ report_2.nilai_no_53 }} - 1,
-                ];
-
-                var panjang_aspek2_4_1 = [];
-                var panjang_aspek2_4_2 = [];
-                var panjang_aspek2_4_3 = [];
-                var panjang_aspek2_4_4 = [];
-                var panjang_aspek2_4_5 = [];
-                var panjang_aspek2_4_6 = [];
-                var panjang_aspek2_4_7 = [];
-                var panjang_aspek2_4_8 = [];
-                var panjang_aspek2_4_9 = [];
-                var panjang_aspek2_4_10 = [];
-                var panjang_aspek2_4_11 = [];
-
-                for (i=0; i<aspek2_4_1.length; i++){
-                    if (aspek2_4_1[i] == -1){
-                        not_applicable += aspek2_4_1[i];
-                    } else {
-                        panjang_aspek2_4_1.push(aspek2_4_1[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_2.length; i++){
-                    if (aspek2_4_2[i] == -1){
-                        not_applicable += aspek2_4_2[i];
-                    } else {
-                        panjang_aspek2_4_2.push(aspek2_4_2[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_3.length; i++){
-                    if (aspek2_4_3[i] == -1){
-                        not_applicable += aspek2_4_3[i];
-                    } else {
-                        panjang_aspek2_4_3.push(aspek2_4_3[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_4.length; i++){
-                    if (aspek2_4_4[i] == -1){
-                        not_applicable += aspek2_4_4[i];
-                    } else {
-                        panjang_aspek2_4_4.push(aspek2_4_4[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_5.length; i++){
-                    if (aspek2_4_5[i] == -1){
-                        not_applicable += aspek2_4_5[i];
-                    } else {
-                        panjang_aspek2_4_5.push(aspek2_4_5[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_6.length; i++){
-                    if (aspek2_4_6[i] == -1){
-                        not_applicable += aspek2_4_6[i];
-                    } else {
-                        panjang_aspek2_4_6.push(aspek2_4_6[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_7.length; i++){
-                    if (aspek2_4_7[i] == -1){
-                        not_applicable += aspek2_4_7[i];
-                    } else {
-                        panjang_aspek2_4_7.push(aspek2_4_7[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_8.length; i++){
-                    if (aspek2_4_8[i] == -1){
-                        not_applicable += aspek2_4_8[i];
-                    } else {
-                        panjang_aspek2_4_8.push(aspek2_4_8[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_9.length; i++){
-                    if (aspek2_4_9[i] == -1){
-                        not_applicable += aspek2_4_9[i];
-                    } else {
-                        panjang_aspek2_4_9.push(aspek2_4_9[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_10.length; i++){
-                    if (aspek2_4_10[i] == -1){
-                        not_applicable += aspek2_4_10[i];
-                    } else {
-                        panjang_aspek2_4_10.push(aspek2_4_10[i]);
-                    }
-                }
-
-                for (i=0; i<aspek2_4_11.length; i++){
-                    if (aspek2_4_11[i] == -1){
-                        not_applicable += aspek2_4_11[i];
-                    } else {
-                        panjang_aspek2_4_11.push(aspek2_4_11[i]);
-                    }
-                }
-
-                var hasil_akhir_aspek2_4_1 = round(((panjang_aspek2_4_1.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_1.length*3))*100);
-                var hasil_akhir_aspek2_4_2 = round(((panjang_aspek2_4_2.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_2.length*3))*100);
-                var hasil_akhir_aspek2_4_3 = round(((panjang_aspek2_4_3.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_3.length*3))*100);
-                var hasil_akhir_aspek2_4_4 = round(((panjang_aspek2_4_4.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_4.length*3))*100);
-                var hasil_akhir_aspek2_4_5 = round(((panjang_aspek2_4_5.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_5.length*3))*100);
-                var hasil_akhir_aspek2_4_6 = round(((panjang_aspek2_4_6.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_6.length*3))*100);
-                var hasil_akhir_aspek2_4_7 = round(((panjang_aspek2_4_7.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_7.length*3))*100);
-                var hasil_akhir_aspek2_4_8 = round(((panjang_aspek2_4_8.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_8.length*3))*100);
-                var hasil_akhir_aspek2_4_9 = round(((panjang_aspek2_4_9.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_9.length*3))*100);
-                var hasil_akhir_aspek2_4_10 = round(((panjang_aspek2_4_10.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_10.length*3))*100);
-                var hasil_akhir_aspek2_4_11 = round(((panjang_aspek2_4_11.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_11.length*3))*100);
-                var panjang_aspek2_4 = panjang_aspek2_4_1.concat(panjang_aspek2_4_2, panjang_aspek2_4_3, panjang_aspek2_4_4, panjang_aspek2_4_5, panjang_aspek2_4_6, panjang_aspek2_4_7, panjang_aspek2_4_8, panjang_aspek2_4_9, panjang_aspek2_4_10, panjang_aspek2_4_11 );
-                var hasil_akhir_aspek2_4 = round(((panjang_aspek2_4.reduce((a,b) => a + b, 0))/(panjang_aspek2_4.length*3))*100);
-                var confidence_aspek2_4_1 = round((panjang_aspek2_4_1.length/aspek2_4_1.length)*100);
-                var confidence_aspek2_4_2 = round((panjang_aspek2_4_2.length/aspek2_4_2.length)*100);
-                var confidence_aspek2_4_3 = round((panjang_aspek2_4_3.length/aspek2_4_3.length)*100);
-                var confidence_aspek2_4_4 = round((panjang_aspek2_4_4.length/aspek2_4_4.length)*100);
-                var confidence_aspek2_4_5 = round((panjang_aspek2_4_5.length/aspek2_4_5.length)*100);
-                var confidence_aspek2_4_6 = round((panjang_aspek2_4_6.length/aspek2_4_6.length)*100);
-                var confidence_aspek2_4_7 = round((panjang_aspek2_4_7.length/aspek2_4_7.length)*100);
-                var confidence_aspek2_4_8 = round((panjang_aspek2_4_8.length/aspek2_4_8.length)*100);
-                var confidence_aspek2_4_9 = round((panjang_aspek2_4_9.length/aspek2_4_9.length)*100);
-                var confidence_aspek2_4_10 = round((panjang_aspek2_4_10.length/aspek2_4_10.length)*100);
-                var confidence_aspek2_4_11 = round((panjang_aspek2_4_11.length/aspek2_4_11.length)*100);
-
-                aspek2_4_1 = [];
-                aspek2_4_2 = [];
-                aspek2_4_3 = [];
-                aspek2_4_4 = [];
-                aspek2_4_5 = [];
-                aspek2_4_6 = [];
-                aspek2_4_7 = [];
-                aspek2_4_8 = [];
-                aspek2_4_9 = [];
-                aspek2_4_10 = [];
-                aspek2_4_11 = [];		
-                panjang_aspek2_4_1 = [];
-                panjang_aspek2_4_2 = [];
-                panjang_aspek2_4_3 = [];
-                panjang_aspek2_4_4 = [];
-                panjang_aspek2_4_5 = [];
-                panjang_aspek2_4_6 = [];
-                panjang_aspek2_4_7 = [];
-                panjang_aspek2_4_8 = [];
-                panjang_aspek2_4_9 = [];
-                panjang_aspek2_4_10 = [];
-                panjang_aspek2_4_11 = [];
-                panjang_aspek2_4 = [];
-
-                var aspek2_5 = [
-                    {{ report_2.nilai_no_54 }} - 1,
-                ];
-                var panjang_aspek2_5 = [];
-                for (i=0; i<aspek2_5.length; i++){
-                    if (aspek2_5[i] == -1){
-                        not_applicable += aspek2_5[i];
-                    } else {
-                        panjang_aspek2_5.push(aspek2_5[i]);
-                    }
-                }
-                var hasil_akhir_aspek2_5 = round(((panjang_aspek2_5.reduce((a,b) => a + b, 0))/(panjang_aspek2_5.length*3))*100);
-                var confidence_aspek2_5 = round((panjang_aspek2_5.length/aspek2_5.length)*100);
-
-                aspek2_5 = [];
-                panjang_aspek2_5 = [];
-
-                var ctx_radar = document.getElementById('myChart_radar');
-                var myChart_radar = new Chart(ctx_radar, {
-                    type: 'radar',
-                    data: {
-                        labels: ['Kebijakan Manajemen Biorisiko', 'Perencanaan Kerja dengan Bahan Biologik', 'Pengendalian Operasional', 'Pelaksanaan dan Operasi', 'Checking dan Perbaikan'],
-                        datasets: [{
-                            label: 'Nilai 1',
-                            data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
-                            backgroundColor:  'rgba(102, 255, 255, 0.5)',
-                            borderColor:  'rgba(51, 204, 255, 1)',
-                            pointBorderColor: [
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 3
-                        },
-                        {
-                            label: 'Nilai 2',
-                            data: [hasil_akhir_aspek2_1, hasil_akhir_aspek2_2, hasil_akhir_aspek2_3, hasil_akhir_aspek2_4, hasil_akhir_aspek2_5,],
-                            backgroundColor:  '#fffbc8',
-                            borderColor:  '#ffcd9a',
-                            pointBorderColor: [
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 3
-                        }
-                        ]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-                var ctx_bar = document.getElementById('myChart_bar');
-                var myChart_bar = new Chart(ctx_bar, {
-                    type: 'bar',
-                    data: {
-                        labels: ['1','2','3','4','5'],
-                        datasets: [{
-                            label: 'Nilai 1',
-                            data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
-                            backgroundColor: [
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'Nilai 2',
-                            data: [hasil_akhir_aspek2_1, hasil_akhir_aspek2_2, hasil_akhir_aspek2_3, hasil_akhir_aspek2_4, hasil_akhir_aspek2_5,],
-                            backgroundColor: [
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-            </script>
-            <br>
-            <br>
-            <table class="table">
+            <!-- General Report Table -->
+            <table>
                 <thead style="background-color: #0e0c28;">
                     <tr>
                         <th style="color: #ffff;">No</th>
                         <th style="color: #ffff;">Semua Hasil Aspek PPL terhadap Laboratorium {{ report.author }}</th>
                         <th style="color: #ffff;">Penilaian {{ report_1.judul_laporan }}</th>
                         <th style="color: #ffff;">Penilaian {{ report_2.judul_laporan }}</th>
+                        <th style="color: #ffff;">Perubahan Nilai</th>
                     </tr>
                 </thead>
                 <tr style="background-color: rgba(54, 162, 235, 0.4);">
                     <td>1</td>
-                    <td>Kebijakan sistem manajemen biorisiko</td>
-                    <td id="hasil_akhir_aspek_1"></td>
-                    <td id="hasil_akhir_aspek2_1"></td>
+                    <td>Kebijakan Sistem Manajemen Biorisiko</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_1"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_1"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_1"></td>
                 </tr>
                 <tr style="background-color: rgba(255, 206, 86, 0.4);">
                     <td>2</td>
                     <td>Perencanaan Kerja dengan Bahan Biologik</td>
-                    <td id="hasil_akhir_aspek_2"></td>
-                    <td id="hasil_akhir_aspek2_2"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_2"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_2"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_2"></td>
                 </tr>
                 <tr style="background-color: rgba(75, 192, 192, 0.4);">
                     <td>3</td>
                     <td>Pengendalian Operasional</td>
-                    <td id="hasil_akhir_aspek_3"></td>
-                    <td id="hasil_akhir_aspek2_3"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_3"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_3"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_3"></td>
                 </tr>
                 <tr style="background-color: rgba(255, 99, 132, 0.4);">
                     <td>4</td>
                     <td>Pelaksanaan dan Operasi</td>
-                    <td id="hasil_akhir_aspek_4"></td>
-                    <td id="hasil_akhir_aspek2_4"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4"></td>
                 </tr>
                 <tr style="background-color: rgba(153, 102, 255, 0.4);">
                     <td>5</td>
                     <td>Checking dan Perbaikan</td>
-                    <td id="hasil_akhir_aspek_5"></td>
-                    <td id="hasil_akhir_aspek2_5"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_5"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_5"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_5"></td>
                 </tr>
-            </table>
-    
-            <script>
-                document.getElementById("hasil_akhir_aspek_1").innerHTML = hasil_akhir_aspek_1;
-                document.getElementById("hasil_akhir_aspek_2").innerHTML = hasil_akhir_aspek_2;
-                document.getElementById("hasil_akhir_aspek_3").innerHTML = hasil_akhir_aspek_3;
-                document.getElementById("hasil_akhir_aspek_4").innerHTML = hasil_akhir_aspek_4;
-                document.getElementById("hasil_akhir_aspek_5").innerHTML = hasil_akhir_aspek_5;
-                document.getElementById("hasil_akhir_aspek2_1").innerHTML = hasil_akhir_aspek2_1;
-                document.getElementById("hasil_akhir_aspek2_2").innerHTML = hasil_akhir_aspek2_2;
-                document.getElementById("hasil_akhir_aspek2_3").innerHTML = hasil_akhir_aspek2_3;
-                document.getElementById("hasil_akhir_aspek2_4").innerHTML = hasil_akhir_aspek2_4;
-                document.getElementById("hasil_akhir_aspek2_5").innerHTML = hasil_akhir_aspek2_5;
-            </script>
+            </table> 
 
-            <br />
-            <br />
+            <br/>
+            <br/>
 
             <h3>Detail Hasil Penilaian</h3>
+            <!-- Detailed Table Charts  -->
             <div class="row">
-                    <div class="col-md-6 ">
-                        <canvas id="myChart_radar_detail"></canvas>
-                    </div>
-                    <div class="col-md-6">
-                        <canvas id="myChart_bar_detail"></canvas>
-                    </div>
+                <div class="col-md-6 ">
+                    <canvas id="myChart_radar_detail"></canvas>
                 </div>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-
-            <script>
-                var ctx_radar_detail = document.getElementById('myChart_radar_detail');
-                var myChart_radar_detail = new Chart(ctx_radar_detail, {
-                    type: 'radar',
-                    data: {
-                        labels: ['Sistem Manajemen Biorisiko', 'Penilaian Risiko', 'Informasi dan Inventarisasi Bahan Biologik dan Bahan Toksin', 'General Safety', 'Personalia dan Kompetensi', 'Good Microbiological Technique', 'Alat Pelindung Diri', 'Latar Belakang SDM', 'Program Kesehatan Kerja', 'Tanggap Darurat dan Perencanaan Kontingensi', 'Persyaratan Fasilitas Fisik', 'Peralatan dan Pemeliharaan', 'Dekontaminasi, Disinfeksi, dan Sterilisasi', 'Transportasi Bahan Biologik dan Bahan Berbahaya lainnya', 'Biosecurity', 'Investigasi Kecelakaan dan Insiden'],
-                        datasets: [{
-                            label: 'Nilai 1',
-                            data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5,],
-                            backgroundColor:  'rgba(102, 255, 255, 0.5)',
-                            borderColor:  'rgba(51, 204, 255, 1)',
-                            pointBorderColor: [
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)'
-                            ],
-                            borderWidth: 3
-                        
-                        },
-                        {
-                            label: 'Nilai 2',
-                            data: [hasil_akhir_aspek2_1, hasil_akhir_aspek2_2_1, hasil_akhir_aspek2_2_2, hasil_akhir_aspek2_3, hasil_akhir_aspek2_4_1, hasil_akhir_aspek2_4_2, hasil_akhir_aspek2_4_3, hasil_akhir_aspek2_4_4, hasil_akhir_aspek2_4_5, hasil_akhir_aspek2_4_6, hasil_akhir_aspek2_4_7, hasil_akhir_aspek2_4_8, hasil_akhir_aspek2_4_9, hasil_akhir_aspek2_4_10, hasil_akhir_aspek2_4_11, hasil_akhir_aspek2_5,],
-                            backgroundColor:  '#fffbc8',
-                            borderColor:  '#ffcd9a',
-                            pointBorderColor: [
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)'
-                            ],
-                            borderWidth: 3
-                        
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-
-                var ctx_bar_detail = document.getElementById('myChart_bar_detail');
-                var myChart_bar_detail = new Chart(ctx_bar_detail, {
-                    type: 'bar',
-                    data: {
-                        labels: ['1.1', '2.1', '2.2', '3.1', '4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '4.10', '4.11', '5.1'],
-                        datasets: [{
-                            label: 'Nilai Akhir',
-                            data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5,],
-                            backgroundColor: [
-                                'rgba(54, 162, 235, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(75, 192, 192, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(153, 102, 255, 0.4)'
-                            ],
-                            borderColor: [
-                                'rgba(54, 162, 235, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(75, 192, 192, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(153, 102, 255, 0.4)'
-                            ],
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'Nilai Akhir',
-                            data: [hasil_akhir_aspek2_1, hasil_akhir_aspek2_2_1, hasil_akhir_aspek2_2_2, hasil_akhir_aspek2_3, hasil_akhir_aspek2_4_1, hasil_akhir_aspek2_4_2, hasil_akhir_aspek2_4_3, hasil_akhir_aspek2_4_4, hasil_akhir_aspek2_4_5, hasil_akhir_aspek2_4_6, hasil_akhir_aspek2_4_7, hasil_akhir_aspek2_4_8, hasil_akhir_aspek2_4_9, hasil_akhir_aspek2_4_10, hasil_akhir_aspek2_4_11, hasil_akhir_aspek2_5,],
-                            backgroundColor: [
-                                'rgba(54, 162, 235, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(75, 192, 192, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(153, 102, 255, 0.4)'
-                            ],
-                            borderColor: [
-                                'rgba(54, 162, 235, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(75, 192, 192, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(153, 102, 255, 0.4)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-            </script>
-            <br>
-            <br>
-            <table class="table">
+                <div class="col-md-6">
+                    <canvas id="myChart_bar_detail"></canvas>
+                </div>
+            </div>
+               
+            <br/>
+            <br/>
+            <!-- Detailed Report Table  -->
+            <table>
                 <thead style="background-color: #0e0c28;">
                     <tr>
                         <th style="color: white; ">No</th>
                         <th style="color: white; ">Semua Hasil Aspek PPL terhadap Laboratorium {{ report_1.author }}</th>
-                        <th style="color: white; ">Penilaian {{ report_1.judul_laporan }}</th>
-                        <th style="color: white; ">Penilaian {{ report_2.judul_laporan }}</th>
-                        <th style="color: white; ">Confidence {{ report_1.judul_laporan }}</th>
-                        <th style="color: white; ">Confidence {{ report_2.judul_laporan }}</th>
+                        <th style="color: white; ">Penilaian Laporan 1</th>
+                        <th style="color: white; ">Penilaian Laporan 2</th>
+                        <th style="color: white; ">Perubahan Nilai</th>
+                        <th style="color: white; ">Confidence Laporan 1</th>
+                        <th style="color: white; ">Confidence Laporan 2</th>
                     </tr>
                 </thead>
                 <tr style="background-color:rgba(54, 162, 235, 0.4); ">
                     <td style="font-weight: bold; ">1.1</td>
                     <td>Sistem Manajemen Biorisiko</td>
-                    <td id="hasil_akhir_aspek_1_detail"></td>
-                    <td id="hasil_akhir_aspek2_1_detail"></td>
-                    <td id="confidence_aspek_1"></td>
-                    <td id="confidence_aspek2_1"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_1_detail"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_1_detail"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_1_detail"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_1"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_1"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 206, 86, 0.4); ">
                     <td style="font-weight: bold;">2.1</td>
                     <td>Penilaian Risiko</td>
-                    <td id="hasil_akhir_aspek_2_1"></td>
-                    <td id="hasil_akhir_aspek2_2_1"></td>
-                    <td id="confidence_aspek_2_1"></td>
-                    <td id="confidence_aspek2_2_1"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_2_1"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_2_1"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_2_1"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_2_1"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_2_1"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 206, 86, 0.4); ">
                     <td style="font-weight: bold;"> 2.2</td>
                     <td>Informasi dan Inventarisasi Bahan Biologik dan Bahan Toksin</td>
-                    <td id="hasil_akhir_aspek_2_2"></td>
-                    <td id="hasil_akhir_aspek2_2_2"></td>
-                    <td id="confidence_aspek_2_2"></td>
-                    <td id="confidence_aspek2_2_2"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_2_2"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_2_2"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_2_2"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_2_2"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_2_2"></td>
                 </tr>
                 <tr style="background-color:rgba(75, 192, 192, 0.4); ">
                     <td style="font-weight: bold;">3.1</td>
                     <td>General Safety</td>
-                    <td id="hasil_akhir_aspek_3_detail"></td>
-                    <td id="hasil_akhir_aspek2_3_detail"></td>
-                    <td id="confidence_aspek_3"></td>
-                    <td id="confidence_aspek2_3"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_3_detail"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_3_detail"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_3_detail"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_3"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_3"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;" >4.1</td>
                     <td>Personalia dan Kompetensi</td>
-                    <td id="hasil_akhir_aspek_4_1"></td>
-                    <td id="hasil_akhir_aspek2_4_1"></td>
-                    <td id="confidence_aspek_4_1"></td>
-                    <td id="confidence_aspek2_4_1"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_1"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_1"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_1"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_1"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_1"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;">4.2</td>
                     <td>Good Microbiological Technique</td>
-                    <td id="hasil_akhir_aspek_4_2"></td>
-                    <td id="hasil_akhir_aspek2_4_2"></td>
-                    <td id="confidence_aspek_4_2"></td>
-                    <td id="confidence_aspek2_4_2"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_2"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_2"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_2"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_2"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_2"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;">4.3</td>
                     <td>Alat Pelindung Diri</td>
-                    <td id="hasil_akhir_aspek_4_3"></td>
-                    <td id="hasil_akhir_aspek2_4_3"></td>
-                    <td id="confidence_aspek_4_3"></td>
-                    <td id="confidence_aspek2_4_3"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_3"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_3"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_3"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_3"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_3"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;">4.4</td>
                     <td>Latar Belakang SDM</td>
-                    <td id="hasil_akhir_aspek_4_4"></td>
-                    <td id="hasil_akhir_aspek2_4_4"></td>
-                    <td id="confidence_aspek_4_4"></td>
-                    <td id="confidence_aspek2_4_4"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_4"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_4"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_4"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_4"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_4"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;" >4.5</td>
                     <td>Program Kesehatan Kerja</td>
-                    <td id="hasil_akhir_aspek_4_5"></td>
-                    <td id="hasil_akhir_aspek2_4_5"></td>
-                    <td id="confidence_aspek_4_5"></td>
-                    <td id="confidence_aspek2_4_5"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_5"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_5"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_5"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_5"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_5"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;">4.6</td>
                     <td>Tanggap Darurat dan Perencanaan Kontingensi</td>
-                    <td id="hasil_akhir_aspek_4_6"></td>
-                    <td id="hasil_akhir_aspek2_4_6"></td>
-                    <td id="confidence_aspek_4_6"></td>
-                    <td id="confidence_aspek2_4_6"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_6"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_6"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_6"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_6"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_6"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;">4.7</td>
                     <td>Persyaratan Fasilitas Fisik</td>
-                    <td id="hasil_akhir_aspek_4_7"></td>
-                    <td id="hasil_akhir_aspek2_4_7"></td>
-                    <td id="confidence_aspek_4_7"></td>
-                    <td id="confidence_aspek2_4_7"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_7"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_7"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_7"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_7"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_7"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;">4.8</td>
                     <td>Peralatan dan Pemeliharaan</td>
-                    <td id="hasil_akhir_aspek_4_8"></td>
-                    <td id="hasil_akhir_aspek2_4_8"></td>
-                    <td id="confidence_aspek_4_8"></td>
-                    <td id="confidence_aspek2_4_8"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_8"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_8"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_8"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_8"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_8"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;">4.9</td>
                     <td>Dekontaminasi, Disinfeksi, dan Sterilisasi</td>
-                    <td id="hasil_akhir_aspek_4_9"></td>
-                    <td id="hasil_akhir_aspek2_4_9"></td>
-                    <td id="confidence_aspek_4_9"></td>
-                    <td id="confidence_aspek2_4_9"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_9"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_9"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_9"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_9"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_9"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;" >4.10</td>
                     <td>Transportasi Bahan Biologik dan Bahan Berbahaya lainnya</td>
-                    <td id="hasil_akhir_aspek_4_10"></td>
-                    <td id="hasil_akhir_aspek2_4_10"></td>
-                    <td id="confidence_aspek_4_10"></td>
-                    <td id="confidence_aspek2_4_10"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_10"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_10"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_10"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_10"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_10"></td>
                 </tr>
                 <tr style="background-color:rgba(255, 99, 132, 0.4); ">
                     <td style="font-weight: bold;"> 4.11</td>
                     <td>Biosecurity</td>
-                    <td id="hasil_akhir_aspek_4_11"></td>
-                    <td id="hasil_akhir_aspek2_4_11"></td>
-                    <td id="confidence_aspek_4_11"></td>
-                    <td id="confidence_aspek2_4_11"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_11"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_4_11"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4_11"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_11"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_4_11"></td>
                 </tr>
                 <tr style="background-color:rgba(153, 102, 255, 0.4); ">
                     <td style="font-weight: bold;">5.1</td>
                     <td>Investigasi Kecelakaan dan Insiden</td>
-                    <td id="hasil_akhir_aspek_5_detail"></td>
-                    <td id="hasil_akhir_aspek2_5_detail"></td>
-                    <td id="confidence_aspek_5"></td>
-                    <td id="confidence_aspek2_5"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek_5_detail"></td>
+                    <td class="color-grade" id="hasil_akhir_aspek2_5_detail"></td>
+                    <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_5_detail"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_5"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek2_5"></td>
                 </tr>
             </table>
     
-            <script>
-                document.getElementById("hasil_akhir_aspek_1_detail").innerHTML = hasil_akhir_aspek_1;
-                document.getElementById("hasil_akhir_aspek_2_1").innerHTML = hasil_akhir_aspek_2_1;
-                document.getElementById("hasil_akhir_aspek_2_2").innerHTML = hasil_akhir_aspek_2_2;
-                document.getElementById("hasil_akhir_aspek_3_detail").innerHTML = hasil_akhir_aspek_3;
-                document.getElementById("hasil_akhir_aspek_4_1").innerHTML = hasil_akhir_aspek_4_1;
-                document.getElementById("hasil_akhir_aspek_4_2").innerHTML = hasil_akhir_aspek_4_2;
-                document.getElementById("hasil_akhir_aspek_4_3").innerHTML = hasil_akhir_aspek_4_3;
-                document.getElementById("hasil_akhir_aspek_4_4").innerHTML = hasil_akhir_aspek_4_4;
-                document.getElementById("hasil_akhir_aspek_4_5").innerHTML = hasil_akhir_aspek_4_5;
-                document.getElementById("hasil_akhir_aspek_4_6").innerHTML = hasil_akhir_aspek_4_6;
-                document.getElementById("hasil_akhir_aspek_4_7").innerHTML = hasil_akhir_aspek_4_7;
-                document.getElementById("hasil_akhir_aspek_4_8").innerHTML = hasil_akhir_aspek_4_8;
-                document.getElementById("hasil_akhir_aspek_4_9").innerHTML = hasil_akhir_aspek_4_9;
-                document.getElementById("hasil_akhir_aspek_4_10").innerHTML = hasil_akhir_aspek_4_10;
-                document.getElementById("hasil_akhir_aspek_4_11").innerHTML = hasil_akhir_aspek_4_11;
-                document.getElementById("hasil_akhir_aspek_5_detail").innerHTML = hasil_akhir_aspek_5;
-                document.getElementById("confidence_aspek_1").innerHTML = confidence_aspek_1;
-                document.getElementById("confidence_aspek_2_1").innerHTML = confidence_aspek_2_1;
-                document.getElementById("confidence_aspek_2_2").innerHTML = confidence_aspek_2_2;
-                document.getElementById("confidence_aspek_3").innerHTML = confidence_aspek_3;
-                document.getElementById("confidence_aspek_4_1").innerHTML = confidence_aspek_4_1;
-                document.getElementById("confidence_aspek_4_2").innerHTML = confidence_aspek_4_2;
-                document.getElementById("confidence_aspek_4_3").innerHTML = confidence_aspek_4_3;
-                document.getElementById("confidence_aspek_4_4").innerHTML = confidence_aspek_4_4;
-                document.getElementById("confidence_aspek_4_5").innerHTML = confidence_aspek_4_5;
-                document.getElementById("confidence_aspek_4_6").innerHTML = confidence_aspek_4_6;
-                document.getElementById("confidence_aspek_4_7").innerHTML = confidence_aspek_4_7;
-                document.getElementById("confidence_aspek_4_8").innerHTML = confidence_aspek_4_8;
-                document.getElementById("confidence_aspek_4_9").innerHTML = confidence_aspek_4_9;
-                document.getElementById("confidence_aspek_4_10").innerHTML = confidence_aspek_4_10;
-                document.getElementById("confidence_aspek_4_11").innerHTML = confidence_aspek_4_11;
-                document.getElementById("confidence_aspek_5").innerHTML = confidence_aspek_5;
-                
-                // Nilai 2
-                document.getElementById("hasil_akhir_aspek2_1_detail").innerHTML = hasil_akhir_aspek2_1;
-                document.getElementById("hasil_akhir_aspek2_2_1").innerHTML = hasil_akhir_aspek2_2_1;
-                document.getElementById("hasil_akhir_aspek2_2_2").innerHTML = hasil_akhir_aspek2_2_2;
-                document.getElementById("hasil_akhir_aspek2_3_detail").innerHTML = hasil_akhir_aspek2_3;
-                document.getElementById("hasil_akhir_aspek2_4_1").innerHTML = hasil_akhir_aspek2_4_1;
-                document.getElementById("hasil_akhir_aspek2_4_2").innerHTML = hasil_akhir_aspek2_4_2;
-                document.getElementById("hasil_akhir_aspek2_4_3").innerHTML = hasil_akhir_aspek2_4_3;
-                document.getElementById("hasil_akhir_aspek2_4_4").innerHTML = hasil_akhir_aspek2_4_4;
-                document.getElementById("hasil_akhir_aspek2_4_5").innerHTML = hasil_akhir_aspek2_4_5;
-                document.getElementById("hasil_akhir_aspek2_4_6").innerHTML = hasil_akhir_aspek2_4_6;
-                document.getElementById("hasil_akhir_aspek2_4_7").innerHTML = hasil_akhir_aspek2_4_7;
-                document.getElementById("hasil_akhir_aspek2_4_8").innerHTML = hasil_akhir_aspek2_4_8;
-                document.getElementById("hasil_akhir_aspek2_4_9").innerHTML = hasil_akhir_aspek2_4_9;
-                document.getElementById("hasil_akhir_aspek2_4_10").innerHTML = hasil_akhir_aspek2_4_10;
-                document.getElementById("hasil_akhir_aspek2_4_11").innerHTML = hasil_akhir_aspek2_4_11;
-                document.getElementById("hasil_akhir_aspek2_5_detail").innerHTML = hasil_akhir_aspek2_5;
-                document.getElementById("confidence_aspek2_1").innerHTML = confidence_aspek2_1;
-                document.getElementById("confidence_aspek2_2_1").innerHTML = confidence_aspek2_2_1;
-                document.getElementById("confidence_aspek2_2_2").innerHTML = confidence_aspek2_2_2;
-                document.getElementById("confidence_aspek2_3").innerHTML = confidence_aspek2_3;
-                document.getElementById("confidence_aspek2_4_1").innerHTML = confidence_aspek2_4_1;
-                document.getElementById("confidence_aspek2_4_2").innerHTML = confidence_aspek2_4_2;
-                document.getElementById("confidence_aspek2_4_3").innerHTML = confidence_aspek2_4_3;
-                document.getElementById("confidence_aspek2_4_4").innerHTML = confidence_aspek2_4_4;
-                document.getElementById("confidence_aspek2_4_5").innerHTML = confidence_aspek2_4_5;
-                document.getElementById("confidence_aspek2_4_6").innerHTML = confidence_aspek2_4_6;
-                document.getElementById("confidence_aspek2_4_7").innerHTML = confidence_aspek2_4_7;
-                document.getElementById("confidence_aspek2_4_8").innerHTML = confidence_aspek2_4_8;
-                document.getElementById("confidence_aspek2_4_9").innerHTML = confidence_aspek2_4_9;
-                document.getElementById("confidence_aspek2_4_10").innerHTML = confidence_aspek2_4_10;
-                document.getElementById("confidence_aspek2_4_11").innerHTML = confidence_aspek2_4_11;
-                document.getElementById("confidence_aspek2_5").innerHTML = confidence_aspek2_5;
-            </script>
-            <br>
-            <br>
+            
+            <br/>
+            <br/>
             <h3>Isi Laporan</h3>
-            <table class="table">
+            <table>
                 <thead style="background-color: #0e0c28;">
                     <tr>
                         <th style="color: white;">No</th>
                         <th style="color: white;">Elemen</th>
-                        <th style="color: white;">Nilai {{ report_1.judul_laporan }}</th>
-                        <th style="color: white;">Nilai {{ report_2.judul_laporan }}</th>
-                        <th style="color: white;">Keterangan {{ report_1.judul_laporan }}</th>
-                        <th style="color: white;">keterangan {{ report_2.judul_laporan }}</th>
-                        <th style="color: white;">Rekomendasi {{ report_1.judul_laporan }}</th>
-                        <th style="color: white;">Rekomendasi {{ report_2.judul_laporan }}</th>
+                        <th style="color: white;">Nilai Laporan 1</th>
+                        <th style="color: white;">Nilai Laporan 2</th>
+                        <th style="color: white;">Keterangan Laporan 1</th>
+                        <th style="color: white;">Keterangan Laporan 2</th>
+                        <th style="color: white;">Rekomendasi Laporan 1</th>
+                        <th style="color: white;">Rekomendasi Laporan 2</th>
                     </tr>
                 </thead>
                 <tr style="background-color: rgba(54, 162, 235, 0.4);">
@@ -1875,8 +918,1171 @@
                     <td colspan="6">{{ report_2.saran_untuk_perbaikan }}</td>
                 </tr>
             </table>
-            <br>
+
+            <br/>
             <button onclick=window.print() class="btn btn-danger btn-sm mt-1 mb-1"  style="background-color: #61b9e2; border-color: #61b9e2;">Download</button>
+
+            <!-- Scripts -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+            <!-- Round Function -->
+            <script>
+                function round(num) {
+                    num = Math.round(num + "e" + 2);
+                    return Number(num + "e" + -2);
+                }
+            </script>
+
+            <!-- Generate values for the whole page -->
+            <script>
+                var i;
+                var not_applicable = 0;
+                var aspek_1 = [
+                    {{ report_1.nilai_no_1 }} - 1,
+                    {{ report_1.nilai_no_2 }} - 1,
+                    {{ report_1.nilai_no_3 }} - 1,
+                    {{ report_1.nilai_no_4 }} - 1,
+                    {{ report_1.nilai_no_5 }} - 1,
+                    {{ report_1.nilai_no_6 }} - 1,
+                    {{ report_1.nilai_no_7 }} - 1,
+                    {{ report_1.nilai_no_8 }} - 1,
+                    {{ report_1.nilai_no_9 }} - 1,
+                    {{ report_1.nilai_no_10 }} - 1,
+                    {{ report_1.nilai_no_11 }} - 1,
+                    {{ report_1.nilai_no_12 }} - 1,
+                    {{ report_1.nilai_no_13 }} - 1,
+                ];
+                var panjang_aspek_1 = [];
+                for (i=0; i<aspek_1.length; i++){
+                    if (aspek_1[i] == -1){
+                        not_applicable += aspek_1[i];
+                    } else {
+                        panjang_aspek_1.push(aspek_1[i]);
+                    }
+                }
+                var hasil_akhir_aspek_1 = round(((panjang_aspek_1.reduce((a,b) => a + b, 0))/(panjang_aspek_1.length*3))*100);
+                var confidence_aspek_1 = round((panjang_aspek_1.length/aspek_1.length)*100);
+
+                panjang_aspek_1 = [];
+                aspek_1 = [];
+
+                var aspek_2_1 = [
+                    {{ report_1.nilai_no_14 }} - 1,
+                    {{ report_1.nilai_no_15 }} - 1,
+                    {{ report_1.nilai_no_16 }} - 1,
+                    {{ report_1.nilai_no_17 }} - 1,
+                    {{ report_1.nilai_no_18 }} - 1,
+                ];
+                var aspek_2_2 = [
+                    {{ report_1.nilai_no_19 }} - 1,
+                    {{ report_1.nilai_no_20 }} - 1,
+                    {{ report_1.nilai_no_21 }} - 1,
+                    {{ report_1.nilai_no_22 }} - 1,
+                ];
+                var panjang_aspek_2_1 = [];
+                var panjang_aspek_2_2 = [];
+                for (i=0; i<aspek_2_1.length; i++){
+                    if (aspek_2_1[i] == -1){
+                        not_applicable += aspek_2_1[i];
+                    } else {
+                        panjang_aspek_2_1.push(aspek_2_1[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_2_2.length; i++){
+                    if (aspek_2_2[i] == -1){
+                        not_applicable += aspek_2_2[i];
+                    } else {
+                        panjang_aspek_2_2.push(aspek_2_2[i]);
+                    }
+                }
+
+                var hasil_akhir_aspek_2_1 = round(((panjang_aspek_2_1.reduce((a,b) => a + b, 0))/(panjang_aspek_2_1.length*3))*100);
+                var hasil_akhir_aspek_2_2 = round(((panjang_aspek_2_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2_2.length*3))*100);
+                var panjang_aspek_2 = panjang_aspek_2_1.concat(panjang_aspek_2_2);
+                var hasil_akhir_aspek_2 = round(((panjang_aspek_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2.length*3))*100);
+                var confidence_aspek_2_1 = round((panjang_aspek_2_1.length/aspek_2_1.length)*100);
+                var confidence_aspek_2_2 = round((panjang_aspek_2_2.length/aspek_2_2.length)*100);
+
+                aspek_2_1 = [];
+                aspek_2_2 = [];
+                panjang_aspek_2_1 = [];
+                panjang_aspek_2_2 = [];
+                panjang_aspek_2= [];
+
+                var aspek_3 = [
+                    {{ report_1.nilai_no_23 }} - 1,
+                ];
+                var panjang_aspek_3 = [];
+                for (i=0; i<aspek_3.length; i++){
+                    if (aspek_3[i] == -1){
+                        not_applicable += aspek_3[i];
+                    } else {
+                        panjang_aspek_3.push(aspek_3[i]);
+                    }
+                }
+                var hasil_akhir_aspek_3 = round(((panjang_aspek_3.reduce((a,b) => a + b, 0))/(panjang_aspek_3.length*3))*100);
+                var confidence_aspek_3 = round((panjang_aspek_3.length/aspek_3.length)*100);
+
+                aspek_3 = [];
+                panjang_aspek_3 = [];
+
+                var aspek_4_1 = [
+                    {{ report_1.nilai_no_24 }} - 1,
+                    {{ report_1.nilai_no_25 }} - 1,
+                ];
+                var aspek_4_2 = [
+                    {{ report_1.nilai_no_26 }} - 1,
+                    {{ report_1.nilai_no_27 }} - 1,
+                    {{ report_1.nilai_no_28 }} - 1,
+                ];
+                var aspek_4_3 = [
+                    {{ report_1.nilai_no_29 }} - 1,
+                    {{ report_1.nilai_no_30 }} - 1,
+                    {{ report_1.nilai_no_31 }} - 1,
+                ];
+                var aspek_4_4 = [
+                    {{ report_1.nilai_no_32 }} - 1,
+                ];
+                var aspek_4_5 = [
+                    {{ report_1.nilai_no_33 }} - 1,
+                    {{ report_1.nilai_no_34 }} - 1,
+                    {{ report_1.nilai_no_35 }} - 1,
+                ];
+                var aspek_4_6 = [
+                    {{ report_1.nilai_no_36 }} - 1,
+                    {{ report_1.nilai_no_37 }} - 1,
+                    {{ report_1.nilai_no_38 }} - 1,
+                    {{ report_1.nilai_no_39 }} - 1,
+                ];
+                var aspek_4_7 = [
+                    {{ report_1.nilai_no_40 }} - 1,
+                    {{ report_1.nilai_no_41 }} - 1,
+                ];
+                var aspek_4_8 = [
+                    {{ report_1.nilai_no_42 }} - 1,
+                    {{ report_1.nilai_no_43 }} - 1,
+                    {{ report_1.nilai_no_44 }} - 1,
+                    {{ report_1.nilai_no_45 }} - 1,
+                    {{ report_1.nilai_no_46 }} - 1,
+                ];
+                var aspek_4_9 = [
+                    {{ report_1.nilai_no_47 }} - 1,
+                    {{ report_1.nilai_no_48 }} - 1,
+                    {{ report_1.nilai_no_49 }} - 1,
+                ];
+                var aspek_4_10 = [
+                    {{ report_1.nilai_no_50 }} - 1,
+                ];
+                var aspek_4_11 = [
+                    {{ report_1.nilai_no_51 }} - 1,
+                    {{ report_1.nilai_no_52 }} - 1,
+                    {{ report_1.nilai_no_53 }} - 1,
+                ];
+
+                var panjang_aspek_4_1 = [];
+                var panjang_aspek_4_2 = [];
+                var panjang_aspek_4_3 = [];
+                var panjang_aspek_4_4 = [];
+                var panjang_aspek_4_5 = [];
+                var panjang_aspek_4_6 = [];
+                var panjang_aspek_4_7 = [];
+                var panjang_aspek_4_8 = [];
+                var panjang_aspek_4_9 = [];
+                var panjang_aspek_4_10 = [];
+                var panjang_aspek_4_11 = [];
+
+                for (i=0; i<aspek_4_1.length; i++){
+                    if (aspek_4_1[i] == -1){
+                        not_applicable += aspek_4_1[i];
+                    } else {
+                        panjang_aspek_4_1.push(aspek_4_1[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_2.length; i++){
+                    if (aspek_4_2[i] == -1){
+                        not_applicable += aspek_4_2[i];
+                    } else {
+                        panjang_aspek_4_2.push(aspek_4_2[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_3.length; i++){
+                    if (aspek_4_3[i] == -1){
+                        not_applicable += aspek_4_3[i];
+                    } else {
+                        panjang_aspek_4_3.push(aspek_4_3[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_4.length; i++){
+                    if (aspek_4_4[i] == -1){
+                        not_applicable += aspek_4_4[i];
+                    } else {
+                        panjang_aspek_4_4.push(aspek_4_4[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_5.length; i++){
+                    if (aspek_4_5[i] == -1){
+                        not_applicable += aspek_4_5[i];
+                    } else {
+                        panjang_aspek_4_5.push(aspek_4_5[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_6.length; i++){
+                    if (aspek_4_6[i] == -1){
+                        not_applicable += aspek_4_6[i];
+                    } else {
+                        panjang_aspek_4_6.push(aspek_4_6[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_7.length; i++){
+                    if (aspek_4_7[i] == -1){
+                        not_applicable += aspek_4_7[i];
+                    } else {
+                        panjang_aspek_4_7.push(aspek_4_7[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_8.length; i++){
+                    if (aspek_4_8[i] == -1){
+                        not_applicable += aspek_4_8[i];
+                    } else {
+                        panjang_aspek_4_8.push(aspek_4_8[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_9.length; i++){
+                    if (aspek_4_9[i] == -1){
+                        not_applicable += aspek_4_9[i];
+                    } else {
+                        panjang_aspek_4_9.push(aspek_4_9[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_10.length; i++){
+                    if (aspek_4_10[i] == -1){
+                        not_applicable += aspek_4_10[i];
+                    } else {
+                        panjang_aspek_4_10.push(aspek_4_10[i]);
+                    }
+                }
+
+                for (i=0; i<aspek_4_11.length; i++){
+                    if (aspek_4_11[i] == -1){
+                        not_applicable += aspek_4_11[i];
+                    } else {
+                        panjang_aspek_4_11.push(aspek_4_11[i]);
+                    }
+                }
+
+                var hasil_akhir_aspek_4_1 = round(((panjang_aspek_4_1.reduce((a,b) => a + b, 0))/(panjang_aspek_4_1.length*3))*100);
+                var hasil_akhir_aspek_4_2 = round(((panjang_aspek_4_2.reduce((a,b) => a + b, 0))/(panjang_aspek_4_2.length*3))*100);
+                var hasil_akhir_aspek_4_3 = round(((panjang_aspek_4_3.reduce((a,b) => a + b, 0))/(panjang_aspek_4_3.length*3))*100);
+                var hasil_akhir_aspek_4_4 = round(((panjang_aspek_4_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4_4.length*3))*100);
+                var hasil_akhir_aspek_4_5 = round(((panjang_aspek_4_5.reduce((a,b) => a + b, 0))/(panjang_aspek_4_5.length*3))*100);
+                var hasil_akhir_aspek_4_6 = round(((panjang_aspek_4_6.reduce((a,b) => a + b, 0))/(panjang_aspek_4_6.length*3))*100);
+                var hasil_akhir_aspek_4_7 = round(((panjang_aspek_4_7.reduce((a,b) => a + b, 0))/(panjang_aspek_4_7.length*3))*100);
+                var hasil_akhir_aspek_4_8 = round(((panjang_aspek_4_8.reduce((a,b) => a + b, 0))/(panjang_aspek_4_8.length*3))*100);
+                var hasil_akhir_aspek_4_9 = round(((panjang_aspek_4_9.reduce((a,b) => a + b, 0))/(panjang_aspek_4_9.length*3))*100);
+                var hasil_akhir_aspek_4_10 = round(((panjang_aspek_4_10.reduce((a,b) => a + b, 0))/(panjang_aspek_4_10.length*3))*100);
+                var hasil_akhir_aspek_4_11 = round(((panjang_aspek_4_11.reduce((a,b) => a + b, 0))/(panjang_aspek_4_11.length*3))*100);
+                var panjang_aspek_4 = panjang_aspek_4_1.concat(panjang_aspek_4_2, panjang_aspek_4_3, panjang_aspek_4_4, panjang_aspek_4_5, panjang_aspek_4_6, panjang_aspek_4_7, panjang_aspek_4_8, panjang_aspek_4_9, panjang_aspek_4_10, panjang_aspek_4_11 );
+                var hasil_akhir_aspek_4 = round(((panjang_aspek_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4.length*3))*100);
+                var confidence_aspek_4_1 = round((panjang_aspek_4_1.length/aspek_4_1.length)*100);
+                var confidence_aspek_4_2 = round((panjang_aspek_4_2.length/aspek_4_2.length)*100);
+                var confidence_aspek_4_3 = round((panjang_aspek_4_3.length/aspek_4_3.length)*100);
+                var confidence_aspek_4_4 = round((panjang_aspek_4_4.length/aspek_4_4.length)*100);
+                var confidence_aspek_4_5 = round((panjang_aspek_4_5.length/aspek_4_5.length)*100);
+                var confidence_aspek_4_6 = round((panjang_aspek_4_6.length/aspek_4_6.length)*100);
+                var confidence_aspek_4_7 = round((panjang_aspek_4_7.length/aspek_4_7.length)*100);
+                var confidence_aspek_4_8 = round((panjang_aspek_4_8.length/aspek_4_8.length)*100);
+                var confidence_aspek_4_9 = round((panjang_aspek_4_9.length/aspek_4_9.length)*100);
+                var confidence_aspek_4_10 = round((panjang_aspek_4_10.length/aspek_4_10.length)*100);
+                var confidence_aspek_4_11 = round((panjang_aspek_4_11.length/aspek_4_11.length)*100);
+
+                aspek_4_1 = [];
+                aspek_4_2 = [];
+                aspek_4_3 = [];
+                aspek_4_4 = [];
+                aspek_4_5 = [];
+                aspek_4_6 = [];
+                aspek_4_7 = [];
+                aspek_4_8 = [];
+                aspek_4_9 = [];
+                aspek_4_10 = [];
+                aspek_4_11 = [];		
+                panjang_aspek_4_1 = [];
+                panjang_aspek_4_2 = [];
+                panjang_aspek_4_3 = [];
+                panjang_aspek_4_4 = [];
+                panjang_aspek_4_5 = [];
+                panjang_aspek_4_6 = [];
+                panjang_aspek_4_7 = [];
+                panjang_aspek_4_8 = [];
+                panjang_aspek_4_9 = [];
+                panjang_aspek_4_10 = [];
+                panjang_aspek_4_11 = [];
+                panjang_aspek_4 = [];
+
+                var aspek_5 = [
+                    {{ report_1.nilai_no_54 }} - 1,
+                ];
+                var panjang_aspek_5 = [];
+                for (i=0; i<aspek_5.length; i++){
+                    if (aspek_5[i] == -1){
+                        not_applicable += aspek_5[i];
+                    } else {
+                        panjang_aspek_5.push(aspek_5[i]);
+                    }
+                }
+                var hasil_akhir_aspek_5 = round(((panjang_aspek_5.reduce((a,b) => a + b, 0))/(panjang_aspek_5.length*3))*100);
+                var confidence_aspek_5 = round((panjang_aspek_5.length/aspek_5.length)*100);
+
+                aspek_5 = [];
+                panjang_aspek_5 = [];
+
+                // variable nilai 2
+                var i;
+                var not_applicable = 0;
+                var aspek2_1 = [
+                    {{ report_2.nilai_no_1 }} - 1,
+                    {{ report_2.nilai_no_2 }} - 1,
+                    {{ report_2.nilai_no_3 }} - 1,
+                    {{ report_2.nilai_no_4 }} - 1,
+                    {{ report_2.nilai_no_5 }} - 1,
+                    {{ report_2.nilai_no_6 }} - 1,
+                    {{ report_2.nilai_no_7 }} - 1,
+                    {{ report_2.nilai_no_8 }} - 1,
+                    {{ report_2.nilai_no_9 }} - 1,
+                    {{ report_2.nilai_no_10 }} - 1,
+                    {{ report_2.nilai_no_11 }} - 1,
+                    {{ report_2.nilai_no_12 }} - 1,
+                    {{ report_2.nilai_no_13 }} - 1,
+                ];
+
+                var panjang_aspek2_1 = [];
+                for (i=0; i<aspek2_1.length; i++){
+                    if (aspek2_1[i] == -1){
+                        not_applicable += aspek2_1[i];
+                    } else {
+                        panjang_aspek2_1.push(aspek2_1[i]);
+                    }
+                }
+                
+                var hasil_akhir_aspek2_1 = round(((panjang_aspek2_1.reduce((a,b) => a + b, 0))/(panjang_aspek2_1.length*3))*100);
+                var confidence_aspek2_1 = round((panjang_aspek2_1.length/aspek2_1.length)*100);
+
+                panjang_aspek2_1 = [];
+                aspek2_1 = [];
+
+                var aspek2_2_1 = [
+                    {{ report_2.nilai_no_14 }} - 1,
+                    {{ report_2.nilai_no_15 }} - 1,
+                    {{ report_2.nilai_no_16 }} - 1,
+                    {{ report_2.nilai_no_17 }} - 1,
+                    {{ report_2.nilai_no_18 }} - 1,
+                ];
+                var aspek2_2_2 = [
+                    {{ report_2.nilai_no_19 }} - 1,
+                    {{ report_2.nilai_no_20 }} - 1,
+                    {{ report_2.nilai_no_21 }} - 1,
+                    {{ report_2.nilai_no_22 }} - 1,
+                ];
+                var panjang_aspek2_2_1 = [];
+                var panjang_aspek2_2_2 = [];
+                for (i=0; i<aspek2_2_1.length; i++){
+                    if (aspek2_2_1[i] == -1){
+                        not_applicable += aspek2_2_1[i];
+                    } else {
+                        panjang_aspek2_2_1.push(aspek2_2_1[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_2_2.length; i++){
+                    if (aspek2_2_2[i] == -1){
+                        not_applicable += aspek2_2_2[i];
+                    } else {
+                        panjang_aspek2_2_2.push(aspek2_2_2[i]);
+                    }
+                }
+
+                var hasil_akhir_aspek2_2_1 = round(((panjang_aspek2_2_1.reduce((a,b) => a + b, 0))/(panjang_aspek2_2_1.length*3))*100);
+                var hasil_akhir_aspek2_2_2 = round(((panjang_aspek2_2_2.reduce((a,b) => a + b, 0))/(panjang_aspek2_2_2.length*3))*100);
+                var panjang_aspek2_2 = panjang_aspek2_2_1.concat(panjang_aspek2_2_2);
+                var hasil_akhir_aspek2_2 = round(((panjang_aspek2_2.reduce((a,b) => a + b, 0))/(panjang_aspek2_2.length*3))*100);
+                var confidence_aspek2_2_1 = round((panjang_aspek2_2_1.length/aspek2_2_1.length)*100);
+                var confidence_aspek2_2_2 = round((panjang_aspek2_2_2.length/aspek2_2_2.length)*100);
+
+                aspek2_2_1 = [];
+                aspek2_2_2 = [];
+                panjang_aspek2_2_1 = [];
+                panjang_aspek2_2_2 = [];
+                panjang_aspek2_2= [];
+
+                var aspek2_3 = [
+                    {{ report_2.nilai_no_23 }} - 1,
+                ];
+                var panjang_aspek2_3 = [];
+                for (i=0; i<aspek2_3.length; i++){
+                    if (aspek2_3[i] == -1){
+                        not_applicable += aspek2_3[i];
+                    } else {
+                        panjang_aspek2_3.push(aspek2_3[i]);
+                    }
+                }
+                var hasil_akhir_aspek2_3 = round(((panjang_aspek2_3.reduce((a,b) => a + b, 0))/(panjang_aspek2_3.length*3))*100);
+                var confidence_aspek2_3 = round((panjang_aspek2_3.length/aspek2_3.length)*100);
+
+                aspek2_3 = [];
+                panjang_aspek2_3 = [];
+
+                var aspek2_4_1 = [
+                    {{ report_2.nilai_no_24 }} - 1,
+                    {{ report_2.nilai_no_25 }} - 1,
+                ];
+                var aspek2_4_2 = [
+                    {{ report_2.nilai_no_26 }} - 1,
+                    {{ report_2.nilai_no_27 }} - 1,
+                    {{ report_2.nilai_no_28 }} - 1,
+                ];
+                var aspek2_4_3 = [
+                    {{ report_2.nilai_no_29 }} - 1,
+                    {{ report_2.nilai_no_30 }} - 1,
+                    {{ report_2.nilai_no_31 }} - 1,
+                ];
+                var aspek2_4_4 = [
+                    {{ report_2.nilai_no_32 }} - 1,
+                ];
+                var aspek2_4_5 = [
+                    {{ report_2.nilai_no_33 }} - 1,
+                    {{ report_2.nilai_no_34 }} - 1,
+                    {{ report_2.nilai_no_35 }} - 1,
+                ];
+                var aspek2_4_6 = [
+                    {{ report_2.nilai_no_36 }} - 1,
+                    {{ report_2.nilai_no_37 }} - 1,
+                    {{ report_2.nilai_no_38 }} - 1,
+                    {{ report_2.nilai_no_39 }} - 1,
+                ];
+                var aspek2_4_7 = [
+                    {{ report_2.nilai_no_40 }} - 1,
+                    {{ report_2.nilai_no_41 }} - 1,
+                ];
+                var aspek2_4_8 = [
+                    {{ report_2.nilai_no_42 }} - 1,
+                    {{ report_2.nilai_no_43 }} - 1,
+                    {{ report_2.nilai_no_44 }} - 1,
+                    {{ report_2.nilai_no_45 }} - 1,
+                    {{ report_2.nilai_no_46 }} - 1,
+                ];
+                var aspek2_4_9 = [
+                    {{ report_2.nilai_no_47 }} - 1,
+                    {{ report_2.nilai_no_48 }} - 1,
+                    {{ report_2.nilai_no_49 }} - 1,
+                ];
+                var aspek2_4_10 = [
+                    {{ report_2.nilai_no_50 }} - 1,
+                ];
+                var aspek2_4_11 = [
+                    {{ report_2.nilai_no_51 }} - 1,
+                    {{ report_2.nilai_no_52 }} - 1,
+                    {{ report_2.nilai_no_53 }} - 1,
+                ];
+
+                var panjang_aspek2_4_1 = [];
+                var panjang_aspek2_4_2 = [];
+                var panjang_aspek2_4_3 = [];
+                var panjang_aspek2_4_4 = [];
+                var panjang_aspek2_4_5 = [];
+                var panjang_aspek2_4_6 = [];
+                var panjang_aspek2_4_7 = [];
+                var panjang_aspek2_4_8 = [];
+                var panjang_aspek2_4_9 = [];
+                var panjang_aspek2_4_10 = [];
+                var panjang_aspek2_4_11 = [];
+
+                for (i=0; i<aspek2_4_1.length; i++){
+                    if (aspek2_4_1[i] == -1){
+                        not_applicable += aspek2_4_1[i];
+                    } else {
+                        panjang_aspek2_4_1.push(aspek2_4_1[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_2.length; i++){
+                    if (aspek2_4_2[i] == -1){
+                        not_applicable += aspek2_4_2[i];
+                    } else {
+                        panjang_aspek2_4_2.push(aspek2_4_2[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_3.length; i++){
+                    if (aspek2_4_3[i] == -1){
+                        not_applicable += aspek2_4_3[i];
+                    } else {
+                        panjang_aspek2_4_3.push(aspek2_4_3[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_4.length; i++){
+                    if (aspek2_4_4[i] == -1){
+                        not_applicable += aspek2_4_4[i];
+                    } else {
+                        panjang_aspek2_4_4.push(aspek2_4_4[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_5.length; i++){
+                    if (aspek2_4_5[i] == -1){
+                        not_applicable += aspek2_4_5[i];
+                    } else {
+                        panjang_aspek2_4_5.push(aspek2_4_5[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_6.length; i++){
+                    if (aspek2_4_6[i] == -1){
+                        not_applicable += aspek2_4_6[i];
+                    } else {
+                        panjang_aspek2_4_6.push(aspek2_4_6[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_7.length; i++){
+                    if (aspek2_4_7[i] == -1){
+                        not_applicable += aspek2_4_7[i];
+                    } else {
+                        panjang_aspek2_4_7.push(aspek2_4_7[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_8.length; i++){
+                    if (aspek2_4_8[i] == -1){
+                        not_applicable += aspek2_4_8[i];
+                    } else {
+                        panjang_aspek2_4_8.push(aspek2_4_8[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_9.length; i++){
+                    if (aspek2_4_9[i] == -1){
+                        not_applicable += aspek2_4_9[i];
+                    } else {
+                        panjang_aspek2_4_9.push(aspek2_4_9[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_10.length; i++){
+                    if (aspek2_4_10[i] == -1){
+                        not_applicable += aspek2_4_10[i];
+                    } else {
+                        panjang_aspek2_4_10.push(aspek2_4_10[i]);
+                    }
+                }
+
+                for (i=0; i<aspek2_4_11.length; i++){
+                    if (aspek2_4_11[i] == -1){
+                        not_applicable += aspek2_4_11[i];
+                    } else {
+                        panjang_aspek2_4_11.push(aspek2_4_11[i]);
+                    }
+                }
+
+                var hasil_akhir_aspek2_4_1 = round(((panjang_aspek2_4_1.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_1.length*3))*100);
+                var hasil_akhir_aspek2_4_2 = round(((panjang_aspek2_4_2.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_2.length*3))*100);
+                var hasil_akhir_aspek2_4_3 = round(((panjang_aspek2_4_3.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_3.length*3))*100);
+                var hasil_akhir_aspek2_4_4 = round(((panjang_aspek2_4_4.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_4.length*3))*100);
+                var hasil_akhir_aspek2_4_5 = round(((panjang_aspek2_4_5.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_5.length*3))*100);
+                var hasil_akhir_aspek2_4_6 = round(((panjang_aspek2_4_6.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_6.length*3))*100);
+                var hasil_akhir_aspek2_4_7 = round(((panjang_aspek2_4_7.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_7.length*3))*100);
+                var hasil_akhir_aspek2_4_8 = round(((panjang_aspek2_4_8.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_8.length*3))*100);
+                var hasil_akhir_aspek2_4_9 = round(((panjang_aspek2_4_9.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_9.length*3))*100);
+                var hasil_akhir_aspek2_4_10 = round(((panjang_aspek2_4_10.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_10.length*3))*100);
+                var hasil_akhir_aspek2_4_11 = round(((panjang_aspek2_4_11.reduce((a,b) => a + b, 0))/(panjang_aspek2_4_11.length*3))*100);
+
+                var panjang_aspek2_4 = panjang_aspek2_4_1.concat(panjang_aspek2_4_2, panjang_aspek2_4_3, panjang_aspek2_4_4, panjang_aspek2_4_5, panjang_aspek2_4_6, panjang_aspek2_4_7, panjang_aspek2_4_8, panjang_aspek2_4_9, panjang_aspek2_4_10, panjang_aspek2_4_11 );
+                var hasil_akhir_aspek2_4 = round(((panjang_aspek2_4.reduce((a,b) => a + b, 0))/(panjang_aspek2_4.length*3))*100);
+
+                var confidence_aspek2_4_1 = round((panjang_aspek2_4_1.length/aspek2_4_1.length)*100);
+                var confidence_aspek2_4_2 = round((panjang_aspek2_4_2.length/aspek2_4_2.length)*100);
+                var confidence_aspek2_4_3 = round((panjang_aspek2_4_3.length/aspek2_4_3.length)*100);
+                var confidence_aspek2_4_4 = round((panjang_aspek2_4_4.length/aspek2_4_4.length)*100);
+                var confidence_aspek2_4_5 = round((panjang_aspek2_4_5.length/aspek2_4_5.length)*100);
+                var confidence_aspek2_4_6 = round((panjang_aspek2_4_6.length/aspek2_4_6.length)*100);
+                var confidence_aspek2_4_7 = round((panjang_aspek2_4_7.length/aspek2_4_7.length)*100);
+                var confidence_aspek2_4_8 = round((panjang_aspek2_4_8.length/aspek2_4_8.length)*100);
+                var confidence_aspek2_4_9 = round((panjang_aspek2_4_9.length/aspek2_4_9.length)*100);
+                var confidence_aspek2_4_10 = round((panjang_aspek2_4_10.length/aspek2_4_10.length)*100);
+                var confidence_aspek2_4_11 = round((panjang_aspek2_4_11.length/aspek2_4_11.length)*100);
+
+                aspek2_4_1 = [];
+                aspek2_4_2 = [];
+                aspek2_4_3 = [];
+                aspek2_4_4 = [];
+                aspek2_4_5 = [];
+                aspek2_4_6 = [];
+                aspek2_4_7 = [];
+                aspek2_4_8 = [];
+                aspek2_4_9 = [];
+                aspek2_4_10 = [];
+                aspek2_4_11 = [];		
+                panjang_aspek2_4_1 = [];
+                panjang_aspek2_4_2 = [];
+                panjang_aspek2_4_3 = [];
+                panjang_aspek2_4_4 = [];
+                panjang_aspek2_4_5 = [];
+                panjang_aspek2_4_6 = [];
+                panjang_aspek2_4_7 = [];
+                panjang_aspek2_4_8 = [];
+                panjang_aspek2_4_9 = [];
+                panjang_aspek2_4_10 = [];
+                panjang_aspek2_4_11 = [];
+                panjang_aspek2_4 = [];
+
+                var aspek2_5 = [
+                    {{ report_2.nilai_no_54 }} - 1,
+                ];
+                var panjang_aspek2_5 = [];
+                for (i=0; i<aspek2_5.length; i++){
+                    if (aspek2_5[i] == -1){
+                        not_applicable += aspek2_5[i];
+                    } else {
+                        panjang_aspek2_5.push(aspek2_5[i]);
+                    }
+                }
+                var hasil_akhir_aspek2_5 = round(((panjang_aspek2_5.reduce((a,b) => a + b, 0))/(panjang_aspek2_5.length*3))*100);
+                var confidence_aspek2_5 = round((panjang_aspek2_5.length/aspek2_5.length)*100);
+
+                aspek2_5 = [];
+                panjang_aspek2_5 = [];
+
+                // Perbandingan General
+                var perbandingan_hasil_akhir_aspek_1 = round(hasil_akhir_aspek2_1 - hasil_akhir_aspek_1);
+                var perbandingan_hasil_akhir_aspek_2 = round(hasil_akhir_aspek2_2 - hasil_akhir_aspek_2);
+                var perbandingan_hasil_akhir_aspek_3 = round(hasil_akhir_aspek2_3 - hasil_akhir_aspek_3);
+                var perbandingan_hasil_akhir_aspek_4 = round(hasil_akhir_aspek2_4 - hasil_akhir_aspek_4);
+                var perbandingan_hasil_akhir_aspek_5 = round(hasil_akhir_aspek2_5 - hasil_akhir_aspek_5);
+
+                // Perbandingan Detail
+                var perbandingan_hasil_akhir_aspek_1_detail = round(hasil_akhir_aspek2_1 - hasil_akhir_aspek_1)
+                var perbandingan_hasil_akhir_aspek_2_1 = round(hasil_akhir_aspek2_2_1 - hasil_akhir_aspek_2_1)
+                var perbandingan_hasil_akhir_aspek_2_2 = round(hasil_akhir_aspek2_2_2 - hasil_akhir_aspek_2_2)
+                var perbandingan_hasil_akhir_aspek_3_detail = round(hasil_akhir_aspek2_3 - hasil_akhir_aspek_3)
+                var perbandingan_hasil_akhir_aspek_4_1 = round(hasil_akhir_aspek2_4_1 - hasil_akhir_aspek_4_1)
+                var perbandingan_hasil_akhir_aspek_4_2 = round(hasil_akhir_aspek2_4_2 - hasil_akhir_aspek_4_2)
+                var perbandingan_hasil_akhir_aspek_4_3 = round(hasil_akhir_aspek2_4_3 - hasil_akhir_aspek_4_3)
+                var perbandingan_hasil_akhir_aspek_4_4 = round(hasil_akhir_aspek2_4_4 - hasil_akhir_aspek_4_4)
+                var perbandingan_hasil_akhir_aspek_4_5 = round(hasil_akhir_aspek2_4_5 - hasil_akhir_aspek_4_5)
+                var perbandingan_hasil_akhir_aspek_4_6 = round(hasil_akhir_aspek2_4_6 - hasil_akhir_aspek_4_6)
+                var perbandingan_hasil_akhir_aspek_4_7 = round(hasil_akhir_aspek2_4_7 - hasil_akhir_aspek_4_7)
+                var perbandingan_hasil_akhir_aspek_4_8 = round(hasil_akhir_aspek2_4_8 - hasil_akhir_aspek_4_8)
+                var perbandingan_hasil_akhir_aspek_4_9 = round(hasil_akhir_aspek2_4_9 - hasil_akhir_aspek_4_9)
+                var perbandingan_hasil_akhir_aspek_4_10 = round(hasil_akhir_aspek2_4_10 - hasil_akhir_aspek_4_10)
+                var perbandingan_hasil_akhir_aspek_4_11 = round(hasil_akhir_aspek2_4_11 - hasil_akhir_aspek_4_11)
+                var perbandingan_hasil_akhir_aspek_5_detail = round(hasil_akhir_aspek2_5 - hasil_akhir_aspek_5)
+            </script>
+
+            <!-- Script to populate General Table Charts -->
+            <script>
+                var ctx_radar = document.getElementById('myChart_radar');
+                var myChart_radar = new Chart(ctx_radar, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Kebijakan Manajemen Biorisiko', 'Perencanaan Kerja dengan Bahan Biologik', 'Pengendalian Operasional', 'Pelaksanaan dan Operasi', 'Checking dan Perbaikan'],
+                        datasets: [{
+                            label: 'Nilai Laporan 1',
+                            data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
+                            backgroundColor:  'rgba(102, 255, 255, 0.5)',
+                            borderColor:  'rgba(51, 204, 255, 1)',
+                            pointBorderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 3
+                        },
+                        {
+                            label: 'Nilai Laporan 2',
+                            data: [hasil_akhir_aspek2_1, hasil_akhir_aspek2_2, hasil_akhir_aspek2_3, hasil_akhir_aspek2_4, hasil_akhir_aspek2_5,],
+                            backgroundColor:  '#fffbc8',
+                            borderColor:  '#ffcd9a',
+                            pointBorderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 3
+                        }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+                
+                var ctx_bar = document.getElementById('myChart_bar');
+                var myChart_bar = new Chart(ctx_bar, {
+                    type: 'bar',
+                    data: {
+                        labels: ['1','2','3','4','5'],
+                        datasets: [{
+                            label: 'Nilai Laporan 1',
+                            data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Nilai Laporan 2',
+                            data: [hasil_akhir_aspek2_1, hasil_akhir_aspek2_2, hasil_akhir_aspek2_3, hasil_akhir_aspek2_4, hasil_akhir_aspek2_5,],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            </script>
+
+            <!-- Set values for General Report Table -->
+            <script>
+                // Nilai 1
+                document.getElementById("hasil_akhir_aspek_1").innerHTML = hasil_akhir_aspek_1;
+                document.getElementById("hasil_akhir_aspek_2").innerHTML = hasil_akhir_aspek_2;
+                document.getElementById("hasil_akhir_aspek_3").innerHTML = hasil_akhir_aspek_3;
+                document.getElementById("hasil_akhir_aspek_4").innerHTML = hasil_akhir_aspek_4;
+                document.getElementById("hasil_akhir_aspek_5").innerHTML = hasil_akhir_aspek_5;
+
+                // Nilai 2
+                document.getElementById("hasil_akhir_aspek2_1").innerHTML = hasil_akhir_aspek2_1;
+                document.getElementById("hasil_akhir_aspek2_2").innerHTML = hasil_akhir_aspek2_2;
+                document.getElementById("hasil_akhir_aspek2_3").innerHTML = hasil_akhir_aspek2_3;
+                document.getElementById("hasil_akhir_aspek2_4").innerHTML = hasil_akhir_aspek2_4;
+                document.getElementById("hasil_akhir_aspek2_5").innerHTML = hasil_akhir_aspek2_5;
+
+                //Perbandingan Nilai
+                document.getElementById("perbandingan_hasil_akhir_aspek_1").innerHTML = perbandingan_hasil_akhir_aspek_1;
+                document.getElementById("perbandingan_hasil_akhir_aspek_2").innerHTML = perbandingan_hasil_akhir_aspek_2;
+                document.getElementById("perbandingan_hasil_akhir_aspek_3").innerHTML = perbandingan_hasil_akhir_aspek_3;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4").innerHTML = perbandingan_hasil_akhir_aspek_4;
+                document.getElementById("perbandingan_hasil_akhir_aspek_5").innerHTML = perbandingan_hasil_akhir_aspek_5;
+            </script>
+
+            <!-- Script to populate Detailed Table Charts -->
+            <script>
+                var ctx_radar_detail = document.getElementById('myChart_radar_detail');
+                var myChart_radar_detail = new Chart(ctx_radar_detail, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Sistem Manajemen Biorisiko', 'Penilaian Risiko', 'Informasi dan Inventarisasi Bahan Biologik dan Bahan Toksin', 'General Safety', 'Personalia dan Kompetensi', 'Good Microbiological Technique', 'Alat Pelindung Diri', 'Latar Belakang SDM', 'Program Kesehatan Kerja', 'Tanggap Darurat dan Perencanaan Kontingensi', 'Persyaratan Fasilitas Fisik', 'Peralatan dan Pemeliharaan', 'Dekontaminasi, Disinfeksi, dan Sterilisasi', 'Transportasi Bahan Biologik dan Bahan Berbahaya lainnya', 'Biosecurity', 'Investigasi Kecelakaan dan Insiden'],
+                        datasets: [{
+                            label: 'Nilai Laporan 1',
+                            data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5],
+                            backgroundColor:  'rgba(102, 255, 255, 0.5)',
+                            borderColor:  'rgba(51, 204, 255, 1)',
+                            pointBorderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                            borderWidth: 3
+                        
+                        },
+                        {
+                            label: 'Nilai Laporan 2',
+                            data: [hasil_akhir_aspek2_1, hasil_akhir_aspek2_2_1, hasil_akhir_aspek2_2_2, hasil_akhir_aspek2_3, hasil_akhir_aspek2_4_1, hasil_akhir_aspek2_4_2, hasil_akhir_aspek2_4_3, hasil_akhir_aspek2_4_4, hasil_akhir_aspek2_4_5, hasil_akhir_aspek2_4_6, hasil_akhir_aspek2_4_7, hasil_akhir_aspek2_4_8, hasil_akhir_aspek2_4_9, hasil_akhir_aspek2_4_10, hasil_akhir_aspek2_4_11, hasil_akhir_aspek2_5],
+                            backgroundColor:  '#fffbc8',
+                            borderColor:  '#ffcd9a',
+                            pointBorderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                            borderWidth: 3
+                        
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+                var ctx_bar_detail = document.getElementById('myChart_bar_detail');
+                var myChart_bar_detail = new Chart(ctx_bar_detail, {
+                    type: 'bar',
+                    data: {
+                        labels: ['1.1', '2.1', '2.2', '3.1', '4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '4.10', '4.11', '5.1'],
+                        datasets: [{
+                            label: 'Nilai Laporan 1',
+                            data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5,],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(153, 102, 255, 0.4)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(153, 102, 255, 0.4)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Nilai Laporan 2',
+                            data: [hasil_akhir_aspek2_1, hasil_akhir_aspek2_2_1, hasil_akhir_aspek2_2_2, hasil_akhir_aspek2_3, hasil_akhir_aspek2_4_1, hasil_akhir_aspek2_4_2, hasil_akhir_aspek2_4_3, hasil_akhir_aspek2_4_4, hasil_akhir_aspek2_4_5, hasil_akhir_aspek2_4_6, hasil_akhir_aspek2_4_7, hasil_akhir_aspek2_4_8, hasil_akhir_aspek2_4_9, hasil_akhir_aspek2_4_10, hasil_akhir_aspek2_4_11, hasil_akhir_aspek2_5],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(153, 102, 255, 0.4)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(153, 102, 255, 0.4)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            </script> 
+
+            <!-- Set values for Detailed Report Table -->
+            <script>
+                // Nilai 1
+                document.getElementById("hasil_akhir_aspek_1_detail").innerHTML = hasil_akhir_aspek_1;
+                document.getElementById("hasil_akhir_aspek_2_1").innerHTML = hasil_akhir_aspek_2_1;
+                document.getElementById("hasil_akhir_aspek_2_2").innerHTML = hasil_akhir_aspek_2_2;
+                document.getElementById("hasil_akhir_aspek_3_detail").innerHTML = hasil_akhir_aspek_3;
+                document.getElementById("hasil_akhir_aspek_4_1").innerHTML = hasil_akhir_aspek_4_1;
+                document.getElementById("hasil_akhir_aspek_4_2").innerHTML = hasil_akhir_aspek_4_2;
+                document.getElementById("hasil_akhir_aspek_4_3").innerHTML = hasil_akhir_aspek_4_3;
+                document.getElementById("hasil_akhir_aspek_4_4").innerHTML = hasil_akhir_aspek_4_4;
+                document.getElementById("hasil_akhir_aspek_4_5").innerHTML = hasil_akhir_aspek_4_5;
+                document.getElementById("hasil_akhir_aspek_4_6").innerHTML = hasil_akhir_aspek_4_6;
+                document.getElementById("hasil_akhir_aspek_4_7").innerHTML = hasil_akhir_aspek_4_7;
+                document.getElementById("hasil_akhir_aspek_4_8").innerHTML = hasil_akhir_aspek_4_8;
+                document.getElementById("hasil_akhir_aspek_4_9").innerHTML = hasil_akhir_aspek_4_9;
+                document.getElementById("hasil_akhir_aspek_4_10").innerHTML = hasil_akhir_aspek_4_10;
+                document.getElementById("hasil_akhir_aspek_4_11").innerHTML = hasil_akhir_aspek_4_11;
+                document.getElementById("hasil_akhir_aspek_5_detail").innerHTML = hasil_akhir_aspek_5;
+                document.getElementById("confidence_aspek_1").innerHTML = confidence_aspek_1;
+                document.getElementById("confidence_aspek_2_1").innerHTML = confidence_aspek_2_1;
+                document.getElementById("confidence_aspek_2_2").innerHTML = confidence_aspek_2_2;
+                document.getElementById("confidence_aspek_3").innerHTML = confidence_aspek_3;
+                document.getElementById("confidence_aspek_4_1").innerHTML = confidence_aspek_4_1;
+                document.getElementById("confidence_aspek_4_2").innerHTML = confidence_aspek_4_2;
+                document.getElementById("confidence_aspek_4_3").innerHTML = confidence_aspek_4_3;
+                document.getElementById("confidence_aspek_4_4").innerHTML = confidence_aspek_4_4;
+                document.getElementById("confidence_aspek_4_5").innerHTML = confidence_aspek_4_5;
+                document.getElementById("confidence_aspek_4_6").innerHTML = confidence_aspek_4_6;
+                document.getElementById("confidence_aspek_4_7").innerHTML = confidence_aspek_4_7;
+                document.getElementById("confidence_aspek_4_8").innerHTML = confidence_aspek_4_8;
+                document.getElementById("confidence_aspek_4_9").innerHTML = confidence_aspek_4_9;
+                document.getElementById("confidence_aspek_4_10").innerHTML = confidence_aspek_4_10;
+                document.getElementById("confidence_aspek_4_11").innerHTML = confidence_aspek_4_11;
+                document.getElementById("confidence_aspek_5").innerHTML = confidence_aspek_5;
+                
+                // Nilai 2
+                document.getElementById("hasil_akhir_aspek2_1_detail").innerHTML = hasil_akhir_aspek2_1;
+                document.getElementById("hasil_akhir_aspek2_2_1").innerHTML = hasil_akhir_aspek2_2_1;
+                document.getElementById("hasil_akhir_aspek2_2_2").innerHTML = hasil_akhir_aspek2_2_2;
+                document.getElementById("hasil_akhir_aspek2_3_detail").innerHTML = hasil_akhir_aspek2_3;
+                document.getElementById("hasil_akhir_aspek2_4_1").innerHTML = hasil_akhir_aspek2_4_1;
+                document.getElementById("hasil_akhir_aspek2_4_2").innerHTML = hasil_akhir_aspek2_4_2;
+                document.getElementById("hasil_akhir_aspek2_4_3").innerHTML = hasil_akhir_aspek2_4_3;
+                document.getElementById("hasil_akhir_aspek2_4_4").innerHTML = hasil_akhir_aspek2_4_4;
+                document.getElementById("hasil_akhir_aspek2_4_5").innerHTML = hasil_akhir_aspek2_4_5;
+                document.getElementById("hasil_akhir_aspek2_4_6").innerHTML = hasil_akhir_aspek2_4_6;
+                document.getElementById("hasil_akhir_aspek2_4_7").innerHTML = hasil_akhir_aspek2_4_7;
+                document.getElementById("hasil_akhir_aspek2_4_8").innerHTML = hasil_akhir_aspek2_4_8;
+                document.getElementById("hasil_akhir_aspek2_4_9").innerHTML = hasil_akhir_aspek2_4_9;
+                document.getElementById("hasil_akhir_aspek2_4_10").innerHTML = hasil_akhir_aspek2_4_10;
+                document.getElementById("hasil_akhir_aspek2_4_11").innerHTML = hasil_akhir_aspek2_4_11;
+                document.getElementById("hasil_akhir_aspek2_5_detail").innerHTML = hasil_akhir_aspek2_5;
+                
+                document.getElementById("confidence_aspek2_1").innerHTML = confidence_aspek2_1;
+                document.getElementById("confidence_aspek2_2_1").innerHTML = confidence_aspek2_2_1;
+                document.getElementById("confidence_aspek2_2_2").innerHTML = confidence_aspek2_2_2;
+                document.getElementById("confidence_aspek2_3").innerHTML = confidence_aspek2_3;
+                document.getElementById("confidence_aspek2_4_1").innerHTML = confidence_aspek2_4_1;
+                document.getElementById("confidence_aspek2_4_2").innerHTML = confidence_aspek2_4_2;
+                document.getElementById("confidence_aspek2_4_3").innerHTML = confidence_aspek2_4_3;
+                document.getElementById("confidence_aspek2_4_4").innerHTML = confidence_aspek2_4_4;
+                document.getElementById("confidence_aspek2_4_5").innerHTML = confidence_aspek2_4_5;
+                document.getElementById("confidence_aspek2_4_6").innerHTML = confidence_aspek2_4_6;
+                document.getElementById("confidence_aspek2_4_7").innerHTML = confidence_aspek2_4_7;
+                document.getElementById("confidence_aspek2_4_8").innerHTML = confidence_aspek2_4_8;
+                document.getElementById("confidence_aspek2_4_9").innerHTML = confidence_aspek2_4_9;
+                document.getElementById("confidence_aspek2_4_10").innerHTML = confidence_aspek2_4_10;
+                document.getElementById("confidence_aspek2_4_11").innerHTML = confidence_aspek2_4_11;
+                document.getElementById("confidence_aspek2_5").innerHTML = confidence_aspek2_5;
+
+                document.getElementById("perbandingan_hasil_akhir_aspek_1_detail").innerHTML = perbandingan_hasil_akhir_aspek_1_detail;
+                document.getElementById("perbandingan_hasil_akhir_aspek_2_1").innerHTML = perbandingan_hasil_akhir_aspek_2_1;
+                document.getElementById("perbandingan_hasil_akhir_aspek_2_2").innerHTML = perbandingan_hasil_akhir_aspek_2_2;
+                document.getElementById("perbandingan_hasil_akhir_aspek_3_detail").innerHTML = perbandingan_hasil_akhir_aspek_3_detail;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_1").innerHTML = perbandingan_hasil_akhir_aspek_4_1;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_2").innerHTML = perbandingan_hasil_akhir_aspek_4_2;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_3").innerHTML = perbandingan_hasil_akhir_aspek_4_3;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_4").innerHTML = perbandingan_hasil_akhir_aspek_4_4;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_5").innerHTML = perbandingan_hasil_akhir_aspek_4_5;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_6").innerHTML = perbandingan_hasil_akhir_aspek_4_6;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_7").innerHTML = perbandingan_hasil_akhir_aspek_4_7;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_8").innerHTML = perbandingan_hasil_akhir_aspek_4_8;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_9").innerHTML = perbandingan_hasil_akhir_aspek_4_9;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_10").innerHTML = perbandingan_hasil_akhir_aspek_4_10;
+                document.getElementById("perbandingan_hasil_akhir_aspek_4_11").innerHTML = perbandingan_hasil_akhir_aspek_4_11;
+                document.getElementById("perbandingan_hasil_akhir_aspek_5_detail").innerHTML = perbandingan_hasil_akhir_aspek_5_detail;
+            </script>
+            
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <!-- Color Grade Scripts -->
+            <script type="text/javascript"> 
+                $(document).ready(function () {
+                    var cell = $('td.color-grade');
+                    
+                    cell.each(function () {
+                        var cell_value = parseFloat($(this).html());
+                        
+                        if ((cell_value <= 20)) {
+                            $(this).css({
+                                'background-color': '#FF4242',
+                                'font-weight': '600'
+                            });
+                        } else if ((cell_value >= 20) && (cell_value <= 40)) {
+                            $(this).css({
+                                'background-color': '#FF8800',
+                                'font-weight': '600'
+                            });
+                        } else if ((cell_value >= 40) && (cell_value <= 60)) {
+                            $(this).css({
+                                'background-color': '#ffcc66',
+                                'font-weight': '600'
+                            });
+                        } else if ((cell_value >= 60) && (cell_value <= 80)) {
+                            $(this).css({
+                                'background-color': '#66ff66',
+                                'font-weight': '600'
+                            });
+                        } else if (cell_value >= 80) {
+                            $(this).css({
+                                'background-color': '#00cc00',
+                                'font-weight': '600'
+                            });
+                        } else {
+                            $(this).css({
+                                'background-color': '#ADADAD',
+                                'font-weight': '600'
+                            });
+                        }
+                    });
+        
+                    var cell_confidence = $('td.color-grade-confidence');
+                    
+                    cell_confidence.each(function () {
+                        var cell_confidence_value = parseFloat($(this).html());
+                        
+                        if ((cell_confidence_value <= 69)) {
+                            $(this).css({
+                                'background-color': '#FF4242',
+                                'font-weight': '600'
+                            });
+                        } else if ((cell_confidence_value >= 69) && (cell_confidence_value <= 89)) {
+                            $(this).css({
+                                'background-color': '#ffcc66',
+                                'font-weight': '600'
+                            });
+                        } else if ((cell_confidence_value >= 89)) {
+                            $(this).css({
+                                'background-color': '#00cc00',
+                                'font-weight': '600'
+                            });
+                        }
+                    });
+                
+                    var cell_perubahan = $('td.color-grade-perubahan');
+
+                    cell_perubahan.each(function () {
+                        var cell_perubahan_value = parseFloat($(this).html());
+                        
+                        if ((cell_perubahan_value <= -30)) {
+                            $(this).css({
+                                'background-color': '#FF4242',
+                                'font-weight': '600'
+                            });
+                        } else if ((cell_perubahan_value >= -30) && (cell_perubahan_value <= -1)) {
+                            $(this).css({
+                                'background-color': '#FF8800',
+                                'font-weight': '600'
+                            });
+                        } else if ((cell_perubahan_value >= -1) && (cell_perubahan_value <= 30)) {
+                            $(this).css({
+                                'background-color': '#ffcc66',
+                                'font-weight': '600'
+                            });
+                        } else if (cell_perubahan_value >= 30) {
+                            $(this).css({
+                                'background-color': '#00cc00',
+                                'font-weight': '600'
+                            });
+                        } else {
+                            $(this).css({
+                                'background-color': '#ADADAD',
+                                'font-weight': '600'
+                            });
+                        }
+                    });
+
+                });
+            </script>
+
     {% else %}
     <div class="alert alert-warning">
         Silahkan Pilih Laporan. Jika laporan yang anda pilih belum ada, silahkan pilih laporan yang lain

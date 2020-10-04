@@ -692,7 +692,7 @@
             </tr>
         </table>
         {% if report.author == user %}
-        <br>
+        <br/>
         <div style="float: right;">
 
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report-update' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">Perbarui</a>
@@ -1246,7 +1246,6 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript"> 
-    
         $(document).ready(function () {
             var cell = $('td.color-grade');
             
@@ -1255,12 +1254,12 @@
                 
                 if ((cell_value <= 20)) {
                     $(this).css({
-                        'background-color': '#990000',
+                        'background-color': '#FF4242',
                         'font-weight': '600'
                     });
                 } else if ((cell_value >= 20) && (cell_value <= 40)) {
                     $(this).css({
-                        'background-color': '#ff0000',
+                        'background-color': '#FF8800',
                         'font-weight': '600'
                     });
                 } else if ((cell_value >= 40) && (cell_value <= 60)) {
@@ -1280,7 +1279,7 @@
                     });
                 } else {
                     $(this).css({
-                        'background-color': 'gray',
+                        'background-color': '#ADADAD',
                         'font-weight': '600'
                     });
                 }
