@@ -8,6 +8,28 @@
         </div>
         <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian: {{ report.judul_laporan }}</h2>
         
+        <!-- Report Information -->
+        <table class="table">
+            <tr style="background-color: white;">
+                <td  style="background-color: #0e0c28; color: white">Penilai</td>
+                <td colspan="3">{{ report.penilai }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td  style="background-color: #0e0c28; color: white">Afiliasi Penilai</td>
+                <td colspan="3">{{ report.afiliasi_penilai }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td  style="background-color: #0e0c28; color: white">Jenis Penilaian</td>
+                <td colspan="3">{{ report.jenis_penilaian }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td  style="background-color: #0e0c28; color: white">Personel yang Diwawancarai</td>
+                <td colspan="3">{{ report.personel_yang_diwawancarai }}</td>
+            </tr>
+        </table>
+
+<br/>
+<br/>
         <!-- Information Bar -->
         <div class="alert alert-info" role="alert">
             Grafik dihalaman ini akan menyesuaikan ukuran berdasarkan layar perangkat anda. Jika masih belum sesuai, silahkan perbesar/perkecil ukuran zoom browser anda dan refresh halaman.
@@ -15,9 +37,10 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        
+
         <!-- General Report -->
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
+
         <div class="container-chart">
             <div class="row">
                 <div class="col-md-6">
@@ -72,6 +95,8 @@
 
         <!-- Detailed Report -->
         <h3>Detail Hasil Penilaian</h3>
+        
+
         <div class="row">
                 <div class="col-md-6 ">
                     <canvas id="myChart_radar_detail"></canvas>
@@ -1231,37 +1256,31 @@
                 if ((cell_value <= 20)) {
                     $(this).css({
                         'background-color': '#990000',
-                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_value >= 20) && (cell_value <= 40)) {
                     $(this).css({
                         'background-color': '#ff0000',
-                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_value >= 40) && (cell_value <= 60)) {
                     $(this).css({
                         'background-color': '#ffcc66',
-                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_value >= 60) && (cell_value <= 80)) {
                     $(this).css({
                         'background-color': '#66ff66',
-                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if (cell_value >= 80) {
                     $(this).css({
                         'background-color': '#00cc00',
-                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else {
                     $(this).css({
                         'background-color': 'gray',
-                        'color': 'black',
                         'font-weight': '600'
                     });
                 }
@@ -1275,19 +1294,16 @@
                 if ((cell_confidence_value <= 69)) {
                     $(this).css({
                         'background-color': '#ff0000',
-                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_confidence_value >= 69) && (cell_confidence_value <= 89)) {
                     $(this).css({
                         'background-color': '#ffcc66',
-                        'color': 'black',
                         'font-weight': '600'
                     });
                 } else if ((cell_confidence_value >= 89)) {
                     $(this).css({
                         'background-color': '#00cc00',
-                        'color': 'black',
                         'font-weight': '600'
                     });
                 }
