@@ -9,7 +9,8 @@
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                         <div id="div_id_pilihan_1" class="form-group">
-                            <label for="id_pilihan_1" class=" requiredField">Pilihan 1<span class="asteriskField">*</span>
+                            <label for="id_pilihan_1" class=" requiredField">Pilihan 1<span
+                                    class="asteriskField">*</span>
                             </label>
                             <div class="">
                                 <select name="pilihan_1" class="select form-control" required id="id_pilihan_1">
@@ -18,7 +19,7 @@
                                     <option value="{{ report.id }}">{{ report.judul_laporan }}</option>
                                     {% endfor %}
                                 </select>
-    
+
                             </div>
                         </div>
                         <div id="div_id_pilihan_2" class="form-group">
@@ -45,7 +46,7 @@
         {% if report_1 and report_2 %}
         <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian: {{ report_1.judul_laporan }} dan
             {{ report_2.judul_laporan }}</h2>
-    
+
         <!-- Legend Bar -->
         <div class="alert alert-primary" role="alert">
             Angka yang ditampilkan pada table merupakan sebuah persentasi penilaian dari kondisi ideal (100%). Penandaan
@@ -57,7 +58,8 @@
             80-100%: <span style="color: #00cc00">Hijau Tua</span>,
             NaN (Tidak diisi): <span style="color: #ADADAD">Abu-abu</span>
             <br /><br />
-            Confidence/keandalan dari hasil bergantung pada persentase yang diisi dalam setiap pertanyaan pada kuesioner.
+            Confidence/keandalan dari hasil bergantung pada persentase yang diisi dalam setiap pertanyaan pada
+            kuesioner.
             Penandaan warna atas tingkat confidence hasil penilaian adalah sebagai berikut: <br />
             0-69%: <span style="color: #ff0000">Merah</span>,
             70-89%: <span style="color: #ffcc66">Kuning</span>,
@@ -73,9 +75,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
         </div>
-    
+
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
-    
+
         <div class="container-chart">
             <!-- Table Charts -->
             <div class="row">
@@ -86,10 +88,10 @@
                     <canvas id="myChart_bar"></canvas>
                 </div>
             </div>
-    
+
             <br />
             <br />
-    
+
             <!-- General Report Table -->
             <table>
                 <thead style="background-color: #0e0c28;">
@@ -137,10 +139,10 @@
                     <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_5"></td>
                 </tr>
             </table>
-    
+
             <br />
             <br />
-    
+
             <h3>Detail Hasil Penilaian</h3>
             <!-- Detailed Table Charts  -->
             <div class="row">
@@ -151,7 +153,7 @@
                     <canvas id="myChart_bar_detail"></canvas>
                 </div>
             </div>
-    
+
             <br />
             <br />
             <!-- Detailed Report Table  -->
@@ -159,7 +161,8 @@
                 <thead style="background-color: #0e0c28;">
                     <tr>
                         <th style="color: white; ">No</th>
-                        <th style="color: white; ">Semua Hasil Aspek PPL terhadap Laboratorium {{ report_1.author }}</th>
+                        <th style="color: white; ">Semua Hasil Aspek PPL terhadap Laboratorium {{ report_1.author }}
+                        </th>
                         <th style="color: white; ">Penilaian Laporan 1</th>
                         <th style="color: white; ">Penilaian Laporan 2</th>
                         <th style="color: white; ">Perubahan Nilai</th>
@@ -312,8 +315,8 @@
                     <td class="color-grade-confidence" id="confidence_aspek2_5"></td>
                 </tr>
             </table>
-    
-    
+
+
             <br />
             <br />
             <h3>Isi Laporan</h3>
@@ -958,7 +961,7 @@
                     <td colspan="6">{{ report_2.saran_untuk_perbaikan }}</td>
                 </tr>
             </table>
-    
+
             <br />
             <button onclick=window.print() class="btn btn-danger btn-sm mt-1 mb-1"
                 style="background-color: #61b9e2; border-color: #61b9e2;">Download</button>
@@ -2064,7 +2067,7 @@
                             });
                         }
                     });
-        
+
                     var cell_confidence = $('td.color-grade-confidence');
                     
                     cell_confidence.each(function () {
@@ -2124,9 +2127,12 @@
                 });
             </script>
 
-    {% else %}
-    <div class="alert alert-warning">
-        Silahkan Pilih Laporan. Jika laporan yang anda pilih belum ada, silahkan pilih laporan yang lain
+            {% else %}
+            <div class="alert alert-warning">
+                Silahkan Pilih Laporan. Jika laporan yang anda pilih belum ada, silahkan pilih laporan yang lain
+            </div>
+            {% endif %}
+            {% endblock content%}
+        </div>
     </div>
-    {% endif %}     
-    {% endblock content%}
+</article>
