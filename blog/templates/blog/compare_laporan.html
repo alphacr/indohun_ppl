@@ -1,6 +1,6 @@
 {% extends "blog/base.html"%}
 {% block content %}
-<article class="media content-section">
+<article class="media content-section" style="-webkit-print-color-adjust:exact; color-adjust: exact;">
     <div class="media-body">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
@@ -42,6 +42,33 @@
         <br/>
         {% if report_1 and report_2 %}
         <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan Penilaian: {{ report_1.judul_laporan }} dan {{ report_2.judul_laporan }}</h2>
+
+        <!-- Legend Bar -->
+        <div class="alert alert-primary" role="alert">
+            Angka yang ditampilkan pada table merupakan sebuah persentasi penilaian dari kondisi ideal (100%). Penandaan warna atas penilaian lab adalah sebagai berikut: <br/>
+            0-19.9%: <span style="color: #FF4242">Merah</span>,
+            20-39.9%: <span style="color: #FF8800">Oranye</span>,
+            40-599%: <span style="color: #ffcc66">Kuning</span>,
+            60-79.9%: <span style="color: #66ff66">Hijau Muda</span>,
+            80-100%: <span style="color: #00cc00">Hijau Tua</span>,
+            NaN (Tidak diisi): <span style="color: #ADADAD">Abu-abu</span> 
+            <br/><br/>
+            Confidence/keandalan dari hasil bergantung pada persentase yang diisi dalam setiap pertanyaan pada kuesioner. Penandaan warna atas tingkat confidence hasil penilaian adalah sebagai berikut: <br/>
+            0-69%: <span style="color: #ff0000">Merah</span>,
+            70-89%: <span style="color: #ffcc66">Kuning</span>,
+            90-100%: <span style="color: #00cc00">Hijau Tua</span>
+            <br/><br/>
+            Selisih hasil Penilaian 1 dengan hasil Penilaian 2: <br/>
+            <=-30: <span style="color: #FF4242"> Merah </span>,
+            -30 sampai -1: <span style="color: #FF8800"> Oranye </span>,
+            -1 sampai 30:<span style="color: #ffcc66"> Kuning </span>,
+            >= 30: <span style="color: #00cc00"> Hijau Tua </span>,
+            NaN (Tidak diisi): <span style="color: #ADADAD">Abu-abu</span> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
         <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
     
         <div class="container-chart" >
