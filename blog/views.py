@@ -21,6 +21,8 @@ from .models import (
 from users.models import Profile
 
 # Create your views here.
+
+
 def home(request):
     if request.method == 'POST':
         form = ContactUsForm(request.POST)
@@ -51,7 +53,7 @@ class ReportDetailView(LoginRequiredMixin, DetailView):
 
 class ReportCreateView(LoginRequiredMixin, CreateView):
     model = Questionnaire  # <app>/<model>_form.html
-    fields = ['judul_laporan','penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+    fields = ['judul_laporan', 'penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
               'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
               'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',
@@ -106,7 +108,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
               'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
               'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
               'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden',
-              'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan',]
+              'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan', ]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -116,7 +118,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
 class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Questionnaire  # <app>/<model>_form.html
     context_object_name = 'report'
-    fields = ['judul_laporan','penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+    fields = ['judul_laporan', 'penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
               'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
               'nilai_no_3', 'keterangan_tanggung_jawab_dan_wewenang', 'rekomendasi_tanggung_jawab_dan_wewenang',
@@ -170,8 +172,8 @@ class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
               'nilai_no_51', 'keterangan_keamanan_fisik_dan_pengendalian_personel', 'rekomendasi_keamanan_fisik_dan_pengendalian_personel',
               'nilai_no_52', 'keterangan_keamanan_informasi', 'rekomendasi_keamanan_informasi',
               'nilai_no_53', 'keterangan_pengendalian_personel', 'rekomendasi_pengendalian_personel',
-              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden', 
-              'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan',]
+              'nilai_no_54', 'keterangan_investigasi_kecelakaan_dan_insiden', 'rekomendasi_investigasi_kecelakaan_dan_insiden',
+              'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan', ]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -194,22 +196,29 @@ class ReportDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == questionnaire.author:
             return True
         return False
-        
+
+
 @login_required
 def tentang_manajement(request):
     return render(request, 'blog/tentang_manajement.html')
+
+
 @login_required
 def tentang_biorisiko(request):
     return render(request, 'blog/tentang_biorisiko.html')
+
+
 @login_required
 def tentang_SMBL(request):
     return render(request, 'blog/tentang_SMBL.html')
+
 
 class ReportPDFView(LoginRequiredMixin, DetailView):
     model = Questionnaire  # <app>/<model>_<viewtype>.html
     context_object_name = 'report'
     template_name = 'blog/report_pdf.html'
-    
+
+
 @login_required
 def compare_laporan(request):
     if request.method == 'POST':
@@ -218,8 +227,10 @@ def compare_laporan(request):
             pilihan_1 = form.cleaned_data.get('pilihan_1')
             pilihan_2 = form.cleaned_data.get('pilihan_2')
             try:
-                report_1 = Questionnaire.objects.filter(author=request.user).get(id=pilihan_1)
-                report_2 = Questionnaire.objects.filter(author=request.user).get(id=pilihan_2)
+                report_1 = Questionnaire.objects.filter(
+                    author=request.user).get(id=pilihan_1)
+                report_2 = Questionnaire.objects.filter(
+                    author=request.user).get(id=pilihan_2)
                 reports = Questionnaire.objects.filter(author=request.user)
             except:
                 report_1 = None
@@ -237,4 +248,3 @@ def compare_laporan(request):
             'reports': Questionnaire.objects.filter(author=request.user)
         }
         return render(request, 'blog/compare_laporan.html', context_2)
-
