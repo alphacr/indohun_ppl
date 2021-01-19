@@ -17,7 +17,7 @@ class ContactUs(models.Model):
     alamat = models.CharField(max_length=100, blank=True)
     pesan = models.TextField()
 
-    def __str__(self):
+    def _str_(self):
         return f'Pesan dari {self.nama_lengkap}'
 
 
@@ -381,7 +381,7 @@ class Questionnaire(models.Model):
     def get_absolute_url(self):
         return reverse('report-detail', kwargs={'pk': self.pk})
 
-    def __str__(self):
+    def _str_(self):
         return f'{self.judul_laporan}'
 
 
@@ -408,57 +408,57 @@ class Questionnaire35001(models.Model):
         max_length=50, blank=False, null=True)
 
     nilai_no_1 = models.IntegerField(default=0, null=True)
-    keterangan__no_1 = models.TextField(
+    keterangan_no_1 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
-    rekomendasi__no_1 = models.TextField(
+    rekomendasi_no_1 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
 
     nilai_no_2 = models.IntegerField(default=0, null=True)
-    keterangan__no_2 = models.TextField(
+    keterangan_no_2 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
-    rekomendasi__no_2 = models.TextField(
+    rekomendasi_no_2 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
 
     nilai_no_3 = models.IntegerField(default=0, null=True)
-    keterangan__no_3 = models.TextField(
+    keterangan_no_3 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
-    rekomendasi__no_3 = models.TextField(
+    rekomendasi_no_3 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
 
     nilai_no_4 = models.IntegerField(default=0, null=True)
-    keterangan__no_4 = models.TextField(
+    keterangan_no_4 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
-    rekomendasi__no_4 = models.TextField(
+    rekomendasi_no_4 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
 
     nilai_no_5 = models.IntegerField(default=0, null=True)
-    keterangan__no_5 = models.TextField(
+    keterangan_no_5 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
-    rekomendasi__no_5 = models.TextField(
+    rekomendasi_no_5 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
 
     nilai_no_6 = models.IntegerField(default=0, null=True)
-    keterangan__no_6 = models.TextField(
+    keterangan_no_6 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
-    rekomendasi__no_6 = models.TextField(
+    rekomendasi_no_6 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
 
     nilai_no_7 = models.IntegerField(default=0, null=True)
-    keterangan__no_7 = models.TextField(
+    keterangan_no_7 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
-    rekomendasi__no_7 = models.TextField(
+    rekomendasi_no_7 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
 
     nilai_no_8 = models.IntegerField(default=0, null=True)
-    keterangan__no_8 = models.TextField(
+    keterangan_no_8 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
-    rekomendasi__no_8 = models.TextField(
+    rekomendasi_no_8 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
 
     nilai_no_9 = models.IntegerField(default=0, null=True)
-    keterangan__no_9 = models.TextField(
+    keterangan_no_9 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
-    rekomendasi__no_9 = models.TextField(
+    rekomendasi_no_9 = models.TextField(
         default='Isi Laporan', blank=True, null=True)
 
     nilai_no_10 = models.IntegerField(default=0, null=True)
@@ -744,5 +744,5 @@ class Questionnaire35001(models.Model):
     def get_absolute_url(self):
         return reverse('report-detail', kwargs={'pk': self.pk})
 
-    def __str__(self):
+    def _str_(self):
         return f'{self.judul_laporan}'

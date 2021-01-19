@@ -104,6 +104,28 @@
                                         </ul>
                                     </div>
 
+                                    <!-- Advance Questionnaire 35001 -->
+                                    <a class="nav-link {% if request.resolver_match.url_name == 'tentang_SMBL' or request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-create' or request.resolver_match.url_name == 'report-detail' or request.resolver_match.url_name == 'compare_laporan' %}active{% endif %}"
+                                        href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-35001"
+                                        aria-controls="submenu-35001">PPL ISO 35001</a>
+                                    <div id="submenu-35001"
+                                        class="{% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_page' or request.resolver_match.url_name == 'tentang_biorisiko' or request.resolver_match.url_name == 'tentang_manajement' %}collapse{% endif %} submenu">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <!-- <a class="nav-link {% if request.resolver_match.url_name == 'tentang_SMBL' %}active{% endif %}"
+                                                    href="{% url 'tentang_SMBL' %}">Tentang</a>
+                                                <a class="nav-link {% if request.resolver_match.url_name == 'report-list' or request.resolver_match.url_name == 'report-detail'%}active{% endif %}"
+                                                    href="{% url 'report-list' %}">Daftar Laporan
+                                                    <span class="badge badge-secondary">New</span></a> -->
+                                                <!-- <a class="nav-link {% if request.resolver_match.url_name == 'compare_laporan' %}active{% endif %}"
+                                                    href="{% url 'compare_laporan' %}">Banding Laporan
+                                                    <span class="badge badge-secondary">New</span></a> -->
+                                                <a class="nav-link {% if request.resolver_match.url_name == 'report-create' %}active{% endif %}"
+                                                    href="{% url 'report_create_35001' %}">Buat Laporan Baru</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
                                     <!-- Basic Questionnaire -->
                                     <a class="nav-link {% if request.resolver_match.url_name == 'tentang_biorisiko' %}active {% endif %}"
                                         href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6"

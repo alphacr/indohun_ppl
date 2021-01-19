@@ -7,13 +7,13 @@ from .models import Questionnaire
 from .models import CompareReport
 
 
-
 class ContactUsForm(forms.ModelForm):
     email = forms.EmailField()
 
     class Meta:
         model = ContactUs
         fields = ['nama_lengkap', 'email', 'alamat', 'pesan']
+
 
 class CompareReportForm(forms.ModelForm):
     class Meta:

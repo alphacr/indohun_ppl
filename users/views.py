@@ -7,6 +7,7 @@ from blog.models import Questionnaire
 
 # Create your views here.
 
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -44,13 +45,15 @@ def profile(request):
     }
     return render(request, 'users/profile.html', context)
 
+
 @login_required
 def profile_page(request):
     try:
-        latest_id = Questionnaire.objects.filter(author=request.user).order_by('-id')[0]
+        latest_id = Questionnaire.objects.filter(
+            author=request.user).order_by('-id')[0]
     except:
         latest_id = None
-    
+
     context = {
         'posts': Profile.objects.filter(user=request.user),
         'reports': Questionnaire.objects.filter(author=request.user),
