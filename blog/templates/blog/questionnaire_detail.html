@@ -656,9 +656,11 @@
                 <td>50</td>
                 <td>Prosedur penerimaan dan pengiriman bahan biologik dan bahan berbahaya lainnya</td>
                 <td>{{ report.nilai_no_50 }}</td>
-                <td>{{ report.keterangan_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya }}
+                <td>{{ report.keterangan_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya
+                    }}
                 </td>
-                <td>{{ report.rekomendasi_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya }}
+                <td>{{ report.rekomendasi_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya
+                    }}
                 </td>
             </tr>
             <tr style="background-color: #c7c8d0;">
@@ -741,149 +743,149 @@
         var not_applicable = 0;
         var aspek_1 = [
             {{ report.nilai_no_1 }} - 1,
-            {{ report.nilai_no_2 }} - 1,
-            {{ report.nilai_no_3 }} - 1,
-            {{ report.nilai_no_4 }} - 1,
-            {{ report.nilai_no_5 }} - 1,
-            {{ report.nilai_no_6 }} - 1,
-            {{ report.nilai_no_7 }} - 1,
-            {{ report.nilai_no_8 }} - 1,
-            {{ report.nilai_no_9 }} - 1,
-            {{ report.nilai_no_10 }} - 1,
-            {{ report.nilai_no_11 }} - 1,
-            {{ report.nilai_no_12 }} - 1,
-            {{ report.nilai_no_13 }} - 1,
+                {{ report.nilai_no_2 }} - 1,
+                    {{ report.nilai_no_3 }} - 1,
+                        {{ report.nilai_no_4 }} - 1,
+                            {{ report.nilai_no_5 }} - 1,
+                                {{ report.nilai_no_6 }} - 1,
+                                    {{ report.nilai_no_7 }} - 1,
+                                        {{ report.nilai_no_8 }} - 1,
+                                            {{ report.nilai_no_9 }} - 1,
+                                                {{ report.nilai_no_10 }} - 1,
+                                                    {{ report.nilai_no_11 }} - 1,
+                                                        {{ report.nilai_no_12 }} - 1,
+                                                            {{ report.nilai_no_13 }} - 1,
         ];
         var panjang_aspek_1 = [];
-        for (i=0; i<aspek_1.length; i++){
-            if (aspek_1[i] == -1){
+        for (i = 0; i < aspek_1.length; i++) {
+            if (aspek_1[i] == -1) {
                 not_applicable += aspek_1[i];
             } else {
                 panjang_aspek_1.push(aspek_1[i]);
             }
         }
-        var hasil_akhir_aspek_1 = round(((panjang_aspek_1.reduce((a,b) => a + b, 0))/(panjang_aspek_1.length*3))*100);
-        var confidence_aspek_1 = round((panjang_aspek_1.length/aspek_1.length)*100);
+        var hasil_akhir_aspek_1 = round(((panjang_aspek_1.reduce((a, b) => a + b, 0)) / (panjang_aspek_1.length * 3)) * 100);
+        var confidence_aspek_1 = round((panjang_aspek_1.length / aspek_1.length) * 100);
 
         panjang_aspek_1 = [];
         aspek_1 = [];
 
         var aspek_2_1 = [
             {{ report.nilai_no_14 }} - 1,
-            {{ report.nilai_no_15 }} - 1,
-            {{ report.nilai_no_16 }} - 1,
-            {{ report.nilai_no_17 }} - 1,
-            {{ report.nilai_no_18 }} - 1,
+                {{ report.nilai_no_15 }} - 1,
+                    {{ report.nilai_no_16 }} - 1,
+                        {{ report.nilai_no_17 }} - 1,
+                            {{ report.nilai_no_18 }} - 1,
         ];
         var aspek_2_2 = [
             {{ report.nilai_no_19 }} - 1,
-            {{ report.nilai_no_20 }} - 1,
-            {{ report.nilai_no_21 }} - 1,
-            {{ report.nilai_no_22 }} - 1,
+                {{ report.nilai_no_20 }} - 1,
+                    {{ report.nilai_no_21 }} - 1,
+                        {{ report.nilai_no_22 }} - 1,
         ];
         var panjang_aspek_2_1 = [];
         var panjang_aspek_2_2 = [];
-        for (i=0; i<aspek_2_1.length; i++){
-            if (aspek_2_1[i] == -1){
+        for (i = 0; i < aspek_2_1.length; i++) {
+            if (aspek_2_1[i] == -1) {
                 not_applicable += aspek_2_1[i];
             } else {
                 panjang_aspek_2_1.push(aspek_2_1[i]);
             }
         }
 
-        for (i=0; i<aspek_2_2.length; i++){
-            if (aspek_2_2[i] == -1){
+        for (i = 0; i < aspek_2_2.length; i++) {
+            if (aspek_2_2[i] == -1) {
                 not_applicable += aspek_2_2[i];
             } else {
                 panjang_aspek_2_2.push(aspek_2_2[i]);
             }
         }
 
-        var hasil_akhir_aspek_2_1 = round(((panjang_aspek_2_1.reduce((a,b) => a + b, 0))/(panjang_aspek_2_1.length*3))*100);
-        var hasil_akhir_aspek_2_2 = round(((panjang_aspek_2_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2_2.length*3))*100);
+        var hasil_akhir_aspek_2_1 = round(((panjang_aspek_2_1.reduce((a, b) => a + b, 0)) / (panjang_aspek_2_1.length * 3)) * 100);
+        var hasil_akhir_aspek_2_2 = round(((panjang_aspek_2_2.reduce((a, b) => a + b, 0)) / (panjang_aspek_2_2.length * 3)) * 100);
 
         var panjang_aspek_2 = panjang_aspek_2_1.concat(panjang_aspek_2_2);
 
-        var confidence_aspek_2_1 = round((panjang_aspek_2_1.length/aspek_2_1.length)*100);
-        var confidence_aspek_2_2 = round((panjang_aspek_2_2.length/aspek_2_2.length)*100);
-        
-        var hasil_akhir_aspek_2 = round(((panjang_aspek_2.reduce((a,b) => a + b, 0))/(panjang_aspek_2.length*3))*100);
-        
+        var confidence_aspek_2_1 = round((panjang_aspek_2_1.length / aspek_2_1.length) * 100);
+        var confidence_aspek_2_2 = round((panjang_aspek_2_2.length / aspek_2_2.length) * 100);
+
+        var hasil_akhir_aspek_2 = round(((panjang_aspek_2.reduce((a, b) => a + b, 0)) / (panjang_aspek_2.length * 3)) * 100);
+
         aspek_2_1 = [];
         aspek_2_2 = [];
         panjang_aspek_2_1 = [];
         panjang_aspek_2_2 = [];
-        panjang_aspek_2= [];
+        panjang_aspek_2 = [];
 
         var aspek_3 = [
             {{ report.nilai_no_23 }} - 1,
         ];
         var panjang_aspek_3 = [];
-        for (i=0; i<aspek_3.length; i++){
-            if (aspek_3[i] == -1){
+        for (i = 0; i < aspek_3.length; i++) {
+            if (aspek_3[i] == -1) {
                 not_applicable += aspek_3[i];
             } else {
                 panjang_aspek_3.push(aspek_3[i]);
             }
         }
 
-        var hasil_akhir_aspek_3 = round(((panjang_aspek_3.reduce((a,b) => a + b, 0))/(panjang_aspek_3.length*3))*100);
-        var confidence_aspek_3 = round((panjang_aspek_3.length/aspek_3.length)*100);
+        var hasil_akhir_aspek_3 = round(((panjang_aspek_3.reduce((a, b) => a + b, 0)) / (panjang_aspek_3.length * 3)) * 100);
+        var confidence_aspek_3 = round((panjang_aspek_3.length / aspek_3.length) * 100);
 
         aspek_3 = [];
         panjang_aspek_3 = [];
 
         var aspek_4_1 = [
             {{ report.nilai_no_24 }} - 1,
-            {{ report.nilai_no_25 }} - 1,
+                {{ report.nilai_no_25 }} - 1,
         ];
         var aspek_4_2 = [
             {{ report.nilai_no_26 }} - 1,
-            {{ report.nilai_no_27 }} - 1,
-            {{ report.nilai_no_28 }} - 1,
+                {{ report.nilai_no_27 }} - 1,
+                    {{ report.nilai_no_28 }} - 1,
         ];
         var aspek_4_3 = [
             {{ report.nilai_no_29 }} - 1,
-            {{ report.nilai_no_30 }} - 1,
-            {{ report.nilai_no_31 }} - 1,
+                {{ report.nilai_no_30 }} - 1,
+                    {{ report.nilai_no_31 }} - 1,
         ];
         var aspek_4_4 = [
             {{ report.nilai_no_32 }} - 1,
         ];
         var aspek_4_5 = [
             {{ report.nilai_no_33 }} - 1,
-            {{ report.nilai_no_34 }} - 1,
-            {{ report.nilai_no_35 }} - 1,
+                {{ report.nilai_no_34 }} - 1,
+                    {{ report.nilai_no_35 }} - 1,
         ];
         var aspek_4_6 = [
             {{ report.nilai_no_36 }} - 1,
-            {{ report.nilai_no_37 }} - 1,
-            {{ report.nilai_no_38 }} - 1,
-            {{ report.nilai_no_39 }} - 1,
+                {{ report.nilai_no_37 }} - 1,
+                    {{ report.nilai_no_38 }} - 1,
+                        {{ report.nilai_no_39 }} - 1,
         ];
         var aspek_4_7 = [
             {{ report.nilai_no_40 }} - 1,
-            {{ report.nilai_no_41 }} - 1,
+                {{ report.nilai_no_41 }} - 1,
         ];
         var aspek_4_8 = [
             {{ report.nilai_no_42 }} - 1,
-            {{ report.nilai_no_43 }} - 1,
-            {{ report.nilai_no_44 }} - 1,
-            {{ report.nilai_no_45 }} - 1,
-            {{ report.nilai_no_46 }} - 1,
+                {{ report.nilai_no_43 }} - 1,
+                    {{ report.nilai_no_44 }} - 1,
+                        {{ report.nilai_no_45 }} - 1,
+                            {{ report.nilai_no_46 }} - 1,
         ];
         var aspek_4_9 = [
             {{ report.nilai_no_47 }} - 1,
-            {{ report.nilai_no_48 }} - 1,
-            {{ report.nilai_no_49 }} - 1,
+                {{ report.nilai_no_48 }} - 1,
+                    {{ report.nilai_no_49 }} - 1,
         ];
         var aspek_4_10 = [
             {{ report.nilai_no_50 }} - 1,
         ];
         var aspek_4_11 = [
             {{ report.nilai_no_51 }} - 1,
-            {{ report.nilai_no_52 }} - 1,
-            {{ report.nilai_no_53 }} - 1,
+                {{ report.nilai_no_52 }} - 1,
+                    {{ report.nilai_no_53 }} - 1,
         ];
 
         var panjang_aspek_4_1 = [];
@@ -898,120 +900,120 @@
         var panjang_aspek_4_10 = [];
         var panjang_aspek_4_11 = [];
 
-        for (i=0; i<aspek_4_1.length; i++){
-            if (aspek_4_1[i] == -1){
+        for (i = 0; i < aspek_4_1.length; i++) {
+            if (aspek_4_1[i] == -1) {
                 not_applicable += aspek_4_1[i];
             } else {
                 panjang_aspek_4_1.push(aspek_4_1[i]);
             }
         }
 
-        for (i=0; i<aspek_4_2.length; i++){
-            if (aspek_4_2[i] == -1){
+        for (i = 0; i < aspek_4_2.length; i++) {
+            if (aspek_4_2[i] == -1) {
                 not_applicable += aspek_4_2[i];
             } else {
                 panjang_aspek_4_2.push(aspek_4_2[i]);
             }
         }
 
-        for (i=0; i<aspek_4_3.length; i++){
-            if (aspek_4_3[i] == -1){
+        for (i = 0; i < aspek_4_3.length; i++) {
+            if (aspek_4_3[i] == -1) {
                 not_applicable += aspek_4_3[i];
             } else {
                 panjang_aspek_4_3.push(aspek_4_3[i]);
             }
         }
 
-        for (i=0; i<aspek_4_4.length; i++){
-            if (aspek_4_4[i] == -1){
+        for (i = 0; i < aspek_4_4.length; i++) {
+            if (aspek_4_4[i] == -1) {
                 not_applicable += aspek_4_4[i];
             } else {
                 panjang_aspek_4_4.push(aspek_4_4[i]);
             }
         }
 
-        for (i=0; i<aspek_4_5.length; i++){
-            if (aspek_4_5[i] == -1){
+        for (i = 0; i < aspek_4_5.length; i++) {
+            if (aspek_4_5[i] == -1) {
                 not_applicable += aspek_4_5[i];
             } else {
                 panjang_aspek_4_5.push(aspek_4_5[i]);
             }
         }
 
-        for (i=0; i<aspek_4_6.length; i++){
-            if (aspek_4_6[i] == -1){
+        for (i = 0; i < aspek_4_6.length; i++) {
+            if (aspek_4_6[i] == -1) {
                 not_applicable += aspek_4_6[i];
             } else {
                 panjang_aspek_4_6.push(aspek_4_6[i]);
             }
         }
 
-        for (i=0; i<aspek_4_7.length; i++){
-            if (aspek_4_7[i] == -1){
+        for (i = 0; i < aspek_4_7.length; i++) {
+            if (aspek_4_7[i] == -1) {
                 not_applicable += aspek_4_7[i];
             } else {
                 panjang_aspek_4_7.push(aspek_4_7[i]);
             }
         }
 
-        for (i=0; i<aspek_4_8.length; i++){
-            if (aspek_4_8[i] == -1){
+        for (i = 0; i < aspek_4_8.length; i++) {
+            if (aspek_4_8[i] == -1) {
                 not_applicable += aspek_4_8[i];
             } else {
                 panjang_aspek_4_8.push(aspek_4_8[i]);
             }
         }
 
-        for (i=0; i<aspek_4_9.length; i++){
-            if (aspek_4_9[i] == -1){
+        for (i = 0; i < aspek_4_9.length; i++) {
+            if (aspek_4_9[i] == -1) {
                 not_applicable += aspek_4_9[i];
             } else {
                 panjang_aspek_4_9.push(aspek_4_9[i]);
             }
         }
 
-        for (i=0; i<aspek_4_10.length; i++){
-            if (aspek_4_10[i] == -1){
+        for (i = 0; i < aspek_4_10.length; i++) {
+            if (aspek_4_10[i] == -1) {
                 not_applicable += aspek_4_10[i];
             } else {
                 panjang_aspek_4_10.push(aspek_4_10[i]);
             }
         }
 
-        for (i=0; i<aspek_4_11.length; i++){
-            if (aspek_4_11[i] == -1){
+        for (i = 0; i < aspek_4_11.length; i++) {
+            if (aspek_4_11[i] == -1) {
                 not_applicable += aspek_4_11[i];
             } else {
                 panjang_aspek_4_11.push(aspek_4_11[i]);
             }
         }
 
-        var hasil_akhir_aspek_4_1 = round(((panjang_aspek_4_1.reduce((a,b) => a + b, 0))/(panjang_aspek_4_1.length*3))*100);
-        var hasil_akhir_aspek_4_2 = round(((panjang_aspek_4_2.reduce((a,b) => a + b, 0))/(panjang_aspek_4_2.length*3))*100);
-        var hasil_akhir_aspek_4_3 = round(((panjang_aspek_4_3.reduce((a,b) => a + b, 0))/(panjang_aspek_4_3.length*3))*100);
-        var hasil_akhir_aspek_4_4 = round(((panjang_aspek_4_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4_4.length*3))*100);
-        var hasil_akhir_aspek_4_5 = round(((panjang_aspek_4_5.reduce((a,b) => a + b, 0))/(panjang_aspek_4_5.length*3))*100);
-        var hasil_akhir_aspek_4_6 = round(((panjang_aspek_4_6.reduce((a,b) => a + b, 0))/(panjang_aspek_4_6.length*3))*100);
-        var hasil_akhir_aspek_4_7 = round(((panjang_aspek_4_7.reduce((a,b) => a + b, 0))/(panjang_aspek_4_7.length*3))*100);
-        var hasil_akhir_aspek_4_8 = round(((panjang_aspek_4_8.reduce((a,b) => a + b, 0))/(panjang_aspek_4_8.length*3))*100);
-        var hasil_akhir_aspek_4_9 = round(((panjang_aspek_4_9.reduce((a,b) => a + b, 0))/(panjang_aspek_4_9.length*3))*100);
-        var hasil_akhir_aspek_4_10 = round(((panjang_aspek_4_10.reduce((a,b) => a + b, 0))/(panjang_aspek_4_10.length*3))*100);
-        var hasil_akhir_aspek_4_11 = round(((panjang_aspek_4_11.reduce((a,b) => a + b, 0))/(panjang_aspek_4_11.length*3))*100);
+        var hasil_akhir_aspek_4_1 = round(((panjang_aspek_4_1.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_1.length * 3)) * 100);
+        var hasil_akhir_aspek_4_2 = round(((panjang_aspek_4_2.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_2.length * 3)) * 100);
+        var hasil_akhir_aspek_4_3 = round(((panjang_aspek_4_3.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_3.length * 3)) * 100);
+        var hasil_akhir_aspek_4_4 = round(((panjang_aspek_4_4.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_4.length * 3)) * 100);
+        var hasil_akhir_aspek_4_5 = round(((panjang_aspek_4_5.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_5.length * 3)) * 100);
+        var hasil_akhir_aspek_4_6 = round(((panjang_aspek_4_6.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_6.length * 3)) * 100);
+        var hasil_akhir_aspek_4_7 = round(((panjang_aspek_4_7.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_7.length * 3)) * 100);
+        var hasil_akhir_aspek_4_8 = round(((panjang_aspek_4_8.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_8.length * 3)) * 100);
+        var hasil_akhir_aspek_4_9 = round(((panjang_aspek_4_9.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_9.length * 3)) * 100);
+        var hasil_akhir_aspek_4_10 = round(((panjang_aspek_4_10.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_10.length * 3)) * 100);
+        var hasil_akhir_aspek_4_11 = round(((panjang_aspek_4_11.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_11.length * 3)) * 100);
 
-        var panjang_aspek_4 = panjang_aspek_4_1.concat(panjang_aspek_4_2, panjang_aspek_4_3, panjang_aspek_4_4, panjang_aspek_4_5, panjang_aspek_4_6, panjang_aspek_4_7, panjang_aspek_4_8, panjang_aspek_4_9, panjang_aspek_4_10, panjang_aspek_4_11 );
-        
-        var hasil_akhir_aspek_4 = round(((panjang_aspek_4.reduce((a,b) => a + b, 0))/(panjang_aspek_4.length*3))*100);
-        var confidence_aspek_4_1 = round((panjang_aspek_4_1.length/aspek_4_1.length)*100);
-        var confidence_aspek_4_2 = round((panjang_aspek_4_2.length/aspek_4_2.length)*100);
-        var confidence_aspek_4_3 = round((panjang_aspek_4_3.length/aspek_4_3.length)*100);
-        var confidence_aspek_4_4 = round((panjang_aspek_4_4.length/aspek_4_4.length)*100);
-        var confidence_aspek_4_5 = round((panjang_aspek_4_5.length/aspek_4_5.length)*100);
-        var confidence_aspek_4_6 = round((panjang_aspek_4_6.length/aspek_4_6.length)*100);
-        var confidence_aspek_4_7 = round((panjang_aspek_4_7.length/aspek_4_7.length)*100);
-        var confidence_aspek_4_8 = round((panjang_aspek_4_8.length/aspek_4_8.length)*100);
-        var confidence_aspek_4_9 = round((panjang_aspek_4_9.length/aspek_4_9.length)*100);
-        var confidence_aspek_4_10 = round((panjang_aspek_4_10.length/aspek_4_10.length)*100);
-        var confidence_aspek_4_11 = round((panjang_aspek_4_11.length/aspek_4_11.length)*100);
+        var panjang_aspek_4 = panjang_aspek_4_1.concat(panjang_aspek_4_2, panjang_aspek_4_3, panjang_aspek_4_4, panjang_aspek_4_5, panjang_aspek_4_6, panjang_aspek_4_7, panjang_aspek_4_8, panjang_aspek_4_9, panjang_aspek_4_10, panjang_aspek_4_11);
+
+        var hasil_akhir_aspek_4 = round(((panjang_aspek_4.reduce((a, b) => a + b, 0)) / (panjang_aspek_4.length * 3)) * 100);
+        var confidence_aspek_4_1 = round((panjang_aspek_4_1.length / aspek_4_1.length) * 100);
+        var confidence_aspek_4_2 = round((panjang_aspek_4_2.length / aspek_4_2.length) * 100);
+        var confidence_aspek_4_3 = round((panjang_aspek_4_3.length / aspek_4_3.length) * 100);
+        var confidence_aspek_4_4 = round((panjang_aspek_4_4.length / aspek_4_4.length) * 100);
+        var confidence_aspek_4_5 = round((panjang_aspek_4_5.length / aspek_4_5.length) * 100);
+        var confidence_aspek_4_6 = round((panjang_aspek_4_6.length / aspek_4_6.length) * 100);
+        var confidence_aspek_4_7 = round((panjang_aspek_4_7.length / aspek_4_7.length) * 100);
+        var confidence_aspek_4_8 = round((panjang_aspek_4_8.length / aspek_4_8.length) * 100);
+        var confidence_aspek_4_9 = round((panjang_aspek_4_9.length / aspek_4_9.length) * 100);
+        var confidence_aspek_4_10 = round((panjang_aspek_4_10.length / aspek_4_10.length) * 100);
+        var confidence_aspek_4_11 = round((panjang_aspek_4_11.length / aspek_4_11.length) * 100);
 
         aspek_4_1 = [];
         aspek_4_2 = [];
@@ -1023,7 +1025,7 @@
         aspek_4_8 = [];
         aspek_4_9 = [];
         aspek_4_10 = [];
-        aspek_4_11 = [];		
+        aspek_4_11 = [];
         panjang_aspek_4_1 = [];
         panjang_aspek_4_2 = [];
         panjang_aspek_4_3 = [];
@@ -1041,15 +1043,15 @@
             {{ report.nilai_no_54 }} - 1,
         ];
         var panjang_aspek_5 = [];
-        for (i=0; i<aspek_5.length; i++){
-            if (aspek_5[i] == -1){
+        for (i = 0; i < aspek_5.length; i++) {
+            if (aspek_5[i] == -1) {
                 not_applicable += aspek_5[i];
             } else {
                 panjang_aspek_5.push(aspek_5[i]);
             }
         }
-        var hasil_akhir_aspek_5 = round(((panjang_aspek_5.reduce((a,b) => a + b, 0))/(panjang_aspek_5.length*3))*100);
-        var confidence_aspek_5 = round((panjang_aspek_5.length/aspek_5.length)*100);
+        var hasil_akhir_aspek_5 = round(((panjang_aspek_5.reduce((a, b) => a + b, 0)) / (panjang_aspek_5.length * 3)) * 100);
+        var confidence_aspek_5 = round((panjang_aspek_5.length / aspek_5.length) * 100);
 
         aspek_5 = [];
         panjang_aspek_5 = [];
@@ -1062,8 +1064,8 @@
                 datasets: [{
                     label: 'Nilai Akhir',
                     data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
-                    backgroundColor:  'rgba(203, 159, 196, 0.3)',
-                    borderColor:  'rgba(203, 159, 196, 0.3)',
+                    backgroundColor: 'rgba(203, 159, 196, 0.3)',
+                    borderColor: 'rgba(203, 159, 196, 0.3)',
                     pointBorderColor: [
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
@@ -1142,8 +1144,8 @@
                 datasets: [{
                     label: 'Nilai Akhir',
                     data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5,],
-                    backgroundColor:  'rgba(203, 159, 196, 0.3)',
-                    borderColor:  'rgba(203, 159, 196, 0.3)',
+                    backgroundColor: 'rgba(203, 159, 196, 0.3)',
+                    borderColor: 'rgba(203, 159, 196, 0.3)',
                     pointBorderColor: [
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
@@ -1270,13 +1272,13 @@
         document.getElementById("confidence_aspek_5").innerHTML = confidence_aspek_5;
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript"> 
+    <script type="text/javascript">
         $(document).ready(function () {
             var cell = $('td.color-grade');
-            
+
             cell.each(function () {
                 var cell_value = parseFloat($(this).html());
-                
+
                 if ((cell_value <= 20)) {
                     $(this).css({
                         'background-color': '#FF4242',
@@ -1311,10 +1313,10 @@
             });
 
             var cell_confidence = $('td.color-grade-confidence');
-            
+
             cell_confidence.each(function () {
                 var cell_confidence_value = parseFloat($(this).html());
-                
+
                 if ((cell_confidence_value <= 69)) {
                     $(this).css({
                         'background-color': '#ff0000',
