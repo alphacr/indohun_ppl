@@ -1,0 +1,3404 @@
+{% extends "blog/base.html"%}
+{% block content %}
+<div class="container-fluid dashboard-content">
+  <div class="row row-body">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <section class="quis-body">
+        <div class="open-quiz_container" id="quizContainer1">
+          <div class="open-quiz">
+            <div class="input-group input-group-ques mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text title-input-text" id="basic-addon3">Judul Laporan</span>
+              </div>
+              <input type="text" name="judul_laporan" maxlength="50" class="textinput textInput form-control" required
+                id="id_judul_laporan">
+            </div>
+            <div class="input-group input-group-ques mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text title-input-text" id="basic-addon3">Penilai</span>
+              </div>
+              <input type="text" class="form-control" name="penilai" maxlength="50" required id="id_penilai"
+                id="basic-url" aria-describedby="basic-addon3" />
+            </div>
+            <div class="input-group input-group-ques mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text title-input-text" id="basic-addon3">Afiliasi Penilai</span>
+              </div>
+              <input type="text" class="form-control" name="afiliasi_penilai" maxlength="50" required
+                id="id_afiliasi_penilai" id="basic-url" aria-describedby="basic-addon3" />
+            </div>
+            <div class="input-group input-group-ques mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text title-input-text" id="basic-addon3">Jenis Penilaian</span>
+              </div>
+              <select class="form-control" name="jenis_penilaian" id="id_jenis_penilaian"
+                aria-describedby="basic-addon3" style="height: unset !important;">
+                <option value="" selected>---------</option>
+                <option value="Penilaian Mandiri (Self Assessment)">Penilaian Mandiri (Self Assessment)</option>
+                <option value="Penilaian Pendampingan (Technical Assessment)">Penilaian Pendampingan (Technical
+                  Assessment)</option>
+                <option value="Penilaian Kunjungan (Assessment Visit)">Penilaian Kunjungan (Assessment Visit)</option>
+              </select>
+            </div>
+            <div class="input-group input-group-ques mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text title-input-text" id="basic-addon3">Personel yang Diwawancarai</span>
+              </div>
+              <input type="text" class="form-control" name="personel_yang_diwawancarai" maxlength="50" required
+                id="id_personel_yang_diwawancarai" id="basic-url" aria-describedby="basic-addon3" />
+            </div>
+          </div>
+        </div>
+
+        <div class="open-quiz_container" id="quizContainer2">
+          <div class="title-container section1">
+            <div class="title-questionnaire" id="kebijakan-manajemen-biorisiko">
+              1. Sistem Manajemen Biorisiko
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">
+              1. Kebijakan
+            </h2>
+            <div class="tab">
+              <label class="spot" for="id_nilai_no_1_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_1" value="4" required id="id_nilai_no_1_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_1_0">
+                Organisasi memiliki kebijakan sistem manajemen biorisiko yang terdokumentasi, dikomunikasikan dan
+                diterapkan
+              </label>
+            </div>
+            <div class="tab">
+              <label class="spot" for="id_nilai_no_1_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_1" value="3" required id="id_nilai_no_1_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_1_1">
+                Organisasi memiliki kebijakan sistem manajemen biorisiko yang diterapkan tapi belum terdokumentasi
+              </label>
+            </div>
+            <div class="tab">
+              <label class="spot" for="id_nilai_no_1_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_1" value="2" required id="id_nilai_no_1_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_1_2">
+                Organisasi memiliki kebijakan sistem manajemen biorisiko yang terdokumentasi, dikomunikasikan namun
+                belum diterapkan
+              </label>
+            </div>
+            <div class="tab">
+              <label class="spot" for="id_nilai_no_1_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_1" value="1" required id="id_nilai_no_1_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_1_3">
+                Organisasi tidak memiliki kebijakan sistem manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_1_4"></label>
+              <input type="radio" name="nilai_no_1" value="0" required id="id_nilai_no_1_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_1_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+              </div>
+              <textarea class="form-control" name="keterangan_no_1" id="id_keterangan_no_1" rows="3"
+                placeholder="Isi keterangan anda disini">
+                </textarea>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+              </div>
+              <textarea class="form-control" name="rekomendasi_no_1" id="id_rekomendasi_no_1" rows="3"
+                placeholder="Isi keterangan anda disini">
+                </textarea>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">
+              2. Informasi terdokumentasi
+            </h2>
+            <div class="tab">
+              <label class="spot" for="id_nilai_no_2_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_2" value="4" required id="id_nilai_no_2_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_2_0">
+                Organisasi memiliki panduan manajemen biorisiko yang terdokumentasi, dikomunikasikan dan diterapkan
+              </label>
+            </div>
+            <div class="tab">
+              <label class="spot" for="id_nilai_no_2_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_2" value="3" required id="id_nilai_no_2_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_2_1">
+                Organisasi memiliki panduan manajemen biorisiko yang dikomunikasikan namun belum diterapkan secara
+                menyeluruh
+              </label>
+            </div>
+            <div class="tab">
+              <label class="spot" for="id_nilai_no_2_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_2" value="2" required id="id_nilai_no_2_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_2_2">
+                Organisasi memiliki panduan manajemen yang dikomunikasikan tetapi tidak diterapkan
+              </label>
+            </div>
+            <div class="tab">
+              <label class="spot" for="id_nilai_no_2_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_2" value="1" required id="id_nilai_no_2_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_2_3">
+                Organisasi tidak memiliki panduan manajemen biorisiko</label>
+            </div>
+            <div class="tab">
+              <label class="spot" for="id_nilai_no_2_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_2" value="0" required id="id_nilai_no_2_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_2_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_2" id="id_keterangan_no_2" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_2" id="id_rekomendasi_no_2" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">3. Persyaratan hukum pihak berkepentingan</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_3_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_3" value="4" required id="id_nilai_no_3_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_3_0">
+                Organisasi mengidentifikasi dan menerapkan persyaratan hukum pihak berkepentingan terkait manajemen
+                biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_3_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_3" value="3" required id="id_nilai_no_3_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_3_1">
+                Organisasi mengidentifikasi dan menerapkan persyaratan hukum pihak berkepentingan terkait, namun belum
+                diterapkan secara menyeluruh
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_3_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_3" value="2" required id="id_nilai_no_3_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_3_2">
+                Organisasi mengidentifikasi persyaratan hukum yang mengatur manajemen biorisiko, namun tidak diterapkan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_3_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_3" value="1" required id="id_nilai_no_3_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_3_3">
+                Organisasi tidak mengidentifikasi dan tidak menerapkan persyaratan hukum pihak berkepentingan terkait
+                manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_3_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_3" value="0" required id="id_nilai_no_3_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_3_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_3" id="id_keterangan_no_3" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_3" id="id_rekomendasi_no_3" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">
+              4. Keamanan informasi (Pak Eko)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_4_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_4" value="4" required id="id_nilai_no_4_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_4_0">
+                Organisasi membuat, mengimplementasikan dan memelihara program keamanan informasi
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_4_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_4" value="3" required id="id_nilai_no_4_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_4_1">
+                Organisasi membuat, mengimplementasikan namun tidak memelihara program keamanan informasi
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_4_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_4" value="2" required id="id_nilai_no_4_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_4_2">
+                Organisasi membuat, namun tidak
+                mengimplementasikan program keamanan informasi
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_4_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_4" value="1" required id="id_nilai_no_4_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_4_3">
+                Organisasi tidak memiliki program keamanan informasi
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_4_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_4" value="0" required id="id_nilai_no_4_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_4_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_4" id="id_keterangan_no_4" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_4" id="id_rekomendasi_no_4" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">
+              5. Non-karyawan (Bu Atie)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_5_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_5" value="4" required id="id_nilai_no_5_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_5_0">
+                Organisasi membuat, mendokumentasikan dan mengimplementasikan persyaratan terhadap tamu/pengunjung dan
+                pemasok yang terkait dengan sistem manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_5_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_5" value="3" required id="id_nilai_no_5_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_5_1">
+                Organisasi membuat, dan mengimplementasikan persyaratan terhadap tamu/pengunjung dan pemasok yang
+                terkait dengan sistem manajemen biorisiko namun persyaratan tersebut tidak didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_5_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_5" value="2" required id="id_nilai_no_5_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_5_2">
+                Organisasi membuat, dan mendokumentasikan persyaratan terhadap tamu/pengunjung dan pemasok yang terkait
+                dengan sistem manajemen biorisiko namun persyaratan tersebut belum diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_5_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_5" value="1" required id="id_nilai_no_5_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_5_3">
+                Organisasi tidak memiliki persyaratan terhadap tamu/pengunjung dan pemasok yang terkait dengan sistem
+                manajemen biorisiko</label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_5_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_5" value="0" required id="id_nilai_no_5_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_5_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_5" id="id_keterangan_no_5" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_5" id="id_rekomendasi_no_5" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">6. Identifikasi Bahaya (Pak Eko)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_6_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_6" value="4" required id="id_nilai_no_6_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_6_0">
+                Bahaya biologis diidentifikasi dan didokumentasikan sebelum memulai aktivitas
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_6_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_6" value="3" required id="id_nilai_no_6_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_6_1">Bahaya biologis diidentifikasi namun
+                tidak didokumentasikan sebelum memulai aktivitas
+
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_6_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_6" value="2" required id="id_nilai_no_6_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_6_2">
+                Terkadang bahaya biologis diidentifikasi
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_6_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_6" value="1" required id="id_nilai_no_6_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_6_3">
+                Tidak ada tahapan identifikasi bahaya biologis</label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_6_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_6" value="0" required id="id_nilai_no_6_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_6_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_6" id="id_keterangan_no_6" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_6" id="id_rekomendasi_no_6" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">7. Identifikasi Bahaya (Pak Eko) B </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_7_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_7" value="4" required id="id_nilai_no_7_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_7_0">Bahaya non-biologis yang dapat berdampak
+                pada biorisiko diidentifikasi dan didokumentasikan sebelum memulai aktivitas
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_7_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_7" value="3" required id="id_nilai_no_7_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_7_1">
+                Bahaya non-biologis diidentifikasi namun tidak didokumentasikan sebelum memulai aktivitas</label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_7_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_7" value="2" required id="id_nilai_no_7_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_7_2">Terkadang bahaya non-biologis
+                diidentifikasi
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_7_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_7" value="1" required id="id_nilai_no_7_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_7_3">
+                Tidak ada tahapan identifikasi bahaya non-biologis</label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_7_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_7" value="0" required id="id_nilai_no_7_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_7_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_7" id="id_keterangan_no_7" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_7" id="id_rekomendasi_no_7" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">
+              8. Penilaian Risiko (Bu Aroem)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_8_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_8" value="4" required id="id_nilai_no_8_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_8_0">
+                Organisasi memiliki sistem penilaian risiko yang di implementasikan, di dokumentasikan, dan di
+                komunikasikan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_8_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_8" value="3" required id="id_nilai_no_8_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_8_1">
+                Organisasi memiliki sistem penilaian risiko yang di implementasikan, di dokumentasikan, namun tidak di
+                komunikasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_8_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_8" value="2" required id="id_nilai_no_8_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_8_2">
+                Organisasi memiliki sistem penilaian risiko namun tidak implementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_8_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_8" value="1" required id="id_nilai_no_8_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_8_3">
+                Organisasi tidak memiliki sistem penilaian risiko</label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_8_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_8" value="0" required id="id_nilai_no_8_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_8_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_8" id="id_keterangan_no_8" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_8" id="id_rekomendasi_no_8" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">9. Pengendalian Risiko (Bu Mira)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_9_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_9" value="4" required id="id_nilai_no_9_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_9_0">Organisasi melakukan identifikasi serta
+                implementasi langkah-langkah pengendalian berdasarkan hasil penilaian risiko
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_9_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_9" value="3" required id="id_nilai_no_9_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_9_1">
+                Organisasi melakukan identifikasi langkah-langkah pengendalian berdasarkan hasil penilaian risiko, namun
+                belum sepenuhnya diimplementasikan</label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_9_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_9" value="2" required id="id_nilai_no_9_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_9_2">
+                Organisasi melakukan identifikasi langkah-langkah pengendalian berdasarkan hasil penilaian risiko, namun
+                belum diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_9_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_9" value="1" required id="id_nilai_no_9_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_9_3">
+                Organisasi tidak melakukan identifikasi dan implementasi langkah-langkah pengendalian berdasarkan hasil
+                penilaian risiko</label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_9_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_9" value="0" required id="id_nilai_no_9_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_9_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_9" id="id_keterangan_no_9" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_9" id="id_rekomendasi_no_9" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">
+              10. Evaluasi Pengendalian Risiko (Bu Atie)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_10_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_10" value="4" required id="id_nilai_no_10_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_10_0">
+                Terdapat sistem monitoring dan evaluasi kinerja sistem pengendalian risiko yang terdokumentasi dan
+                diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_10_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_10" value="3" required id="id_nilai_no_10_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_10_1">
+                Terdapat sistem monitoring dan evaluasi kinerja sistem pengendalian risiko yang diimplementasikan namun
+                tidak didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_10_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_10" value="2" required id="id_nilai_no_10_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_10_2">
+                Terdapat sistem monitoring dan evaluasi kinerja sistem pengendalian risiko namun tidak diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_10_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_10" value="1" required id="id_nilai_no_10_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_10_3">
+                Tidak terdapat sistem monitoring dan evaluasi kinerja sistem pengendalian risiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_10_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_10" value="0" required id="id_nilai_no_10_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_10_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_10" id="id_keterangan_no_10" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_10" id="id_rekomendasi_no_10" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">11. Komitmen (Pak Eko)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_11_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_11" value="4" required id="id_nilai_no_11_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_11_0">Tanggungjawab dan wewenang untuk peran
+                yang relevan dengan sistem manajemen biorisiko, diidentifikasi, didokumentasikan dan dikomunikasikan
+                didalam organisasi
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_11_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_11" value="3" required id="id_nilai_no_11_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_11_1">
+                Tanggungjawab dan wewenang untuk peran yang relevan dengan sistem manajemen biorisiko diidentifikasi dan
+                dikomunikasikan didalam organisasi namun tidak didokumentasikan</label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_11_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_11" value="2" required id="id_nilai_no_11_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_11_2">
+                Tanggungjawab dan wewenang untuk peran yang relevan dengan sistem manajemen biorisiko didentifikasi
+                namun tidak didokumentasikan dan dikomunikasikan didalam organisasi
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_11_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_11" value="1" required id="id_nilai_no_11_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_11_3">
+                Tidak ada tanggungjawab dan wewenang untuk peran yang relevan dengan sistem manajemen biorisiko</label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_11_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_11" value="0" required id="id_nilai_no_11_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_11_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_11" id="id_keterangan_no_11" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_11" id="id_rekomendasi_no_11" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">
+              12. Manajemen Puncak (Bu Mira)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_12_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_12" value="4" required id="id_nilai_no_12_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_12_0">
+                Manajemen puncak bertanggung jawab penuh atas sistem manajemen biorisiko organisasi dan memiliki
+                komitmen untuk menyediakan sumber daya terkait
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_12_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_12" value="3" required id="id_nilai_no_12_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_12_1">Manajemen puncak bertanggung jawab atas
+                sistem manajemen biorisiko organisasi, namun belum sepenuhnya berkomitmen menyediakan sumber daya
+                terkait
+
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_12_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_12" value="2" required id="id_nilai_no_12_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_12_2">
+                Manajemen puncak mendelegasikan tanggung jawab atas sistem manajemen biorisiko organisasi, namun tidak
+                mengevaluasi/ memonitor
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_12_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_12" value="1" required id="id_nilai_no_12_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_12_3">
+                Manajemen puncak tidak melaksanakan tanggung jawab penuh atas sistem manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_12_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_12" value="0" required id="id_nilai_no_12_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_12_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_12" id="id_keterangan_no_12" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_12" id="id_rekomendasi_no_12" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section1-quiz-title">
+              13. Manajemen Senior (Bu Aroem)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_13_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_13" value="4" required id="id_nilai_no_13_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_13_0">
+                Organisasi memiliki manajemen senior yang melaksanakan tanggung jawab operasional untuk mengawasi dan
+                memastikan pelaksanaan sistem manajemen biorisiko. Peran, tanggungjawab dan wewenang ini di
+                dokumentasikan dan, dikomunikasikan di dalam organisasi
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_13_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_13" value="3" required id="id_nilai_no_13_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_12_1">
+                Organisasi memiliki manajemen senior yang melaksanakan tanggung jawab operasional untuk mengawasi dan
+                memastikan pelaksanaan sistem manajemen biorisiko. Peran, tanggungjawab dan wewenang ini tidak
+                terdokumentasi
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_13_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_13" value="2" required id="id_nilai_no_13_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_13_2">
+                Organisasi memiliki manajemen senior yang ditunjuk dengan tanggung jawab operasional untuk mengawasi dan
+                memastikan pelaksanaan sistem manajemen biorisiko, namun belum sepenuhnya melaksanakan tanggungjawabnya
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_13_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_13" value="1" required id="id_nilai_no_13_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_13_3">
+                Organisasi memiliki manajemen senior namun tidak melaksanakan tanggung jawabnya untuk mengawasi dan
+                memastikan pelaksanaan sistem manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_13_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_13" value="0" required id="id_nilai_no_13_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_13_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_13" id="id_keterangan_no_13" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_13" id="id_rekomendasi_no_13" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- B -->
+
+        <div class="open-quiz_container" id="quizContainer3">
+          <div class="title-container section2">
+            <div class="title-questionnaire">
+              2. Identifikasi Bahaya, Penilaian dan Pengendalian Risiko
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section2-quiz-title">14. Komite Manajemen Biorisiko (Bu Atie)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_14_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_14" value="4" required id="id_nilai_no_14_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_14_0">
+                Organisasi memiliki Komite manajemen biorisiko yang dibentuk untuk mendukung sistem manajemen biorisiko.
+                Peran, tanggungjawab dan wewenang ini didokumentasikan, dan diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_14_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_14" value="3" required id="id_nilai_no_14_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_14_1">
+                Organisasi memiliki Komite manajemen biorisiko yang dibentuk untuk mendukung sistem manajemen biorisiko.
+                Peran, tanggungjawab dan wewenang komite ini diimplementasikan, namun tidak dokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_14_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_14" value="2" required id="id_nilai_no_14_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_14_2">
+                Organisasi memiliki Komite manajemen biorisiko. Peran, tanggungjawab dan wewenang komite ini
+                didokumentasikan namun tidak diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_14_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_14" value="1" required id="id_nilai_no_14_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_14_3">
+                Organisasi tidak memiliki Komite manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_14_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_14" value="0" required id="id_nilai_no_14_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_14_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_14" id="id_keterangan_no_14" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_14" id="id_rekomendasi_no_14" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section2-quiz-title">
+              15. Penasehat Manajemen Biorisiko (Bu Aroem)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_15_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_15" value="4" required id="id_nilai_no_15_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_15_0">
+                Organisasi memiliki satu atau lebih penasehat manajemen biorisiko ditunjuk untuk memberikan saran,
+                bimbingan, dan jaminan tentang masalah manajemen biorisiko. Peran, tanggungjawab dan wewenang ini
+                didokumentasikan, dan diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_15_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_15" value="3" required id="id_nilai_no_15_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_15_1">
+                Organisasi memiliki satu atau lebih penasehat manajemen biorisiko ditunjuk untuk memberikan saran,
+                bimbingan, dan jaminan tentang masalah manajemen biorisiko. Peran, tanggungjawab dan wewenang penasehat
+                manajemen biorisiko ini diimplementasikan, namun tidak dokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_15_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_15" value="2" required id="id_nilai_no_15_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_15_2">
+                Organisasi memiliki satu atau lebih penasehat manajemen biorisiko ditunjuk untuk memberikan saran,
+                bimbingan, dan jaminan tentang masalah manajemen biorisiko. Peran, tanggungjawab dan wewenang penasehat
+                manajemen biorisiko ini didokumentasikan namun tidak diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_15_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_15" value="1" required id="id_nilai_no_15_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_15_3">
+                Organisasi tidak memiliki penasehat manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_15_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_15" value="0" required id="id_nilai_no_15_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_15_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_15" id="id_keterangan_no_15" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_15" id="id_rekomendasi_no_15" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section2-quiz-title">16. Manajemen Ilmiah (Bu Mira)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_16_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_16" value="4" required id="id_nilai_no_16_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_16_0">
+                Organisasi memiliki satu atau lebih individu yang tanggungjawab atas program ilmiah dalam fasilitas yang
+                memiliki tugas dan tanggungjawab yang relevan dengan manajemen biorisiko. Peran, tanggungjawab dan
+                wewenang ini didokumentasikan, dan diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_16_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_16" value="3" required id="id_nilai_no_16_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_16_1">
+                Organisasi memiliki personel yang melaksanakan tanggungjawab atas program ilmiah terkait manajemen
+                biorisiko. Peran, tanggungjawab dan wewenang ini tidak didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_16_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_16" value="2" required id="id_nilai_no_16_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_16_2">
+                Organisasi memiliki personel yang bertanggungjawab atas program ilmiah terkait manajemen biorisiko.
+                Peran, tanggungjawab dan wewenang ini didokumentasikan, namun belum sepenuhnya melaksanakan
+                tanggungjawabnya
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_16_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_16" value="1" required id="id_nilai_no_16_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_16_3">
+                Organisasi memiliki satu atau lebih individu yang tanggungjawab atas program ilmiah terkait manajemen
+                biorisiko, namun tidak melaksanakan taggungjawabnya
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_16_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_16" value="0" required id="id_nilai_no_16_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_16_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_16" id="id_keterangan_no_16" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_16" id="id_rekomendasi_no_16" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section2-quiz-title">17. Kepedulian (Bu Atie)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_17_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_17" value="4" required id="id_nilai_no_17_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_17_0">
+                Organisasi mengidentifikasi prosedur untuk membudayakan kepedulian manajemen biorisiko pada pekerja yang
+                di dokumentasi dan dikomunikasikan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_17_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_17" value="3" required id="id_nilai_no_17_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_17_1">
+                Organisasi mengidentifikasi prosedur untuk membudayakan kepedulian manajemen biorisiko pada pekerja yang
+                dikomunikasikan namun belum didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_17_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_17" value="2" required id="id_nilai_no_17_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_17_2">
+                Organisasi mengidentifikasi prosedur untuk membudayakan kepedulian manajemen biorisiko pada pekerja yang
+                didokumentasikan namun tidak dikomunikasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_17_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_17" value="1" required id="id_nilai_no_17_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_17_3">
+                Organisasi tidak memiliki prosedur untuk membudayakan kepedulian manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_17_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_17" value="0" required id="id_nilai_no_17_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_17_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_17" id="id_keterangan_no_17" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_17" id="id_rekomendasi_no_17" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section2-quiz-title">18. Pelatihan (Bu Aroem)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_18_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_18" value="4" required id="id_nilai_no_18_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_18_0">
+                Organisasi memiliki prosedur pelatihan manajemen biorisiko pekerja yang diimplementasikan,
+                didokumentasikan dan diperbaharui
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_18_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_18" value="3" required id="id_nilai_no_18_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_18_1">
+                Organisasi memiliki prosedur pelatihan manajemen biorisiko yang diimplementasikan dan didokumentasikan,
+                tetapi tidak diperbaharui
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_18_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_18" value="2" required id="id_nilai_no_18_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_18_2">
+                Organisasi memiliki prosedur pelatihan manajemen biorisiko yang diimplementasikan tetapi tidak
+                didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_18_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_18" value="1" required id="id_nilai_no_18_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_18_3">
+                Organisasi tidak memiliki prosedur pelatihan manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_18_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_18" value="0" required id="id_nilai_no_18_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_18_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_18" id="id_keterangan_no_18" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_18" id="id_rekomendasi_no_18" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C -->
+
+        <div class="open-quiz_container" id="quizContainer4">
+          <div class="title-container section2">
+            <div class="title-questionnaire">
+              3. Peran, Tanggungjawab dan Wewenang
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section2-quiz-title">
+              19. Kompetensi (Bu Mira)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_19_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_19" value="4" required id="id_nilai_no_19_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_19_0">
+                Organisasi menetapkan, mengimplementasikan dan dokumentasikan prosedur pengendalian yang terkait dengan
+                perilaku manusia
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_19_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_19" value="3" required id="id_nilai_no_19_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_19_1">
+                Organisasi menetapkan prosedur pengendalian yang terkait dengan perilaku manusia,
+                mengimplementasikan, namun tidak didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_19_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_19" value="2" required id="id_nilai_no_19_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_19_2">
+                Organisasi menetapkan prosedur pengendalian yang terkait dengan perilaku manusia, namun tidak
+                mengimplementasikannya
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_19_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_19" value="1" required id="id_nilai_no_19_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_19_3">
+                Organisasi tidak memiliki prosedur pengendalian yang terkait dengan perilaku manusia
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_19_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_19" value="0" required id="id_nilai_no_19_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_19_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_19" id="id_keterangan_no_19" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_19" id="id_rekomendasi_no_19" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section2-quiz-title">
+              20. Kompetensi (Bu Mira) B
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_20_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_20" value="4" required id="id_nilai_no_20_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_20_0">
+                Menetapkan, mengimplementasikan dan dokumentasikan prosedur untuk menilai keandalan personel
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_20_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_20" value="3" required id="id_nilai_no_20_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_20_1">
+                Menetapkan dan mengimplementasikan prosedur untuk menilai keandalan personel, namun tidak
+                didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_20_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_20" value="2" required id="id_nilai_no_20_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_20_2">
+                Menetapkan prosedur untuk menilai keandalan personel yang terdokumentasi, namun tidak
+                mengimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_20_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_20" value="1" required id="id_nilai_no_20_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_20_3">
+                Organisasi tidak memiliki prosedur untuk menilai keandalan personel
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_20_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_20" value="0" required id="id_nilai_no_20_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_20_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_20" id="id_keterangan_no_20" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_20" id="id_rekomendasi_no_20" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section2-quiz-title">
+              21. Commissioning dan Decommissioning (Bu Aroem)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_21_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_21" value="4" required id="id_nilai_no_21_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_21_0">
+                Institusi memiliki, mengimplementasi dan mereview kebijakan mengenai Commisioning dan Decommissioning
+                fasilitas dan peralatan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_21_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_21" value="3" required id="id_nilai_no_21_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_21_1">
+                Institusi memiliki dan mengimplementasikan kebijakan mengenai Commisioning dan Decommissioning fasilitas
+                dan peralatan namun tidak mereview
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_21_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_21" value="2" required id="id_nilai_no_21_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_21_2">
+                Institusi memiliki, kebijakan mengenai Commisioning dan Decommissioning fasilitas dan peralatan namun
+                tidak mengimplementasikan dan mereview
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_21_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_21" value="1" required id="id_nilai_no_21_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_21_3">
+                Institusi tidak memiliki kebijakan commissioning dan decomissioning
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_21_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_21" value="0" required id="id_nilai_no_21_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_21_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_21" id="id_keterangan_no_21" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_21" id="id_rekomendasi_no_21" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section2-quiz-title">22. Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi
+              (Bu Aroem) </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_22_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_22" value="4" required id="id_nilai_no_22_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_22_0">
+                Institusi memiliki, mengimplementasikan dan mengkaji
+                kebijakan mengenai pemeliharaan sarana dan prasarana
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_22_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_22" value="3" required id="id_nilai_no_22_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_22_1">
+                Institusi memiliki dan mengimplementasikan dan kebijakan mengenai pemeliharaan sarana dan prasarana
+                namun tidak meninjau ulang</label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_22_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_22" value="2" required id="id_nilai_no_22_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_22_2">
+                Institusi memiliki, kebijakan mengenai pemeliharaan sarana dan prasarana namun tidak mengimplementasikan
+                dan meninjau ulang
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_22_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_22" value="1" required id="id_nilai_no_22_3">
+              <label class="form-check-label answer-quiz" for="inlid_nilai_no_22_3ineRadio2">
+                Institusi tidak memiliki kebijakan mengenai pemeliharaan sarana dan prasarana
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_22_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_22" value="0" required id="id_nilai_no_22_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_22_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_22" id="id_keterangan_no_22" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_22" id="id_rekomendasi_no_22" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- D -->
+
+        <div class="open-quiz_container" id="quizContainer5">
+          <div class="title-container section3">
+            <div class="title-questionnaire">
+              4. Kepedulian, Pelatihan dan Kompetensi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section3-quiz-title">23. Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi
+              (Bu Aroem)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_23_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_23" value="4" required id="id_nilai_no_23_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_23_0">
+                Institusi memiliki kebijakan mengenai pengendalian alat yang diimplementasikan dan ditinjau ulang secara
+                berkala
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_23_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_23" value="3" required id="id_nilai_no_23_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_23_1">
+                Institusi memilik dan mengimplementasikan kebijakan mengenai pengendalian alat namun tidak meninjau
+                ulang
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_23_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_23" value="2" required id="id_nilai_no_23_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_23_2">
+                Institusi memiliki kebijakan mengenai pengendalian alat, Namun tidak mengimplementasikan dan meninjau
+                ulang
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_23_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_23" value="1" required id="id_nilai_no_23_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_23_3">
+                Institusi tidak memiliki kebijakan mengenai pengendalian alat
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_23_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_23" value="0" required id="id_nilai_no_23_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_23_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_23" id="id_keterangan_no_23" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_23" id="id_rekomendasi_no_23" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- E -->
+
+        <div class="open-quiz_container" id="quizContainer6">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              5. Pengendalian Operasional
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              24. Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi (Bu Aroem)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_24_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_24" value="4" required id="id_nilai_no_24_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_24_0">
+                Institusi memiliki, mengimplementasikan, dan mendokumentasikan kebijakan mengenai kalibrasi alats
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_24_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_24" value="3" required id="id_nilai_no_24_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_24_1">
+                Institusi memiliki, mengimplementasi, namun tidak mendokumentasikan kebijakan mengenai kalibrasi alat
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_24_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_24" value="2" required id="id_nilai_no_24_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_24_2">
+                Institusi memiliki kebijakan mengenai kalibrasi alat namun tidak mengimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_24_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_24" value="1" required id="id_nilai_no_24_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_24_3">
+                Institusi tidak memiliki kebijakan mengenai kalibrasi alat
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_24_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_24" value="0" required id="id_nilai_no_24_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_24_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_24" id="id_keterangan_no_24" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_24" id="id_rekomendasi_no_24" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">25. Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi
+              (Bu Aroem)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_25_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_25" value="4" required id="id_nilai_no_25_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_25_0">
+                Institusi memiliki, mengimplementasikan, dan mendokumentasikan kebijakan mengenai sertifikasi alat
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_25_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_25" value="3" required id="id_nilai_no_25_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_25_1">
+                Institusi memiliki, mengimplementasi, namun tidak mendokumentasikan kebijakan mengenai sertifikasi alat
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_25_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_25" value="2" required id="id_nilai_no_25_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_25_2">
+                Institusi memiliki kebijakan mengenai sertifikasi alat namun tidak mengimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_25_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_25" value="1" required id="id_nilai_no_25_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_25_3">
+                Institusi tidak memiliki kebijakan mengenai sertifikasi alat
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_25_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_25" value="0" required id="id_nilai_no_25_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_25_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_25" id="id_keterangan_no_25" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_25" id="id_rekomendasi_no_25" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- F -->
+
+        <div class="open-quiz_container" id="quizContainer7">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              6. Tanggap Darurat dan Rencana Kontigensi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">26. Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi
+              (Bu Aroem)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_26_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_26" value="4" required id="id_nilai_no_26_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_26_0">
+                Institusi memiliki, mengimplementasikan, dan mendokumentasikan kebijakan mengenai validasi alat
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_26_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_26" value="3" required id="id_nilai_no_26_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_26_1">
+                Institusi memiliki, mengimplementasi, namun tidak mendokumentasikan kebijakan mengenai validasi alat
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_26_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_26" value="2" required id="id_nilai_no_26_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_26_2">
+                Institusi memiliki kebijakan mengenai validasi alat namun tidak mengimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_26_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_26" value="1" required id="id_nilai_no_26_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_26_3">
+                Institusi tidak memiliki kebijakan mengenai validasi alat
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_26_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_26" value="0" required id="id_nilai_no_26_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_26_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_26" id="id_keterangan_no_26" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_26" id="id_rekomendasi_no_26" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">27. Keamanan secara fisik (Bu Mira)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_27_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_27" value="4" required id="id_nilai_no_27_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_27_0">
+                Terdapat sistem keamanan secara fisik dan sistem pembatasan akses personel ke dalam
+                laboratorium/fasilitas hewan untuk mengendalikan personel, bahan biologik, material terkontaminasi dan
+                limbah sesuai dengan penilaian risiko serta ditinjau secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_27_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_27" value="3" required id="id_nilai_no_27_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_27_1">
+                Terdapat sistem kemananan secara fisik dan sistem pembatasan akses personel kedalam
+                laboratorium/fasilitas hewan untuk mengendalikan personel, bahan biologik, material terkontaminasi dan
+                limbah sesuai dengan penilaian risiko, namun tidak dtinjau secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_27_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_27" value="2" required id="id_nilai_no_27_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_27_2">
+                Terdapat sistem kemananan secara fisik dan sistem pembatasan akses personel kedalam
+                laboratorium/fasilitas hewan untuk mengendalikan personel, bahan biologik, material terkontaminasi dan
+                limbah, namun tidak berdasarkan penilaian risiko dan tidak ditinjau secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_27_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_27" value="1" required id="id_nilai_no_27_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_27_3">
+                Tidak terdapat sistem kemananan secara fisik untuk mengendalikan personel, bahan biologik, material
+                terkontaminasi dan limbah
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_27_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_27" value="0" required id="id_nilai_no_27_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_27_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_27" id="id_keterangan_no_27" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_27" id="id_rekomendasi_no_27" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">28. Teknik Mikrobiologi yang baik (Bu Atie)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_28_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_28" value="4" required id="id_nilai_no_28_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_28_0">
+                Personel mengetahui, terlatih, dan melaksanakan Good Microbiological Procedure and Practice/GMPP dengan
+                konsisten
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_28_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_28" value="3" required id="id_nilai_no_28_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_28_1">
+                Personel mengetahui dan terlatih, GMPP namun tidak melaksanakannya secara konsisten
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_28_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_28" value="2" required id="id_nilai_no_28_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_28_2">
+                Personel mengetahui dan terlatih, GMPP namun sama sekali tidak melaksanakannya
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_28_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_28" value="1" required id="id_nilai_no_28_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_28_3">
+                Organisasi tidak memiliki pedoman GMPP
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_28_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_28" value="0" required id="id_nilai_no_28_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_28_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_28" id="id_keterangan_no_28" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_28" id="id_rekomendasi_no_28" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- G -->
+
+        <div class="open-quiz_container" id="quizContainer8">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              7. Monitoring dan Pengendalian Inventaris
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              29. Teknik Mikrobiologi yang baik (Bu Atie)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_29_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_29" value="4" required id="id_nilai_no_29_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_29_0">
+                Institusi menyediakan peralatan keselamatan yang memadai dan sesuai dengan penilaian risiko untuk
+                pelaksanaan GMPP secara efektif
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_29_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_29" value="3" required id="id_nilai_no_29_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_29_1">
+                Institusi menyediakan peralatan keselamatan yang memadai namun tidak melalui penilaian risiko
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_29_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_29" value="2" required id="id_nilai_no_29_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_29_2">
+                Institusi menyediakan peralatan keselamatan, namun tidak memadai
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_29_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_29" value="1" required id="id_nilai_no_29_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_29_3">
+                Institusi tidak menyediakan peralatan keselamatan
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_29_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_29" value="0" required id="id_nilai_no_29_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_29_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_29" id="id_keterangan_no_29" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_29" id="id_rekomendasi_no_29" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">30. Teknik Mikrobiologi yang baik (Bu Atie)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_30_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_30" value="4" required id="id_nilai_no_30_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_30_0">
+                Terdapat sistem pelabelan yang sesuai dengan tingkat keselamatan laboratorium/fasilitas hewan untuk
+                bahan biologis dan bahan berbahaya lainnya yang ditangani berdasarkan penilaian risiko
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_30_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_30" value="3" required id="id_nilai_no_30_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_30_1">
+                Terdapat sistem pelabelan yang sesuai dengan tingkat keselamatan laboratorium/fasilitas hewan untuk
+                bahan biologis dan bahan berbahaya lainnya yang ditangani namun tidak melalui penilaian risiko
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_30_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_30" value="2" required id="id_nilai_no_30_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_30_2">
+                Terdapat sistem pelabelan untuk bahan biologis dan bahan berbahaya lainnya namum tidak disesuaikan
+                dengan tingkat keselamatan laboratorium/fasilitas hewan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_30_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_30" value="1" required id="id_nilai_no_30_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_30_3">
+                Tidak terdapat sistem pelabelan sesuai dengan tingkat keselamatan laboratorium/fasilitas hewan
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_30_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_30" value="0" required id="id_nilai_no_30_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_30_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_30" id="id_keterangan_no_30" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_30" id="id_rekomendasi_no_30" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              31. Alat Pelindung Diri (Bu Atie)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_31_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_31" value="4" required id="id_nilai_no_31_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_31_0">
+                Terdapat prosedur dekontaminasi <span class="italic">reusable</span> APD sebelum
+                dilakukan pencucian di dalam fasilitas
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_31_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_31" value="3" required id="id_nilai_no_31_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_31_1">
+                Terdapat prosedur dekontaminasi <span class="italic">reusable</span> APD
+                <span>tetapi tidak dilakukan</span> pencucian di dalam
+                fasilitas</label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_31_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_31" value="2" required id="id_nilai_no_31_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_31_2">
+                <span>Tidak terdapat prosedur</span> dekontaminasi
+                <span class="italic">reusable</span> APD sebelum dilakukan pencucian di dalam
+                fasilitas
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_31_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_31" value="1" required id="id_nilai_no_31_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_31_3">
+                <span>Tidak dilakukan</span> dekontaminasi dan
+                pencucian <span class="italic">reusable</span> APD didalam fasilitas.
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_31_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_31" value="0" required id="id_nilai_no_31_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_31_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_31" id="id_keterangan_no_31" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_31" id="id_rekomendasi_no_31" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- H -->
+
+        <div class="open-quiz_container" id="quizContainer9">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              4. Perlaksanaan dan Operasi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">32. Alat Pelindung Diri (Bu Atie)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_32_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_32" value="4" required id="id_nilai_no_32_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_32_0">
+                Institusi memiliki prosedur untuk <span>mengantisipasi, mengendalikan dan mendokumentasikan</span>
+                risiko yang
+                berhubungan dengan tingkah laku personel yang bekerja
+                dengan bahan biologik dan bahan berbahaya lainnya
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_32_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_32" value="3" required id="id_nilai_no_32_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_32_1">
+                Institusi memiliki prosedur untuk mengantisipasi dan
+                mengendalikan risiko yang berhubungan dengan tingkah
+                laku personel yang bekerja dengan bahan biologik dan
+                bahan berbahaya lainnya
+                <span>tetapi tidak terdokumentasi</span></label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_32_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_32" value="2" required id="id_nilai_no_32_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_32_2">
+                Institusi memiliki prosedur untuk mengendalikan risiko
+                yang berhubungan dengan tingkah laku personel yang
+                bekerja dengan bahan biologik dan bahan berbahaya
+                lainnya <span>tetapi tidak mengantisipasi dan mendokumentasikan</span>
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_32_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_32" value="1" required id="id_nilai_no_32_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_32_3">
+                Institusi <span>tidak memiliki prosedur</span> untuk
+                mengantisipasi, mengendalikan dan mendokumentasikan
+                risiko yang berhubungan dengan tingkah laku personel
+                yang bekerja dengan bahan biologik dan bahan berbahaya
+                lainnya</label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_32_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_32" value="0" required id="id_nilai_no_32_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_32_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_32" id="id_keterangan_no_32" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_32" id="id_rekomendasi_no_32" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- I -->
+
+        <div class="open-quiz_container" id="quizContainer10">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              4. Perlaksanaan dan Operasi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">33. Alat Pelindung Diri (Bu Atie)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_33_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_33" value="4" required id="id_nilai_no_33_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_33_0">
+                Terdapat prosedur dekontaminasi reusable APD sebelum dilakukan pencucian di dalam fasilitas
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_33_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_33" value="3" required id="id_nilai_no_33_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_33_1">
+                Terdapat prosedur dekontaminasi reusable APD sebelum dilakukan pencucian di luar fasilitas
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_33_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_33" value="2" required id="id_nilai_no_33_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_33_2">
+                Tidak terdapat prosedur dekontaminasi reusable APD sebelum dilakukan pencucian di dalam fasilitas
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_33_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_33" value="1" required id="id_nilai_no_33_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_33_3">
+                Tidak dilakukan dekontaminasi dan pencucian reusable APD di dalam fasilitas
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_33_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_33" value="0" required id="id_nilai_no_33_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_33_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_33" id="id_keterangan_no_33" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_33" id="id_rekomendasi_no_33" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">34. Dekontaminasi dan Pengolahan Limbah (Bu Mira)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_34_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_34" value="4" required id="id_nilai_no_34_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_34_0">
+                Institusi mempunyai sistem dan menerapkan inaktivasi bahan biologik dan bahan berbahaya lainnya serta
+                dekontaminasi peralatan sesuai dengan standar untuk mengendalikan dan mengeliminasi risiko. Proses ini
+                terdokumentasi, mempunyai sistem otorisasi dan ditinjau secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_34_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_34" value="3" required id="id_nilai_no_34_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_34_1">
+                Institusi mempunyai sistem dan menerapkan inaktivasi bahan biologik dan bahan berbahaya lainnya serta
+                dekontaminasi peralatan sesuai dengan standar untuk mengendalikan dan mengeliminasi risiko. Proses ini
+                terdokumentasi, mempunyai sistem otorisasi, namun tidak ditinjau secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_34_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_34" value="2" required id="id_nilai_no_34_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_34_2">
+                Institusi mempunyai sistem dan menerapkan inaktivasi bahan biologik dan bahan berbahaya lainnya serta
+                dekontaminasi peralatan sesuai dengan standar untuk mengendalikan dan mengeliminasi risiko. Proses ini
+                terdokumentasi, namun tidak mempunyai sistem otorisasi, dan tidak ditinjau secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_34_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_34" value="1" required id="id_nilai_no_34_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_34_3">
+                Institusi tidak mempunyai sistem inaktivasi bahan biologik dan bahan berbahaya lainnya serta
+                dekontaminasi peralatan yang ditangani untuk mengendalikan dan mengeliminasi risiko
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_34_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_34" value="0" required id="id_nilai_no_34_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_34_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_34" id="id_keterangan_no_34" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDAS</label>
+                <textarea class="form-control" name="rekomendasi_no_34" id="id_rekomendasi_no_34" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">35. Dekontaminasi dan Pengolahan Limbah (Bu Mira)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_35_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_35" value="4" required id="id_nilai_no_35_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_35_0">
+                Institusi mempunyai sistem dan menerapkan pengolahan limbah sesuai dengan standar yang ditetapkan
+                pemerintah. Pelaporan Pembuangan limbah terdokumentasi dengan baik disertai dengan sistem otorisasi
+                serta direview secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_35_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_35" value="3" required id="id_nilai_no_35_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_35_1">
+                Institusi mempunyai sistem dan menerapkan pengolahan limbah sesuai dengan standar yang ditetapkan
+                pemerintah. Pelaporan Pembuangan limbah terdokumentasi dengan baik, disertai dengan sistem otorisasi
+                namun tidak direview secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_35_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_35" value="2" required id="id_nilai_no_35_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_35_2">
+                Institusi mempunyai sistem pengolahan limbah sesuai dengan standar yang ditetapkan pemerintah. Pelaporan
+                Pembuangan limbah terdokumentasi dengan baik namun tidak mempunyai sistem otorisasi, dan tidak ditinjau
+                secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_35_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_35" value="1" required id="id_nilai_no_35_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_35_3">
+                Institusi tidak mempunyai sistem pengolahan limbah baik limbah berbahaya, limbah padat maupun limbah
+                cair
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_35_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_35" value="0" required id="id_nilai_no_35_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_35_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_35" id="id_keterangan_no_35" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_35" id="id_rekomendasi_no_35" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- J -->
+
+        <div class="open-quiz_container" id="quizContainer11">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              4. Perlaksanaan dan Operasi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              36. Transportasi bahan biologis (Bu Mira)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_36_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_36" value="4" required id="id_nilai_no_36_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_36_0">
+                Terdapat prosedur penerimaan dan pengiriman bahan biologik dan bahan berbahaya lainnya yang sesuai
+                dengan standar dan dipahami oleh seluruh personel laboratorium dengan otorisasi, terdokumentasi dan
+                direview secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_36_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_36" value="3" required id="id_nilai_no_36_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_36_1">
+                Terdapat prosedur penerimaan dan pengiriman bahan biologik dan bahan berbahaya lainnya yang sesuai
+                dengan standar dan dipahami oleh seluruh personel laboratorium dengan otorisasi, terdokumentasi, namun
+                tidak direview secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_36_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_36" value="2" required id="id_nilai_no_36_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_36_2">
+                Terdapat prosedur penerimaan dan pengiriman bahan biologik dan bahan berbahaya lainnya yang sesuai
+                dengan standar, namun tidak dipahami oleh seluruh personel laboratorium
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_36_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_36" value="1" required id="id_nilai_no_36_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_36_3">
+                Tidak terdapat prosedur penerimaan dan pengiriman bahan biologik dan bahan berbahaya lainnya yang sesuai
+                dengan standar
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_36_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_36" value="0" required id="id_nilai_no_36_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_36_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_36" id="id_keterangan_no_36" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_36" id="id_rekomendasi_no_36" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              37. Pengendalian Pemasok (Bu Mira)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_37_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_37" value="4" required id="id_nilai_no_37_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_37_0">
+                Institusi memiliki sistem yang terdokumentasi untuk mengidentifikasi, mereview dan menyetujui kontraktor
+                dan pemasok yang menyediakan barang maupun jasa terkait dengan biorisiko.
+                Dalam sistem ini harus ada persetujuan dari biosafety officer. Proses pembelian barang/jasa terkait
+                dengan biorisiko harus mendapat persetujuan biosafety officer dan terdokumentasi.
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_37_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_37" value="3" required id="id_nilai_no_37_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_37_1">
+                Institusi memiliki sistem yang terdokumentasi untuk mengidentifikasi, mereview dan menyetujui kontraktor
+                dan pemasok yang menyediakan barang maupun jasa terkait dengan biorisiko. Dalam sistem ini harus ada
+                persetujuan dari biosafety officer. Proses pembelian barang/jasa terkait dengan biorisiko mendapat
+                persetujuan biosafety officer, namun tidak terdokumentasi.
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_37_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_37" value="2" required id="id_nilai_no_37_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_37_2">
+                Institusi memiliki sistem yang terdokumentasi untuk mengidentifikasi, mereview dan menyetujui kontraktor
+                dan pemasok yang menyediakan barang maupun jasa terkait dengan biorisiko. Dalam sistem ini diperlukan
+                persetujuan biosafety officer. Namun dalam penerapannya tidak melibatkan biosafety officer.
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_37_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_37" value="1" required id="id_nilai_no_37_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_37_3">
+                Pembelian barang/jasa terkait biorisiko tidak memiliki sistem tersendiri
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_37_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_37" value="0" required id="id_nilai_no_37_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_37_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_37" id="id_keterangan_no_37" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_37" id="id_rekomendasi_no_37" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              38. Tanggap darurat dan kontigensi (Bu Mira)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_38_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_38" value="4" required id="id_nilai_no_38_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_38_0">
+                Institusi menetapkan rencana dan prosedur pengendalian keadaan darurat yang berdampak pada manajemen
+                biorisiko, mengimplementasikan, dan review berkala
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_38_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_38" value="3" required id="id_nilai_no_38_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_38_1">
+                Institusi menetapkan
+                rencana dan prosedur pengendalian keadaan darurat yang berdampak pada manajemen biorisiko,
+                mengimplementasikan, namun tidak melakukan review berkala
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_38_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_38" value="2" required id="id_nilai_no_38_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_38_2">
+                Institusi menetapkan
+                rencana dan prosedur pengendalian keadaan darurat yang berdampak pada manajemen biorisiko, namun tidak
+                mengimplementasikanya
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_38_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_38" value="1" required id="id_nilai_no_38_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_38_3">
+                Organisasi tidak memiliki rencana dan prosedur pengendalian keadaan darurat yang berdampak pada
+                manajemen biorisiko
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_38_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_38" value="0" required id="id_nilai_no_38_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_38_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_38" id="id_keterangan_no_38" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_38" id="id_rekomendasi_no_38" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              39. Skenario Darurat (Bu Atie)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_39_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_39" value="4" required id="id_nilai_no_39_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_39_0">
+                Institusi memiliki skenario darurat berdampak pada manajemen biorisiko serta dikaji berkala
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_39_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_39" value="3" required id="id_nilai_no_39_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_39_1">
+                Institusi memiliki skenario darurat berdampak pada manajemen biorisiko, namun tidak dikaji secara
+                berkala
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_39_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_39" value="2" required id="id_nilai_no_39_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_39_2">
+                Institusi memiliki skenario darurat berdampak pada manajemen biorisiko, namun tidak pernah dikaji
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_39_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_39" value="1" required id="id_nilai_no_39_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_39_3">
+                Institusi tidak memiliki skenario darurat
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_39_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_39" value="0" required id="id_nilai_no_39_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_39_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_39" id="id_keterangan_no_39" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_39" id="id_rekomendasi_no_39" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- K -->
+
+        <div class="open-quiz_container" id="quizContainer12">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              4. Perlaksanaan dan Operasi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              40. Rencana Darurat (Bu Aroem)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_40_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_40" value="4" required id="id_nilai_no_40_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_40_0">
+                Institusi memiliki rencana darurat berdampak pada manajemen biorisiko serta dikaji berkala
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_40_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_40" value="3" required id="id_nilai_no_40_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_40_1">
+                Institusi memiliki rencana darurat berdampak pada manajemen biorisiko, namun tidak dikaji secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_40_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_40" value="2" required id="id_nilai_no_40_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_40_2">
+                Institusi memiliki rencana darurat berdampak pada manajemen biorisiko, namun tidak pernah dikaji
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_40_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_40" value="1" required id="id_nilai_no_40_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_40_3">
+                Institusi tidak memiliki rencana darurat
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_40_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_40" value="0" required id="id_nilai_no_40_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_40_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_40" id="id_keterangan_no_40" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_40" id="id_rekomendasi_no_40" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              41. Pelatihan dan Simulasi Tanggap darurat (Bu Mira)
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_41_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_41" value="4" required id="id_nilai_no_41_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_41_0">
+                Institusi memiliki program pelatihan dan simulasi tanggap darurat yang dilakukan secara rutin serta
+                melibatkan semua personel. Program ini diimplementasikan, terdokumentasi dan dikaji secara berkala
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_41_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_41" value="3" required id="id_nilai_no_41_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_41_1">
+                Institusi memiliki program pelatihan dan simulasi tanggap darurat. Program ini diimplementasikan,
+                didokumentasikan, namun tidak dikaji
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_41_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_41" value="2" required id="id_nilai_no_41_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_41_2">
+                Institusi memiliki program pelatihan dan simulasi tanggap darurat, namun tidak diimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_41_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_41" value="1" required id="id_nilai_no_41_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_41_3">
+                Institusi tidak memiliki program pelatihan dan simulasi tanggap darurat
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_41_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_41" value="0" required id="id_nilai_no_41_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_41_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_41" id="id_keterangan_no_41" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_41" id="id_rekomendasi_no_41" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L -->
+
+        <div class="open-quiz_container" id="quizContainer13">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              4. Perlaksanaan dan Operasi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">42. Monitoring inventaris (Bu Atie)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_42_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_42" value="4" required id="id_nilai_no_42_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_42_0">
+                Institusi memiliki sistem inventarisasi, informasi dan pencatatan yang akurat, terperinci, dan terkini
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_42_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_42" value="3" required id="id_nilai_no_42_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_42_1">
+                Institusi memiliki sistem inventarisasi, informasi dan pencatatan yang akurat, terperinci, namun tidak
+                terkini
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_42_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_42" value="2" required id="id_nilai_no_42_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_42_2">
+                Institusi memiliki sistem inventarisasi, informasi dan pencatatan, namun tidak terperinci
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_42_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_42" value="1" required id="id_nilai_no_42_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_42_3">
+                Institusi tidak memiliki sistem inventaris
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_42_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_42" value="0" required id="id_nilai_no_42_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_42_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_42" id="id_keterangan_no_42" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_42" id="id_rekomendasi_no_42" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">43. Pengendalian Inventaris (Bu Aroem)</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_43_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_43" value="4" required id="id_nilai_no_43_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_43_0">
+                Institusi memiliki sistem pengendalian inventaris, informasi dan pencatatan yang akurat, terpercinci,
+                dan terkini
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_43_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_43" value="3" required id="id_nilai_no_43_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_43_1">
+                Institusi memiliki sistem pengendalian inventaris, informasi dan pencatatan yang akurat, terperinci,
+                namun tidak terkini
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_43_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_43" value="2" required id="id_nilai_no_43_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_43_2">
+                Institusi memiliki sistem pengendalian inventaris, informasi dan pencatatan, namun tidak terpercinci
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_43_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_43" value="1" required id="id_nilai_no_43_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_43_3">
+                Institusi tidak memiliki sistem pengendalian inventaris
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_43_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_43" value="0" required id="id_nilai_no_43_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_43_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_43" id="id_keterangan_no_43" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_43" id="id_rekomendasi_no_43" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">44. Kesehatan karyawan</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_44_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_44" value="4" required id="id_nilai_no_44_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_44_0">
+                Organisasi memiliki dan menerapkan kebijakan untuk pencegahan dan perlindungan terhadap pajanan bahan
+                biologis terhadap kesehatan karyawan yang dikelola secara efektif, didokumentasikan dan dikomunikasikan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_44_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_44" value="3" required id="id_nilai_no_44_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_44_1">
+                Organisasi memiliki dan menerapkan kebijakan untuk pencegahan dan perlindungan terhadap pajanan bahan
+                biologis terhadap kesehatan karyawan yang dikelola secara efektif, namun tidak didokumentasikan dan
+                dikomunikasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_44_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_44" value="2" required id="id_nilai_no_44_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_44_2">
+                Organisasi memiliki kebijakan untuk pencegahan dan perlindungan terhadap pajanan bahan biologis terhadap
+                kesehatan karyawan, namun tidak dikomunikasikan dan tidak diterapkan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_44_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_44" value="1" required id="id_nilai_no_44_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_44_3">
+                Organisasi tidak memiliki kebijakan untuk pencegahan dan perlindungan terhadap pajanan bahan biologis
+                terhadap kesehatan karyawan
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_44_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_44" value="0" required id="id_nilai_no_44_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_44_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_44" id="id_keterangan_no_44" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_44" id="id_rekomendasi_no_44" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">45. Monitoring</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_45_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_45" value="4" required id="id_nilai_no_45_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_45_0">
+                Terdapat program survailans/monitoring kesehatan yang ditentukan melalui penilaian risiko bagi personil
+                yang berisiko. Program ini dilaksanakan secara berkala serta didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_45_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_45" value="3" required id="id_nilai_no_45_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_45_1">
+                Terdapat program survailans/monitoring Kesehatan. Program ini dilaksanakan mencakup seluruh karyawan
+                yang berisiko secara berkala namun tidak didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_45_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_45" value="2" required id="id_nilai_no_45_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_45_2">
+                Terdapat program survailans/monitoring kesehatan berdasarkan penilaian risiko, namun tidak dilaksanaan
+                secara rutin
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_45_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_45" value="1" required id="id_nilai_no_45_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_45_3">
+                Tidak Terdapat program survailans/monitoring kesehatan yang ditentukan melalui penilaian risiko bagi
+                personil.
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_45_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_45" value="0" required id="id_nilai_no_45_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_45_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_45" id="id_keterangan_no_45" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_45" id="id_rekomendasi_no_45" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">46. Vaksinasi</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_46_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_46" value="4" required id="id_nilai_no_46_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_46_0">
+                Vaksinasi diberikan berdasarkan penilaian risiko serta dilakukan monitoring
+                Organisasi memiliki dan menerapkan program vaksinasi yang diberikan berdasarkan penilaian risiko dan
+                dilakukan evaluasi.
+                Vaksinasi diberikan berdasarkan penilaian risiko serta dilakukan monitoring
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_46_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_46" value="3" required id="id_nilai_no_46_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_46_1">
+                Vaksinasi diberikan berdasarkan melalui penilaian risiko namun tidak terdapat prosedur monitoring
+                Organisasi memiliki dan menerapkan program vaksinasi yang diberikan berdasarkan penilaian risiko, namun
+                tidak dilakukan evaluasi.
+
+                Vaksinasi diberikan berdasarkan melalui penilaian risiko namun tidak terdapat prosedur monitoring
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_46_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_46" value="2" required id="id_nilai_no_46_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_46_2">
+                Vaksinasi diberikan tanpa penilaian risiko dan tidak terdapat prosedur monitoring
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_46_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_46" value="1" required id="id_nilai_no_46_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_46_3">
+                Tidak ada program vaksinasi
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_46_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_46" value="0" required id="id_nilai_no_46_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_46_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_46" id="id_keterangan_no_46" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_46" id="id_rekomendasi_no_46" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- M -->
+
+        <div class="open-quiz_container" id="quizContainer14">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              4. Perlaksanaan dan Operasi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              47. Pelaporan
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_47_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_47" value="4" required id="id_nilai_no_47_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_47_0">
+                Organisasi memiliki prosedur yang untuk mencatat kecelakaan atau insiden yang melibatkan bahan biologis
+                yang ditetapkan, terdokumentasi, dan dipelihara/terarsip
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_47_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_47" value="3" required id="id_nilai_no_47_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_47_1">
+                Organisasi memiliki prosedur yang untuk mencatat kecelakaan atau insiden yang melibatkan bahan biologis
+                yang ditetapkan dan terdokumentasi namun tidak dipelihara/terarsip
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_47_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_47" value="2" required id="id_nilai_no_47_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_47_2">
+                Organisasi memiliki prosedur untuk menganalisa serta mencari akar permasalahan dari kecelakaan atau
+                insiden yang melibatkan bahan biologis yang ditetapkan namun tidak terdokumentasi
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_47_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_47" value="1" required id="id_nilai_no_47_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_47_3">
+                Organisasi tidak memiliki prosedur yang untuk menganalisa serta mencari akar permasalahan dari
+                kecelakaan atau insiden yang melibatkan bahan biologis
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_47_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_47" value="0" required id="id_nilai_no_47_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_47_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_47" id="id_keterangan_no_47" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_47" id="id_rekomendasi_no_47" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              48. Investigasi
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_48_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_48" value="4" required id="id_nilai_no_48_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_48_0">
+                Organisasi memiliki prosedur untuk menganalisa serta mencari akar permasalahan dari kecelakaan atau
+                insiden yang melibatkan bahan biologis yang ditetapkan, terdokumentasi dan dipelihara/terarsip
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_48_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_48" value="3" required id="id_nilai_no_48_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_48_1">
+                Organisasi memiliki prosedur untuk menganalisa serta mencari akar permasalahan dari kecelakaan atau
+                insiden yang melibatkan bahan biologis yang ditetapkan dan terdokumentasi namun tidak
+                dipelihara/terarsip
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_48_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_48" value="2" required id="id_nilai_no_48_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_48_2">
+                Organisasi memiliki prosedur untuk menganalisa serta mencari akar permasalahan dari kecelakaan atau
+                insiden yang melibatkan bahan biologis yang ditetapkan namun tidak terdokumentasi
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_48_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_48" value="1" required id="id_nilai_no_48_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_48_3">
+                Organisasi tidak memiliki prosedur yang untuk menganalisa serta mencari akar permasalahan dari
+                kecelakaan atau insiden yang melibatkan bahan biologis
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_48_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_48" value="0" required id="id_nilai_no_48_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_48_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_48" id="id_keterangan_no_48" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_48" id="id_rekomendasi_no_48" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              49. Tindakan perbaikan
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_49_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_49" value="4" required id="id_nilai_no_49_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_49_0">
+                Organisasi menetapkan, mengimplementasikan dan mendokumentasikan tindakan perbaikan yang sesuai dengan
+                efek dari insiden atau kecelakaan yang terjadi
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_49_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_49" value="3" required id="id_nilai_no_49_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_49_1">
+                Organisasi menetapkan dan mengimplementasikan tindakan perbaikan yang sesuai dengan efek dari insiden
+                atau kecelakaan yang terjadi namun tidak mendokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_49_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_49" value="2" required id="id_nilai_no_49_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_49_2">
+                Organisasi menetapkan, tindakan perbaikan yang sesuai dengan efek dari insiden atau kecelakaan yang
+                terjadi namun tidak mengimplementasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_49_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_49" value="1" required id="id_nilai_no_49_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_49_3">
+                Organisasi tidak menetapkan prosedur tindakan perbaikan
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_49_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_49" value="0" required id="id_nilai_no_49_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_49_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_49" id="id_keterangan_no_49" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_49" id="id_rekomendasi_no_49" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- N -->
+
+        <div class="open-quiz_container" id="quizContainer15">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              4. Perlaksanaan dan Operasi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              50. Inspeksi
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_50_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_50" value="4" required id="id_nilai_no_50_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_50_0">
+                Organisasi melakukan program inspeksi secara berkala dan terdokumentasi
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_50_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_50" value="3" required id="id_nilai_no_50_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_50_1">
+                Organisasi melakukan program inspeksi secara berkala namun tidak terdokumentasi
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_50_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_50" value="2" required id="id_nilai_no_50_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_50_2">
+                Organisasi melakukan program inspeksi
+                Namun tidak berkala
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_50_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_50" value="1" required id="id_nilai_no_50_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_50_3">
+                Tidak terdapat program inspeksi
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_50_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_50" value="0" required id="id_nilai_no_50_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_50_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_50" id="id_keterangan_no_50" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_50" id="id_rekomendasi_no_50" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- O -->
+
+        <div class="open-quiz_container" id="quizContainer16">
+          <div class="title-container section4">
+            <div class="title-questionnaire">
+              4. Perlaksanaan dan Operasi
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">
+              51. Audit internal
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_51_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_51" value="4" required id="id_nilai_no_51_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_51_0">
+                Organisasi melakukan program audit internal secara berkala dan terdokumentasi
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_51_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_51" value="3" required id="id_nilai_no_51_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_51_1">
+                Organisasi melakukan program audit internal secara berkala namun tidak terdokumentasi
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_51_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_51" value="2" required id="id_nilai_no_51_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_51_2">
+                Organisasi melakukan program audit internal namun tidak berkala
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_51_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_51" value="1" required id="id_nilai_no_51_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_51_3">
+                Organisasi tidak memiliki program audit internal
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_51_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_51" value="0" required id="id_nilai_no_51_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_51_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_51" id="id_keterangan_no_51" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_51" id="id_rekomendasi_no_51" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">52. Tindakan perbaikan</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_52_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_52" value="4" required id="id_nilai_no_52_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_52_0">
+                Organisasi menetapkan
+                akar permasalahan dari ketidaksesuaian, melakukan tindakan perbaikan dan mendokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_52_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_52" value="3" required id="id_nilai_no_52_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_52_1">
+                Organisasi menetapkan
+                akar permasalahan dari ketidaksesuaian, melakukan tindakan perbaikan, namun tidak didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_52_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_52" value="2" required id="id_nilai_no_52_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_52_2">
+                Organisasi menetapkan
+                akar permasalahan dari ketidaksesuaian, namun tidak melakukan tindakan perbaikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_52_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_52" value="1" required id="id_nilai_no_52_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_52_3">
+                Organisasi tidak menetapkan akar permasalahan dari ketidaksesuaian
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_52_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_52" value="0" required id="id_nilai_no_52_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_52_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_52" id="id_keterangan_no_52" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_52" id="id_rekomendasi_no_52" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="open-quiz">
+            <h2 class="quiz-title section4-quiz-title">53. Kaji Ulang Manajemen Biorisiko</h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_53_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_53" value="4" required id="id_nilai_no_53_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_53_0">
+                Manajemen puncak mengkaji ulang sistem manajemen biorisiko organisasi secara berkala, didokumentasikan
+                dan dikomunikasikan secara internal dan eksternal
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_53_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_53" value="3" required id="id_nilai_no_53_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_53_1">
+                Manajemen puncak mengkaji ulang sistem manajemen biorisiko organisasi secara berkala, didokumentasikan
+                namun tidak dikomunikasikan secara internal dan eksternal
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_53_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_53" value="2" required id="id_nilai_no_53_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_53_2">
+                Manajemen puncak mengkaji ulang sistem manajemen biorisiko organisasi, namun tidak berkala
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_53_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_53" value="1" required id="id_nilai_no_53_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_53_3">
+                Manajemen puncak tidak memiliki program kaji ulang sistem manajemen biorisiko organisasi
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_53_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_53" value="0" required id="id_nilai_no_53_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_53_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_53" id="id_keterangan_no_53" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_53" id="id_rekomendasi_no_53" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- P -->
+
+        <div class="open-quiz_container" id="quizContainer17">
+          <div class="title-container section5">
+            <div class="title-questionnaire">
+              5. Investigasi Kecelakaan dan Insiden
+            </div>
+          </div>
+          <div class="open-quiz">
+            <h2 class="quiz-title section5-quiz-title">
+              54. Perbaikan berkelanjutan
+            </h2>
+            <div class="tab" data-value="4">
+              <label class="spot" for="id_nilai_no_54_0"><span class="text">4</span></label>
+              <input type="radio" name="nilai_no_54" value="4" required id="id_nilai_no_54_0">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_54_0">
+                Organisasi mengidentifikasi, menetapkan dan mendokumentasikan peluang perbaikan dan tindakan pencegahan
+                terhadap ketidaksesuaian
+              </label>
+            </div>
+            <div class="tab" data-value="3">
+              <label class="spot" for="id_nilai_no_54_1"><span class="text">3</span></label>
+              <input type="radio" name="nilai_no_54" value="3" required id="id_nilai_no_54_1">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_54_1">
+                Organisasi mengidentifikasi dan menetapkan peluang perbaikan dan tindakan pencegahan terhadap
+                ketidaksesuaian namun tidak didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="2">
+              <label class="spot" for="id_nilai_no_54_2"><span class="text">2</span></label>
+              <input type="radio" name="nilai_no_54" value="2" required id="id_nilai_no_54_2">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_54_2">
+                Organisasi mengidentifikasi peluang perbaikan dan tindakan pencegahan terhadap ketidaksesuaian namun
+                tidak ditetapkan dan didokumentasikan
+              </label>
+            </div>
+            <div class="tab" data-value="1">
+              <label class="spot" for="id_nilai_no_54_3"><span class="text">1</span></label>
+              <input type="radio" name="nilai_no_54" value="1" required id="id_nilai_no_54_3">
+              <label class="form-check-label answer-quiz" for="id_nilai_no_54_3">
+                Organisasi tidak melakukan indentifikasi perbaikan dan tindakan pencegahan terhadap ketidaksesuaian
+              </label>
+            </div>
+            <div class="tab" data-value="5">
+              <label class="spot" for="id_nilai_no_54_4"><span class="text"></span></label>
+              <input type="radio" name="nilai_no_54" value="0" required id="id_nilai_no_54_4" checked>
+              <label class="form-check-label answer-quiz" for="id_nilai_no_54_4">
+                N/A</label>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* KETERANGAN</label>
+                <textarea class="form-control" name="keterangan_no_54" id="id_keterangan_no_54" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+            <div class="keterangan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">* REKOMENDASI</label>
+                <textarea class="form-control" name="rekomendasi_no_54" id="id_rekomendasi_no_54" rows="3"
+                  placeholder="Isi keterangan anda disini">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="open-quiz_container">
+          <div class="title-container section3">
+            <div class="title-questionnaire">
+              Analisis Hasil PPL terhadap Laboratorium ini
+            </div>
+          </div>
+          <div class="open-quiz">
+            <div class="kelemahan_utama">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Kesenjangan/Kelemahan Utama</label>
+                <textarea name="kelemahan_utama" rows="3" class="textarea form-control" id="id_kelemahan_utama"
+                  placeholder="Isi keterangan anda disini"></textarea>
+              </div>
+            </div>
+            <div class="kekuatan_utama">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Kekuatan Utama</label>
+                <textarea name="kekuatan_utama" rows="3" class="textarea form-control" id="id_kekuatan_utama"
+                  placeholder="Isi keterangan anda disini"></textarea>
+              </div>
+            </div>
+            <div class="saran_untuk_perbaikan">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Saran untuk perbaikan</label>
+                <textarea name="saran_untuk_perbaikan" rows="3" class="textarea form-control"
+                  id="id_saran_untuk_perbaikan" placeholder="Isi keterangan anda disini"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" id="loadmore" style="
+            font-family: 'Circular Std Medium', sans-serif !important;
+          ">Selanjutnya</a>
+
+        <!-- <p id="top">
+            <a href="#top"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+          </p> -->
+        <p id="top">
+          <a data-toggle="modal" data-target="#exampleModalLong">
+            <i class="fa fa-arrow-up" aria-hidden="true"> </i>
+          </a>
+        </p>
+
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                  Daftar Isi
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="col-sm-12">
+                  <nav id="toc" data-spy="affix" data-toggle="toc"></nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+  </div>
+</div>
+{% endblock content %}
