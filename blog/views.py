@@ -213,6 +213,10 @@ def tentang_biorisiko(request):
 def tentang_SMBL(request):
     return render(request, 'blog/tentang_SMBL.html')
 
+@login_required
+def tentang_35001(request):
+    return render(request, 'blog/tentang_35001.html')
+
 
 class ReportPDFView(LoginRequiredMixin, DetailView):
     model = Questionnaire  # <app>/<model>_<viewtype>.html
@@ -252,6 +256,20 @@ def compare_laporan(request):
 
 
 #### New Report ####
+class ReportListView35001(LoginRequiredMixin, ListView):
+    model = Questionnaire35001
+    template_name = 'blog/report35001_list.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'reports35001'
+    ordering = ['-date_posted']
+
+    def get_queryset(self):
+        user = self.request.user
+        return Questionnaire35001.objects.filter(author=user)
+
+
+class ReportDetailView35001(LoginRequiredMixin, DetailView):
+    model = Questionnaire35001  # <app>/<model>_<viewtype>.html
+    context_object_name = 'report35001'
 
 class ReportCreateView35001(LoginRequiredMixin, CreateView):
     model = Questionnaire35001  # <app>/<model>_form.html

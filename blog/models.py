@@ -742,7 +742,7 @@ class Questionnaire35001(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        return reverse('report-detail', kwargs={'pk': self.pk})
+        return reverse('report_detail_35001', kwargs={'pk': self.pk})
 
     def _str_(self):
         return f'{self.judul_laporan}'

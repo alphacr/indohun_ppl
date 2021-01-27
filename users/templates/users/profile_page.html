@@ -103,8 +103,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <a class="article-title" href="{% url 'report-detail' report.id %}">{{
-                                    report.judul_laporan }}</a>
+                                <a class="article-title" href="{% url 'report-detail' report.id %}">{{ report.judul_laporan }}</a>
                             </td>
                             <td>{{ report.date_posted|date:"F d, Y / H:i" }}</td>
                             <td>{{ report.date_updated|date:"F d, Y / H:i" }}</td>

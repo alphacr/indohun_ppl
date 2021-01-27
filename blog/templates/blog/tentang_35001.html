@@ -1,0 +1,36 @@
+{% extends "blog/base.html"%}
+{% block content %}
+{% load static %}
+<div class="row justify-content-center">
+	<div class="col-11">
+		<div class="card">
+			<img src="{% static 'blog/assets/images/Tentang5.jpeg' %}" alt="Background Tentang" class="tentang-img" />
+			<div class="card-body">
+				<h1 class="card-title">PPL ISO SNI 35001</h1>
+				<h2 class="card-title">Gambaran Umum</h2>
+				<p class="card-text text-justify">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet volutpat mauris, ut malesuada urna. 
+                    Donec ante odio, blandit sed eros sit amet, sagittis facilisis mi. Cras metus diam, vestibulum et enim ut, lacinia ullamcorper massa. 
+                    Fusce id ullamcorper dui. Aliquam sit amet viverra nibh. Maecenas condimentum vitae ante nec egestas. 
+                    Praesent urna elit, molestie at neque quis, vulputate efficitur sapien. Fusce lacus lorem, molestie sit amet nulla eget, volutpat rhoncus lacus. 
+                    Cras in mi diam. Duis euismod ex leo, ac rhoncus mauris tristique non. Vivamus a massa nunc. Mauris dapibus nisl a commodo luctus. 
+                    Sed aliquam posuere est, sed elementum mauris vestibulum euismod.
+                    <br>
+                    <br>
+                    Proin lacinia nisi eget quam tristique viverra. Nulla molestie nisi arcu, eget semper nunc rutrum ac. 
+                    Maecenas sit amet nisi vitae libero faucibus iaculis ut eget libero. Duis tellus ante, consequat sed condimentum et, rutrum a sapien. 
+                    Pellentesque elementum sit amet tortor non lobortis. In ultrices, nulla non viverra pretium, nibh dolor varius massa, maximus sagittis mauris metus at libero. 
+                    Duis posuere ligula vitae sapien convallis maximus vel id tellus. Praesent quis erat eget sem venenatis vulputate. 
+                    Integer magna nunc, pellentesque ac turpis sit amet, cursus blandit arcu. Integer velit orci, convallis vitae nunc non, interdum laoreet velit. 
+                    Phasellus sit amet leo eu libero scelerisque iaculis id id ante. Donec pulvinar gravida orci aliquet molestie. Sed pretium interdum dui eget malesuada. 
+                    Duis sed ante pharetra, varius dolor ut, finibus orci. Vestibulum erat velit, feugiat in turpis in, vulputate imperdiet justo. 
+                    Maecenas et elit et leo gravida condimentum quis eget tortor.
+                </p>
+                <a href="{% url 'report-list' %}" class="btn btn-primary custom-button">Daftar Laporan</a>
+				<a href="{% url 'report_create_35001' %}" class="btn btn-primary custom-button">Buat Laporan Baru</a>
+				<a href="{% url 'tentang_biorisiko' %}" class="btn btn-primary custom-button" style="float: right">Laporan Berikutnya</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content%}
