@@ -363,3 +363,74 @@ def compare_laporan_35001(request):
             'reports': Questionnaire35001.objects.filter(author=request.user)
         }
         return render(request, 'blog/compare_laporan_35001.html', context_2)
+
+class ReportDeleteView35001(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Questionnaire35001  # <app>/<model>_<viewtype>.html
+    context_object_name = 'report'
+    success_url = '/report_35001'
+
+    def test_func(self):
+        questionnaire = self.get_object()
+        if self.request.user == questionnaire.author:
+            return True
+        return False
+
+class ReportUpdateView35001(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Questionnaire35001  # <app>/<model>_form.html
+    context_object_name = 'report'
+    fields = ['judul_laporan', 'penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
+              'nilai_no_1', 'keterangan_no_1', 'rekomendasi_no_1',
+              'nilai_no_2', 'keterangan_no_2', 'rekomendasi_no_2',
+              'nilai_no_3', 'keterangan_no_3', 'rekomendasi_no_3',
+              'nilai_no_4', 'keterangan_no_4', 'rekomendasi_no_4',
+              'nilai_no_5', 'keterangan_no_5', 'rekomendasi_no_5',
+              'nilai_no_6', 'keterangan_no_6', 'rekomendasi_no_6',
+              'nilai_no_7', 'keterangan_no_7', 'rekomendasi_no_7',
+              'nilai_no_8', 'keterangan_no_8', 'rekomendasi_no_8',
+              'nilai_no_9', 'keterangan_no_9', 'rekomendasi_no_9',
+              'nilai_no_10', 'keterangan_no_10', 'rekomendasi_no_10',
+              'nilai_no_11', 'keterangan_no_11', 'rekomendasi_no_11',
+              'nilai_no_12', 'keterangan_no_12', 'rekomendasi_no_12',
+              'nilai_no_13', 'keterangan_no_13', 'rekomendasi_no_13',
+              'nilai_no_14', 'keterangan_no_14', 'rekomendasi_no_14',
+              'nilai_no_15', 'keterangan_no_15', 'rekomendasi_no_15',
+              'nilai_no_16', 'keterangan_no_16', 'rekomendasi_no_16',
+              'nilai_no_17', 'keterangan_no_17', 'rekomendasi_no_17',
+              'nilai_no_18', 'keterangan_no_18', 'rekomendasi_no_18',
+              'nilai_no_19', 'keterangan_no_19', 'rekomendasi_no_19',
+              'nilai_no_20', 'keterangan_no_20', 'rekomendasi_no_20',
+              'nilai_no_21', 'keterangan_no_21', 'rekomendasi_no_21',
+              'nilai_no_22', 'keterangan_no_22', 'rekomendasi_no_22',
+              'nilai_no_23', 'keterangan_no_23', 'rekomendasi_no_23',
+              'nilai_no_24', 'keterangan_no_24', 'rekomendasi_no_24',
+              'nilai_no_25', 'keterangan_no_25', 'rekomendasi_no_25',
+              'nilai_no_26', 'keterangan_no_26', 'rekomendasi_no_26',
+              'nilai_no_27', 'keterangan_no_27', 'rekomendasi_no_27',
+              'nilai_no_28', 'keterangan_no_28', 'rekomendasi_no_28',
+              'nilai_no_29', 'keterangan_no_29', 'rekomendasi_no_29',
+              'nilai_no_30', 'keterangan_no_30', 'rekomendasi_no_30',
+              'nilai_no_31', 'keterangan_no_31', 'rekomendasi_no_31',
+              'nilai_no_32', 'keterangan_no_32', 'rekomendasi_no_32',
+              'nilai_no_33', 'keterangan_no_33', 'rekomendasi_no_33',
+              'nilai_no_34', 'keterangan_no_34', 'rekomendasi_no_34',
+              'nilai_no_35', 'keterangan_no_35', 'rekomendasi_no_35',
+              'nilai_no_36', 'keterangan_no_36', 'rekomendasi_no_36',
+              'nilai_no_37', 'keterangan_no_37', 'rekomendasi_no_37',
+              'nilai_no_38', 'keterangan_no_38', 'rekomendasi_no_38',
+              'nilai_no_39', 'keterangan_no_39', 'rekomendasi_no_39',
+              'nilai_no_40', 'keterangan_no_40', 'rekomendasi_no_40',
+              'nilai_no_41', 'keterangan_no_41', 'rekomendasi_no_41',
+              'nilai_no_42', 'keterangan_no_42', 'rekomendasi_no_42',
+              'nilai_no_43', 'keterangan_no_43', 'rekomendasi_no_43',
+              'nilai_no_44', 'keterangan_no_44', 'rekomendasi_no_44',
+              'nilai_no_45', 'keterangan_no_45', 'rekomendasi_no_45',
+              'nilai_no_46', 'keterangan_no_46', 'rekomendasi_no_46',
+              'nilai_no_47', 'keterangan_no_47', 'rekomendasi_no_47',
+              'nilai_no_48', 'keterangan_no_48', 'rekomendasi_no_48',
+              'nilai_no_49', 'keterangan_no_49', 'rekomendasi_no_49',
+              'nilai_no_50', 'keterangan_no_50', 'rekomendasi_no_50',
+              'nilai_no_51', 'keterangan_no_51', 'rekomendasi_no_51',
+              'nilai_no_52', 'keterangan_no_52', 'rekomendasi_no_52',
+              'nilai_no_53', 'keterangan_no_53', 'rekomendasi_no_53',
+              'nilai_no_54', 'keterangan_no_54', 'rekomendasi_no_54',
+              'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan', ]

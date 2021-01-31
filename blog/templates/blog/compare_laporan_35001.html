@@ -140,7 +140,7 @@
                 <td class="color-grade" id="hasil_akhir_aspek2_4"></td>
                 <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4"></td>
                 <td class="color-grade-confidence" id="confidence_aspek_4"></td>
-                <td class="color-grade-confidence" id="confidence_aspek2_1"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_4"></td>
             </tr>
             <tr style="background-color:rgba(153, 102, 255, 0.4); ">
                 <td style="font-weight: bold;">5</td>
@@ -197,7 +197,7 @@
                 <td class="color-grade-confidence" id="confidence_aspek_10"></td>
                 <td class="color-grade-confidence" id="confidence_aspek2_10"></td>
             </tr>
-            <tr style="background-color:rgba(153, 102, 255, 0.4); ">
+            <tr style="background-color:rgba(54, 162, 235, 0.4); ">
                 <td style="font-weight: bold;">11</td>
                 <td>Kaji Ulang Manajemen Biorisiko</td>
                 <td class="color-grade" id="hasil_akhir_aspek_11"></td>
@@ -610,7 +610,7 @@
                 <td>{{ report_1.rekomendasi_no_37 }}</td>
                 <td>{{ report_2.rekomendasi_no_37 }}</td>
             </tr>
-            <tr style="background-color: rgba(153, 102, 255, 1);">
+            <tr style="background-color: rgba(54, 162, 235, 0.4);">
                 <td colspan="8">6. Tanggap Darurat dan Rencana Kontigensi</td>
             </tr>
             <tr style="background-color: white;">
@@ -653,7 +653,7 @@
                 <td>{{ report_1.rekomendasi_no_41 }}</td>
                 <td>{{ report_2.rekomendasi_no_41 }}</td>
             </tr>
-            <tr style="background-color: rgba(153, 102, 255, 1);">
+            <tr style="background-color: rgba(255, 206, 86, 0.4);">
                 <td colspan="8">7. Monitoring dan Pengendalian Inventaris</td>
             </tr>
             <tr style="background-color: white;">
@@ -676,7 +676,7 @@
                 <td>{{ report_1.rekomendasi_no_43 }}</td>
                 <td>{{ report_2.rekomendasi_no_43 }}</td>
             </tr>
-            <tr style="background-color: rgba(153, 102, 255, 1);">
+            <tr style="background-color: rgba(75, 192, 192, 0.4);">
                 <td colspan="8">8. Kesehatan Kerja</td>
             </tr>
             <tr style="background-color: white;">
@@ -709,7 +709,7 @@
                 <td>{{ report_1.rekomendasi_no_46 }}</td>
                 <td>{{ report_2.rekomendasi_no_46 }}</td>
             </tr>
-            <tr style="background-color: rgba(153, 102, 255, 1);">
+            <tr style="background-color: rgba(255, 99, 132, 0.4);">
                 <td colspan="8">9. Pelaporan dan Investigasi Insiden dan Kecelakaan</td>
             </tr>
             <tr style="background-color: white;">
@@ -775,7 +775,7 @@
                 <td>{{ report_1.rekomendasi_no_52 }}</td>
                 <td>{{ report_2.rekomendasi_no_52 }}</td>
             </tr>
-            <tr style="background-color: rgba(153, 102, 255, 1);">
+            <tr style="background-color: rgba(54, 162, 235, 0.4);">
                 <td colspan="8">11. Kaji Ulang Manajemen Biorisiko
                 </td>
             </tr>
@@ -808,6 +808,7 @@
                 return Number(num + "e" + -2);
             }
 
+            // Nilai 1
             var i;
             var not_applicable = 0;
             var aspek_1 = [
@@ -1040,7 +1041,7 @@
             panjang_aspek_11 = [];
             aspek_11 = [];
 
-            // Variable 2
+            // Nilai 2
             var i;
             var not_applicable = 0;
             var aspek_1 = [
@@ -1310,7 +1311,7 @@
                     ],
                     datasets: [
                         {
-                            label: 'Nilai Akhir',
+                            label: 'Nilai Laporan 1',
                             data: [
                                 hasil_akhir_aspek_1,
                                 hasil_akhir_aspek_2,
@@ -1327,22 +1328,49 @@
                             backgroundColor: 'rgba(203, 159, 196, 0.3)',
                             borderColor: 'rgba(203, 159, 196, 0.3)',
                             pointBorderColor: [
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)'
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                            ],
+                            borderWidth: 3
+                        },
+                        {
+                            label: 'Nilai Laporan 2',
+                            data: [
+                                hasil_akhir_aspek2_1,
+                                hasil_akhir_aspek2_2,
+                                hasil_akhir_aspek2_3,
+                                hasil_akhir_aspek2_4,
+                                hasil_akhir_aspek2_5,
+                                hasil_akhir_aspek2_6,
+                                hasil_akhir_aspek2_7,
+                                hasil_akhir_aspek2_8,
+                                hasil_akhir_aspek2_9,
+                                hasil_akhir_aspek2_10,
+                                hasil_akhir_aspek2_11,
+                            ],
+                            backgroundColor: '#fffbc8',
+                            borderColor: '#ffcd9a',
+                            pointBorderColor: [
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
                             ],
                             borderWidth: 3
                         }
@@ -1397,38 +1425,71 @@
                             backgroundColor: [
                                 'rgba(54, 162, 235, 0.4)',
                                 'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
                                 'rgba(255, 206, 86, 0.4)',
                                 'rgba(75, 192, 192, 0.4)',
                                 'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(153, 102, 255, 0.4)'
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
                             ],
                             borderColor: [
                                 'rgba(54, 162, 235, 0.4)',
                                 'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
                                 'rgba(255, 206, 86, 0.4)',
                                 'rgba(75, 192, 192, 0.4)',
                                 'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Nilai Akhir 2',
+                            data: [
+                                hasil_akhir_aspek2_1,
+                                hasil_akhir_aspek2_2,
+                                hasil_akhir_aspek2_3,
+                                hasil_akhir_aspek2_4,
+                                hasil_akhir_aspek2_5,
+                                hasil_akhir_aspek2_6,
+                                hasil_akhir_aspek2_7,
+                                hasil_akhir_aspek2_8,
+                                hasil_akhir_aspek2_9,
+                                hasil_akhir_aspek2_10,
+                                hasil_akhir_aspek2_11,
+                            ],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
                                 'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
                                 'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
                                 'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
                                 'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(153, 102, 255, 0.4)'
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
                             ],
                             borderWidth: 1
                         }
