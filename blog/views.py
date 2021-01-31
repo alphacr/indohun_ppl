@@ -333,3 +333,33 @@ class ReportCreateView35001(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+@login_required
+def compare_laporan_35001(request):
+    if request.method == 'POST':
+        form = CompareReportForm(request.POST, instance=request.user)
+        if form.is_valid():
+            pilihan_1 = form.cleaned_data.get('pilihan_1')
+            pilihan_2 = form.cleaned_data.get('pilihan_2')
+            try:
+                report_1 = Questionnaire35001.objects.filter(
+                    author=request.user).get(id=pilihan_1)
+                report_2 = Questionnaire35001.objects.filter(
+                    author=request.user).get(id=pilihan_2)
+                reports = Questionnaire35001.objects.filter(author=request.user)
+            except:
+                report_1 = None
+                report_2 = None
+            context = {
+                'report_1': report_1,
+                'report_2': report_2,
+                'reports': reports,
+            }
+            return render(request, 'blog/compare_laporan_35001.html', context)
+    else:
+        form = CompareReportForm(instance=request.user)
+        context_2 = {
+            'this_form': form,
+            'reports': Questionnaire35001.objects.filter(author=request.user)
+        }
+        return render(request, 'blog/compare_laporan_35001.html', context_2)

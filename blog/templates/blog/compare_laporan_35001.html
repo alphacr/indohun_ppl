@@ -1,0 +1,1629 @@
+{% extends "blog/base.html"%}
+{% block content %}
+<article class="media content-section" style="-webkit-print-color-adjust:exact; color-adjust: exact;">
+    <div class="media-body">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Perbandingan Laporan</legend>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                        <div id="div_id_pilihan_1" class="form-group">
+                            <label for="id_pilihan_1" class=" requiredField">Pilihan 1<span
+                                    class="asteriskField">*</span>
+                            </label>
+                            <div class="">
+                                <select name="pilihan_1" class="select form-control" required id="id_pilihan_1">
+                                    <option value="" selected>---------</option>
+                                    {% for report in reports %}
+                                    <option value="{{ report.id }}">{{ report.judul_laporan }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div id="div_id_pilihan_2" class="form-group">
+                            <label for="id_pilihan_2" class=" requiredField">Pilihan 2<span
+                                    class="asteriskField">*</span></label>
+                            <div class="">
+                                <select name="pilihan_2" class="select form-control" required id="id_pilihan_2">
+                                    <option value="" selected>---------</option>
+                                    {% for report in reports %}
+                                    <option value="{{ report.id }}">{{ report.judul_laporan }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-primary custom-button" type="submit">Bandingkan</button>
+            </div>
+        </form>
+        <br />
+        <br />
+
+        {% if report_1 and report_2 %}
+        <h2 class="article-title" style="margin-top: 10px;">
+            Hasil Laporan Penilaian: {{ report_1.judul_laporan }} dan {{ report_2.judul_laporan }}
+        </h2>
+
+        <!-- Legend Bar -->
+        <div class="alert alert-primary" role="alert">
+            Angka yang ditampilkan pada table merupakan sebuah persentasi penilaian dari kondisi ideal (100%). Penandaan
+            warna atas penilaian lab adalah sebagai berikut: <br />
+            0-19.9%: <span style="color: #FF4242">Merah</span>,
+            20-39.9%: <span style="color: #FF8800">Oranye</span>,
+            40-599%: <span style="color: #ffcc66">Kuning</span>,
+            60-79.9%: <span style="color: #66ff66">Hijau Muda</span>,
+            80-100%: <span style="color: #00cc00">Hijau Tua</span>,
+            NaN (Tidak diisi): <span style="color: #ADADAD">Abu-abu</span>
+            <br /><br />
+            Confidence/keandalan dari hasil bergantung pada persentase yang diisi dalam setiap pertanyaan pada
+            kuesioner.
+            Penandaan warna atas tingkat confidence hasil penilaian adalah sebagai berikut: <br />
+            0-69%: <span style="color: #ff0000">Merah</span>,
+            70-89%: <span style="color: #ffcc66">Kuning</span>,
+            90-100%: <span style="color: #00cc00">Hijau Tua</span>
+            <br /><br />
+            Selisih hasil Penilaian 1 dengan hasil Penilaian 2: <br />
+            <=-30: <span style="color: #FF4242"> Merah </span>,
+                -30 sampai -1: <span style="color: #FF8800"> Oranye </span>,
+                -1 sampai 30:<span style="color: #ffcc66"> Kuning </span>,
+                >= 30: <span style="color: #00cc00"> Hijau Tua </span>,
+                NaN (Tidak diisi): <span style="color: #ADADAD">Abu-abu</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+
+        <!-- Detailed Report -->
+        <h3>Detail Hasil Penilaian</h3>
+
+
+        <div class="row">
+            <div class="col-md-6 ">
+                <canvas id="myChart_radar_detail"></canvas>
+            </div>
+            <div class="col-md-6">
+                <canvas id="myChart_bar_detail"></canvas>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+
+        <table class="table">
+            <thead style="background-color: #0e0c28;">
+                <tr>
+                    <th style="color: white; ">No</th>
+                    <th style="color: white; ">Semua Hasil Aspek PPL terhadap Laboratorium</th>
+                    <th style="color: white; ">Penilaian Laporan 1</th>
+                    <th style="color: white; ">Penilaian Laporan 2</th>
+                    <th style="color: white; ">Perubahan Nilai</th>
+                    <th style="color: white; ">Confidence 1</th>
+                    <th style="color: white; ">Confidence 2</th>
+                </tr>
+            </thead>
+            <tr style="background-color:rgba(54, 162, 235, 0.4); ">
+                <td style="font-weight: bold; ">1</td>
+                <td>Sistem Manajemen Biorisiko</td>
+                <td class="color-grade" id="hasil_akhir_aspek_1"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_1"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_1"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_1"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_1"></td>
+            </tr>
+            <tr style="background-color:rgba(255, 206, 86, 0.4); ">
+                <td style="font-weight: bold;">2</td>
+                <td>Identifikasi Bahaya, Penilaian dan Pengendalian Risiko</td>
+                <td class="color-grade" id="hasil_akhir_aspek_2"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_2"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_2"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_2"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_2"></td>
+            </tr>
+            <tr style="background-color:rgba(75, 192, 192, 0.4); ">
+                <td style="font-weight: bold;">
+                    3</td>
+                <td>Peran,Tanggungjawab dan Wewenang</td>
+                <td class="color-grade" id="hasil_akhir_aspek_3"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_3"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_3"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_3"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_3"></td>
+            </tr>
+            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                <td style="font-weight: bold;">4</td>
+                <td>Kepedulian, Pelatihan dan Kompetensi</td>
+                <td class="color-grade" id="hasil_akhir_aspek_4"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_4"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_4"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_4"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_1"></td>
+            </tr>
+            <tr style="background-color:rgba(153, 102, 255, 0.4); ">
+                <td style="font-weight: bold;">5</td>
+                <td>Pengendalian Operasional</td>
+                <td class="color-grade" id="hasil_akhir_aspek_5"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_5"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_5"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_5"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_5"></td>
+            </tr>
+            <tr style="background-color:rgba(54, 162, 235, 0.4); ">
+                <td style="font-weight: bold; ">6</td>
+                <td>Tanggap Darurat dan Rencana Kontigensi</td>
+                <td class="color-grade" id="hasil_akhir_aspek_6"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_6"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_6"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_6"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_6"></td>
+            </tr>
+            <tr style="background-color:rgba(255, 206, 86, 0.4); ">
+                <td style="font-weight: bold;">7</td>
+                <td>Monitoring dan Pengendalian Inventaris</td>
+                <td class="color-grade" id="hasil_akhir_aspek_7"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_7"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_7"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_7"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_7"></td>
+            </tr>
+            <tr style="background-color:rgba(75, 192, 192, 0.4); ">
+                <td style="font-weight: bold;">
+                    8</td>
+                <td>Kesehatan Kerja</td>
+                <td class="color-grade" id="hasil_akhir_aspek_8"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_8"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_8"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_8"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_8"></td>
+            </tr>
+            <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                <td style="font-weight: bold;">9</td>
+                <td>Pelaporan dan Investigasi Insiden dan Kecelakaan</td>
+                <td class="color-grade" id="hasil_akhir_aspek_9"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_9"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_9"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_9"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_9"></td>
+            </tr>
+            <tr style="background-color:rgba(153, 102, 255, 0.4); ">
+                <td style="font-weight: bold;">10</td>
+                <td>Inspeksi dan Audit</td>
+                <td class="color-grade" id="hasil_akhir_aspek_10"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_10"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_10"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_10"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_10"></td>
+            </tr>
+            <tr style="background-color:rgba(153, 102, 255, 0.4); ">
+                <td style="font-weight: bold;">11</td>
+                <td>Kaji Ulang Manajemen Biorisiko</td>
+                <td class="color-grade" id="hasil_akhir_aspek_11"></td>
+                <td class="color-grade" id="hasil_akhir_aspek2_11"></td>
+                <td class="color-grade-perubahan" id="perbandingan_hasil_akhir_aspek_11"></td>
+                <td class="color-grade-confidence" id="confidence_aspek_11"></td>
+                <td class="color-grade-confidence" id="confidence_aspek2_11"></td>
+            </tr>
+        </table>
+
+        <br/>
+        <br/>
+
+        <h3>Isi Laporan</h3>
+        <table class="table">
+            <thead style="background-color: #0e0c28;">
+                <tr>
+                    <th style="color: white;">No</th>
+                    <th style="color: white;">Elemen</th>
+                    <th style="color: white;">Nilai Laporan 1</th>
+                    <th style="color: white;">Nilai Laporan 2</th>
+                    <th style="color: white;">Keterangan Laporan 1</th>
+                    <th style="color: white;">Keterangan Laporan 2</th>
+                    <th style="color: white;">Rekomendasi Laporan 1</th>
+                    <th style="color: white;">Rekomendasi Laporan 2</th>
+                </tr>
+            </thead>
+            <tr style="background-color: rgba(54, 162, 235, 0.4);">
+                <td colspan="8">1. Kebijakan Manajemen Biorisiko</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>1</td>
+                <td>Kebijakan (Pak Eko)</td>
+                <td>{{ report_1.nilai_no_1 }}</td>
+                <td>{{ report_2.nilai_no_1 }}</td>
+                <td>{{ report_1.keterangan_no_1 }}</td>
+                <td>{{ report_2.keterangan_no_1 }}</td>
+                <td>{{ report_1.rekomendasi_no_1 }}</td>
+                <td>{{ report_2.rekomendasi_no_1 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>2</td>
+                <td>Informasi terdokumentasi (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_2 }}</td>
+                <td>{{ report_2.nilai_no_2 }}</td>
+                <td>{{ report_1.keterangan_no_2 }}</td>
+                <td>{{ report_2.keterangan_no_2 }}</td>
+                <td>{{ report_1.rekomendasi_no_2 }}</td>
+                <td>{{ report_2.rekomendasi_no_2 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>3</td>
+                <td>Persyaratan hukum pihak berkepentingan (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_3 }}</td>
+                <td>{{ report_2.nilai_no_3 }}</td>
+                <td>{{ report_1.keterangan_no_3 }}</td>
+                <td>{{ report_2.keterangan_no_3 }}</td>
+                <td>{{ report_1.rekomendasi_no_3 }}</td>
+                <td>{{ report_2.rekomendasi_no_3 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>4</td>
+                <td>Keamanan informasi (Pak Eko)</td>
+                <td>{{ report_1.nilai_no_4 }}</td>
+                <td>{{ report_2.nilai_no_4 }}</td>
+                <td>{{ report_1.keterangan_no_4 }}</td>
+                <td>{{ report_2.keterangan_no_4 }}</td>
+                <td>{{ report_1.rekomendasi_no_4 }}</td>
+                <td>{{ report_2.rekomendasi_no_4 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>5</td>
+                <td>Non-karyawan (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_5 }}</td>
+                <td>{{ report_2.nilai_no_5 }}</td>
+                <td>{{ report_1.keterangan_no_5 }}</td>
+                <td>{{ report_2.keterangan_no_5 }}</td>
+                <td>{{ report_1.rekomendasi_no_5 }}</td>
+                <td>{{ report_2.rekomendasi_no_5 }}</td>
+            </tr>
+            <tr style="background-color: rgba(255, 206, 86, 0.4);">
+                <td colspan="8">2. Perencanaan Kerja dengan Bahan Biologik</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>6</td>
+                <td>Identifikasi Bahaya (Pak Eko)</td>
+                <td>{{ report_1.nilai_no_6 }}</td>
+                <td>{{ report_2.nilai_no_6 }}</td>
+                <td>{{ report_1.keterangan_no_6 }}</td>
+                <td>{{ report_2.keterangan_no_6 }}</td>
+                <td>{{ report_1.rekomendasi_no_6 }}</td>
+                <td>{{ report_2.rekomendasi_no_6 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>7</td>
+                <td>Identifikasi Bahaya  (Pak Eko)</td>
+                <td>{{ report_1.nilai_no_7 }}</td>
+                <td>{{ report_2.nilai_no_7 }}</td>
+                <td>{{ report_1.keterangan_no_7 }}</td>
+                <td>{{ report_2.keterangan_no_7 }}</td>
+                <td>{{ report_1.rekomendasi_no_7 }}</td>
+                <td>{{ report_2.rekomendasi_no_7 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>8</td>
+                <td>Penilaian Risiko (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_8 }}</td>
+                <td>{{ report_2.nilai_no_8 }}</td>
+                <td>{{ report_1.keterangan_no_8 }}</td>
+                <td>{{ report_2.keterangan_no_8 }}</td>
+                <td>{{ report_1.rekomendasi_no_8 }}</td>
+                <td>{{ report_2.rekomendasi_no_8 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>9</td>
+                <td>Pengendalian Risiko (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_9 }}</td>
+                <td>{{ report_2.nilai_no_9 }}</td>
+                <td>{{ report_1.keterangan_no_9 }}</td>
+                <td>{{ report_2.keterangan_no_9 }}</td>
+                <td>{{ report_1.rekomendasi_no_9 }}</td>
+                <td>{{ report_2.rekomendasi_no_9 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>10</td>
+                <td>Evaluasi Pengendalian Risiko (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_10 }}</td>
+                <td>{{ report_2.nilai_no_10 }}</td>
+                <td>{{ report_1.keterangan_no_10 }}</td>
+                <td>{{ report_2.keterangan_no_10 }}</td>
+                <td>{{ report_1.rekomendasi_no_10 }}</td>
+                <td>{{ report_2.rekomendasi_no_10 }}</td>
+            </tr>
+            <tr style="background-color: rgba(75, 192, 192, 0.4);">
+                <td colspan="8">3. Pengendalian Operasional</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>11</td>
+                <td>Komitmen (Pak Eko)</td>
+                <td>{{ report_1.nilai_no_11 }}</td>
+                <td>{{ report_2.nilai_no_11 }}</td>
+                <td>{{ report_1.keterangan_no_11 }}</td>
+                <td>{{ report_2.keterangan_no_11 }}</td>
+                <td>{{ report_1.rekomendasi_no_11 }}</td>
+                <td>{{ report_2.rekomendasi_no_11 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>12</td>
+                <td>Manajemen Puncak (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_12 }}</td>
+                <td>{{ report_2.nilai_no_12 }}</td>
+                <td>{{ report_1.keterangan_no_12 }}</td>
+                <td>{{ report_2.keterangan_no_12 }}</td>
+                <td>{{ report_1.rekomendasi_no_12 }}</td>
+                <td>{{ report_2.rekomendasi_no_12 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>13</td>
+                <td>Manajemen Senior (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_13 }}</td>
+                <td>{{ report_2.nilai_no_13 }}</td>
+                <td>{{ report_1.keterangan_no_13 }}</td>
+                <td>{{ report_2.keterangan_no_13 }}</td>
+                <td>{{ report_1.rekomendasi_no_13 }}</td>
+                <td>{{ report_2.rekomendasi_no_13 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>14</td>
+                <td>Komite Manajemen Biorisiko (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_14 }}</td>
+                <td>{{ report_2.nilai_no_14 }}</td>
+                <td>{{ report_1.keterangan_no_14 }}</td>
+                <td>{{ report_2.keterangan_no_14 }}</td>
+                <td>{{ report_1.rekomendasi_no_14 }}</td>
+                <td>{{ report_2.rekomendasi_no_14 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>15</td>
+                <td>Penasehat Manajemen Biorisiko (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_15 }}</td>
+                <td>{{ report_2.nilai_no_15 }}</td>
+                <td>{{ report_1.keterangan_no_15 }}</td>
+                <td>{{ report_2.keterangan_no_15 }}</td>
+                <td>{{ report_1.rekomendasi_no_15 }}</td>
+                <td>{{ report_2.rekomendasi_no_15 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>16</td>
+                <td>Manajemen Ilmiah (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_16 }}</td>
+                <td>{{ report_2.nilai_no_16 }}</td>
+                <td>{{ report_1.keterangan_no_16 }}</td>
+                <td>{{ report_2.keterangan_no_16 }}</td>
+                <td>{{ report_1.rekomendasi_no_16 }}</td>
+                <td>{{ report_2.rekomendasi_no_16 }}</td>
+            </tr>
+            <tr style="background-color: rgba(255, 99, 132, 0.4);">
+                <td colspan="8">4. Pelaksanaan dan Operasi</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>17</td>
+                <td>Kepedulian</td>
+                <td>{{ report_1.nilai_no_17 }}</td>
+                <td>{{ report_2.nilai_no_17 }}</td>
+                <td>{{ report_1.keterangan_no_17 }}</td>
+                <td>{{ report_2.keterangan_no_17 }}</td>
+                <td>{{ report_1.rekomendasi_no_17 }}</td>
+                <td>{{ report_2.rekomendasi_no_17 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>18</td>
+                <td>Pelatihan (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_18 }}</td>
+                <td>{{ report_2.nilai_no_18 }}</td>
+                <td>{{ report_1.keterangan_no_18 }}</td>
+                <td>{{ report_2.keterangan_no_18 }}</td>
+                <td>{{ report_1.rekomendasi_no_18 }}</td>
+                <td>{{ report_2.rekomendasi_no_18 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>19</td>
+                <td>Kompetensi</td>
+                <td>{{ report_1.nilai_no_19 }}</td>
+                <td>{{ report_2.nilai_no_19 }}</td>
+                <td>{{ report_1.keterangan_no_19 }}</td>
+                <td>{{ report_2.keterangan_no_19 }}</td>
+                <td>{{ report_1.rekomendasi_no_19 }}</td>
+                <td>{{ report_2.rekomendasi_no_19 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>20</td>
+                <td>Kompetensi</td>
+                <td>{{ report_1.nilai_no_20 }}</td>
+                <td>{{ report_2.nilai_no_20 }}</td>
+                <td>{{ report_1.keterangan_no_20 }}</td>
+                <td>{{ report_2.keterangan_no_20 }}</td>
+                <td>{{ report_1.rekomendasi_no_20 }}</td>
+                <td>{{ report_2.rekomendasi_no_20 }}</td>
+            </tr>
+            <tr style="background-color: rgba(153, 102, 255, 1);">
+                <td colspan="8">5. Investigasi Kecelakaan dan Insiden</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>21</td>
+                <td>Commissioning dan Decommissioning </td>
+                <td>{{ report_1.nilai_no_21 }}</td>
+                <td>{{ report_2.nilai_no_21 }}</td>
+                <td>{{ report_1.keterangan_no_21 }}</td>
+                <td>{{ report_2.keterangan_no_21 }}</td>
+                <td>{{ report_1.rekomendasi_no_21 }}</td>
+                <td>{{ report_2.rekomendasi_no_21 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>22</td>
+                <td>Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_22 }}</td>
+                <td>{{ report_2.nilai_no_22 }}</td>
+                <td>{{ report_1.keterangan_no_22 }}</td>
+                <td>{{ report_2.keterangan_no_22 }}</td>
+                <td>{{ report_1.rekomendasi_no_22 }}</td>
+                <td>{{ report_2.rekomendasi_no_22 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>23</td>
+                <td>Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_23 }}</td>
+                <td>{{ report_2.nilai_no_23 }}</td>
+                <td>{{ report_1.keterangan_no_23 }}</td>
+                <td>{{ report_2.keterangan_no_23 }}</td>
+                <td>{{ report_1.rekomendasi_no_23 }}</td>
+                <td>{{ report_2.rekomendasi_no_23 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>24</td>
+                <td>Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_24 }}</td>
+                <td>{{ report_2.nilai_no_24 }}</td>
+                <td>{{ report_1.keterangan_no_24 }}</td>
+                <td>{{ report_2.keterangan_no_24 }}</td>
+                <td>{{ report_1.rekomendasi_no_24 }}</td>
+                <td>{{ report_2.rekomendasi_no_24 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>25</td>
+                <td>Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_25 }}</td>
+                <td>{{ report_2.nilai_no_25 }}</td>
+                <td>{{ report_1.keterangan_no_25 }}</td>
+                <td>{{ report_2.keterangan_no_25 }}</td>
+                <td>{{ report_1.rekomendasi_no_25 }}</td>
+                <td>{{ report_2.rekomendasi_no_25 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>26</td>
+                <td>Perawatan, pengendalian, kalibrasi, sertifikasi dan validasi (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_26 }}</td>
+                <td>{{ report_2.nilai_no_26 }}</td>
+                <td>{{ report_1.keterangan_no_26 }}</td>
+                <td>{{ report_2.keterangan_no_26 }}</td>
+                <td>{{ report_1.rekomendasi_no_26 }}</td>
+                <td>{{ report_2.rekomendasi_no_26 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>27</td>
+                <td>Keamanan secara fisik (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_27 }}</td>
+                <td>{{ report_2.nilai_no_27 }}</td>
+                <td>{{ report_1.keterangan_no_27 }}</td>
+                <td>{{ report_2.keterangan_no_27 }}</td>
+                <td>{{ report_1.rekomendasi_no_27 }}</td>
+                <td>{{ report_2.rekomendasi_no_27 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>28</td>
+                <td>Teknik Mikrobiologi yang baik (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_28 }}</td>
+                <td>{{ report_2.nilai_no_28 }}</td>
+                <td>{{ report_1.keterangan_no_28 }}</td>
+                <td>{{ report_2.keterangan_no_28 }}</td>
+                <td>{{ report_1.rekomendasi_no_28 }}</td>
+                <td>{{ report_2.rekomendasi_no_28 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>29</td>
+                <td>Teknik Mikrobiologi yang baik (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_29 }}</td>
+                <td>{{ report_2.nilai_no_29 }}</td>
+                <td>{{ report_1.keterangan_no_29 }}</td>
+                <td>{{ report_2.keterangan_no_29 }}</td>
+                <td>{{ report_1.rekomendasi_no_29 }}</td>
+                <td>{{ report_2.rekomendasi_no_29 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>30</td>
+                <td>Teknik Mikrobiologi yang baik (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_30 }}</td>
+                <td>{{ report_2.nilai_no_30 }}</td>
+                <td>{{ report_1.keterangan_no_30 }}</td>
+                <td>{{ report_2.keterangan_no_30 }}</td>
+                <td>{{ report_1.rekomendasi_no_30 }}</td>
+                <td>{{ report_2.rekomendasi_no_30 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>31</td>
+                <td>Alat Pelindung Diri (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_31 }}</td>
+                <td>{{ report_2.nilai_no_31 }}</td>
+                <td>{{ report_1.keterangan_no_31 }}</td>
+                <td>{{ report_2.keterangan_no_31 }}</td>
+                <td>{{ report_1.rekomendasi_no_31 }}</td>
+                <td>{{ report_2.rekomendasi_no_31 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>32</td>
+                <td>Alat Pelindung Diri (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_32 }}</td>
+                <td>{{ report_2.nilai_no_32 }}</td>
+                <td>{{ report_1.keterangan_no_32 }}</td>
+                <td>{{ report_2.keterangan_no_32 }}</td>
+                <td>{{ report_1.rekomendasi_no_32 }}</td>
+                <td>{{ report_2.rekomendasi_no_32 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>33</td>
+                <td>Alat Pelindung Diri (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_33 }}</td>
+                <td>{{ report_2.nilai_no_33 }}</td>
+                <td>{{ report_1.keterangan_no_33 }}</td>
+                <td>{{ report_2.keterangan_no_33 }}</td>
+                <td>{{ report_1.rekomendasi_no_33 }}</td>
+                <td>{{ report_2.rekomendasi_no_33 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>34</td>
+                <td>Dekontaminasi dan Pengolahan Limbah (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_34 }}</td>
+                <td>{{ report_2.nilai_no_34 }}</td>
+                <td>{{ report_1.keterangan_no_34 }}</td>
+                <td>{{ report_2.keterangan_no_34 }}</td>
+                <td>{{ report_1.rekomendasi_no_34 }}</td>
+                <td>{{ report_2.rekomendasi_no_34 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>35</td>
+                <td>Dekontaminasi dan Pengolahan Limbah (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_35 }}</td>
+                <td>{{ report_2.nilai_no_35 }}</td>
+                <td>{{ report_1.keterangan_no_35 }}</td>
+                <td>{{ report_2.keterangan_no_35 }}</td>
+                <td>{{ report_1.rekomendasi_no_35 }}</td>
+                <td>{{ report_2.rekomendasi_no_35 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>36</td>
+                <td>Transportasi bahan biologis (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_36 }}</td>
+                <td>{{ report_2.nilai_no_36 }}</td>
+                <td>{{ report_1.keterangan_no_36 }}</td>
+                <td>{{ report_2.keterangan_no_36 }}</td>
+                <td>{{ report_1.rekomendasi_no_36 }}</td>
+                <td>{{ report_2.rekomendasi_no_36 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>37</td>
+                <td>Pengendalian Pemasok (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_37 }}</td>
+                <td>{{ report_2.nilai_no_37 }}</td>
+                <td>{{ report_1.keterangan_no_37 }}</td>
+                <td>{{ report_2.keterangan_no_37 }}</td>
+                <td>{{ report_1.rekomendasi_no_37 }}</td>
+                <td>{{ report_2.rekomendasi_no_37 }}</td>
+            </tr>
+            <tr style="background-color: rgba(153, 102, 255, 1);">
+                <td colspan="8">6. Tanggap Darurat dan Rencana Kontigensi</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>38</td>
+                <td>Tanggap darurat dan kontigensi (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_38 }}</td>
+                <td>{{ report_2.nilai_no_38 }}</td>
+                <td>{{ report_1.keterangan_no_38 }}</td>
+                <td>{{ report_2.keterangan_no_38 }}</td>
+                <td>{{ report_1.rekomendasi_no_38 }}</td>
+                <td>{{ report_2.rekomendasi_no_38 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>39</td>
+                <td>Skenario Darurat (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_39 }}</td>
+                <td>{{ report_2.nilai_no_39 }}</td>
+                <td>{{ report_1.keterangan_no_39 }}</td>
+                <td>{{ report_2.keterangan_no_39 }}</td>
+                <td>{{ report_1.rekomendasi_no_39 }}</td>
+                <td>{{ report_2.rekomendasi_no_39 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>40</td>
+                <td>Rencana Darurat (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_40 }}</td>
+                <td>{{ report_2.nilai_no_40 }}</td>
+                <td>{{ report_1.keterangan_no_40 }}</td>
+                <td>{{ report_2.keterangan_no_40 }}</td>
+                <td>{{ report_1.rekomendasi_no_40 }}</td>
+                <td>{{ report_2.rekomendasi_no_40 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>41</td>
+                <td>Pelatihan dan Simulasi Tanggap darurat (Bu Mira)</td>
+                <td>{{ report_1.nilai_no_41 }}</td>
+                <td>{{ report_2.nilai_no_41 }}</td>
+                <td>{{ report_1.keterangan_no_41 }}</td>
+                <td>{{ report_2.keterangan_no_41 }}</td>
+                <td>{{ report_1.rekomendasi_no_41 }}</td>
+                <td>{{ report_2.rekomendasi_no_41 }}</td>
+            </tr>
+            <tr style="background-color: rgba(153, 102, 255, 1);">
+                <td colspan="8">7. Monitoring dan Pengendalian Inventaris</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>42</td>
+                <td>Monitoring inventaris (Bu Atie)</td>
+                <td>{{ report_1.nilai_no_42 }}</td>
+                <td>{{ report_2.nilai_no_42 }}</td>
+                <td>{{ report_1.keterangan_no_42 }}</td>
+                <td>{{ report_2.keterangan_no_42 }}</td>
+                <td>{{ report_1.rekomendasi_no_42 }}</td>
+                <td>{{ report_2.rekomendasi_no_42 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>43</td>
+                <td>Pengendalian Inventaris (Bu Aroem)</td>
+                <td>{{ report_1.nilai_no_43 }}</td>
+                <td>{{ report_2.nilai_no_43 }}</td>
+                <td>{{ report_1.keterangan_no_43 }}</td>
+                <td>{{ report_2.keterangan_no_43 }}</td>
+                <td>{{ report_1.rekomendasi_no_43 }}</td>
+                <td>{{ report_2.rekomendasi_no_43 }}</td>
+            </tr>
+            <tr style="background-color: rgba(153, 102, 255, 1);">
+                <td colspan="8">8. Kesehatan Kerja</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>44</td>
+                <td>Kesehatan karyawan</td>
+                <td>{{ report_1.nilai_no_44 }}</td>
+                <td>{{ report_2.nilai_no_44 }}</td>
+                <td>{{ report_1.keterangan_no_44 }}</td>
+                <td>{{ report_2.keterangan_no_44 }}</td>
+                <td>{{ report_1.rekomendasi_no_44 }}</td>
+                <td>{{ report_2.rekomendasi_no_44 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>45</td>
+                <td>Monitoring</td>
+                <td>{{ report_1.nilai_no_45 }}</td>
+                <td>{{ report_2.nilai_no_45 }}</td>
+                <td>{{ report_1.keterangan_no_45 }}</td>
+                <td>{{ report_2.keterangan_no_45 }}</td>
+                <td>{{ report_1.rekomendasi_no_45 }}</td>
+                <td>{{ report_2.rekomendasi_no_45 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>46</td>
+                <td>Vaksinasi</td>
+                <td>{{ report_1.nilai_no_46 }}</td>
+                <td>{{ report_2.nilai_no_46 }}</td>
+                <td>{{ report_1.keterangan_no_46 }}</td>
+                <td>{{ report_2.keterangan_no_46 }}</td>
+                <td>{{ report_1.rekomendasi_no_46 }}</td>
+                <td>{{ report_2.rekomendasi_no_46 }}</td>
+            </tr>
+            <tr style="background-color: rgba(153, 102, 255, 1);">
+                <td colspan="8">9. Pelaporan dan Investigasi Insiden dan Kecelakaan</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>47</td>
+                <td>Pelaporan</td>
+                <td>{{ report_1.nilai_no_47 }}</td>
+                <td>{{ report_2.nilai_no_47 }}</td>
+                <td>{{ report_1.keterangan_no_47 }}</td>
+                <td>{{ report_2.keterangan_no_47 }}</td>
+                <td>{{ report_1.rekomendasi_no_47 }}</td>
+                <td>{{ report_2.rekomendasi_no_47 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>48</td>
+                <td>Investigasi</td>
+                <td>{{ report_1.nilai_no_48 }}</td>
+                <td>{{ report_2.nilai_no_48 }}</td>
+                <td>{{ report_1.keterangan_no_48 }}</td>
+                <td>{{ report_2.keterangan_no_48 }}</td>
+                <td>{{ report_1.rekomendasi_no_48 }}</td>
+                <td>{{ report_2.rekomendasi_no_48 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>49</td>
+                <td>Tindakan perbaikan</td>
+                <td>{{ report_1.nilai_no_49 }}</td>
+                <td>{{ report_2.nilai_no_49 }}</td>
+                <td>{{ report_1.keterangan_no_49 }}</td>
+                <td>{{ report_2.keterangan_no_49 }}</td>
+                <td>{{ report_1.rekomendasi_no_49 }}</td>
+                <td>{{ report_2.rekomendasi_no_49 }}</td>
+            </tr>
+            <tr style="background-color: rgba(153, 102, 255, 1);">
+                <td colspan="8">10. Inspeksi dan Audit</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>50</td>
+                <td>Inspeksi</td>
+                <td>{{ report_1.nilai_no_50 }}</td>
+                <td>{{ report_2.nilai_no_50 }}</td>
+                <td>{{ report_1.keterangan_no_50 }}</td>
+                <td>{{ report_2.keterangan_no_50 }}</td>
+                <td>{{ report_1.rekomendasi_no_50 }}</td>
+                <td>{{ report_2.rekomendasi_no_50 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>51</td>
+                <td>10.2. Audit internal</td>
+                <td>{{ report_1.nilai_no_51 }}</td>
+                <td>{{ report_2.nilai_no_51 }}</td>
+                <td>{{ report_1.keterangan_no_51 }}</td>
+                <td>{{ report_2.keterangan_no_51 }}</td>
+                <td>{{ report_1.rekomendasi_no_51 }}</td>
+                <td>{{ report_2.rekomendasi_no_51 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>52</td>
+                <td>10.3. Tindakan perbaikan</td>
+                <td>{{ report_1.nilai_no_52 }}</td>
+                <td>{{ report_2.nilai_no_52 }}</td>
+                <td>{{ report_1.keterangan_no_52 }}</td>
+                <td>{{ report_2.keterangan_no_52 }}</td>
+                <td>{{ report_1.rekomendasi_no_52 }}</td>
+                <td>{{ report_2.rekomendasi_no_52 }}</td>
+            </tr>
+            <tr style="background-color: rgba(153, 102, 255, 1);">
+                <td colspan="8">11. Kaji Ulang Manajemen Biorisiko
+                </td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>53</td>
+                <td>Kaji Ulang Manajemen Biorisiko</td>
+                <td>{{ report_1.nilai_no_53 }}</td>
+                <td>{{ report_2.nilai_no_53 }}</td>
+                <td>{{ report_1.keterangan_no_53 }}</td>
+                <td>{{ report_2.keterangan_no_53 }}</td>
+                <td>{{ report_1.rekomendasi_no_53 }}</td>
+                <td>{{ report_2.rekomendasi_no_53 }}</td>
+            </tr>
+            <tr style="background-color: white;">
+                <td>54</td>
+                <td>Perbaikan berkelanjutan</td>
+                <td>{{ report_1.nilai_no_54 }}</td>
+                <td>{{ report_2.nilai_no_54 }}</td>
+                <td>{{ report_1.keterangan_no_54 }}</td>
+                <td>{{ report_2.keterangan_no_54 }}</td>
+                <td>{{ report_1.rekomendasi_no_54 }}</td>
+                <td>{{ report_2.rekomendasi_no_54 }}</td>
+            </tr>
+        </table>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script>
+            function round(num) {
+                num = Math.round(num + "e" + 2);
+                return Number(num + "e" + -2);
+            }
+
+            var i;
+            var not_applicable = 0;
+            var aspek_1 = [
+                {{ report_1.nilai_no_1 }} - 1,
+                {{ report_1.nilai_no_2 }} - 1,
+                {{ report_1.nilai_no_3 }} - 1,
+                {{ report_1.nilai_no_4 }} - 1,
+                {{ report_1.nilai_no_5 }} - 1
+            ];
+            var panjang_aspek_1 = [];
+            for (i = 0; i < aspek_1.length; i++) {
+                if (aspek_1[i] == -1) {
+                    not_applicable += aspek_1[i];
+                } else {
+                    panjang_aspek_1.push(aspek_1[i]);
+                }
+            }
+            var hasil_akhir_aspek_1 = round(((panjang_aspek_1.reduce((a, b) => a + b, 0)) / (panjang_aspek_1.length * 3)) * 100);
+            var confidence_aspek_1 = round((panjang_aspek_1.length / aspek_1.length) * 100);
+
+            panjang_aspek_1 = [];
+            aspek_1 = [];
+
+            var aspek_2 = [
+                {{ report_1.nilai_no_6 }} - 1,
+                {{ report_1.nilai_no_7 }} - 1,
+                {{ report_1.nilai_no_8 }} - 1,
+                {{ report_1.nilai_no_9 }} - 1,
+                {{ report_1.nilai_no_10 }} - 1
+            ];
+            var panjang_aspek_2 = [];
+            for (i = 0; i < aspek_2.length; i++) {
+                if (aspek_2[i] == -1) {
+                    not_applicable += aspek_2[i];
+                } else {
+                    panjang_aspek_2.push(aspek_2[i]);
+                }
+            }
+            var hasil_akhir_aspek_2 = round(((panjang_aspek_2.reduce((a, b) => a + b, 0)) / (panjang_aspek_2.length * 3)) * 100);
+            var confidence_aspek_2 = round((panjang_aspek_2.length / aspek_2.length) * 100);
+
+            panjang_aspek_2 = [];
+            aspek_2 = [];
+
+            var aspek_3 = [
+                {{ report_1.nilai_no_11 }} - 1,
+                {{ report_1.nilai_no_12 }} - 1,
+                {{ report_1.nilai_no_13 }} - 1,
+                {{ report_1.nilai_no_14 }} - 1,
+                {{ report_1.nilai_no_15 }} - 1,
+                {{ report_1.nilai_no_16 }} - 1
+            ];
+            var panjang_aspek_3 = [];
+            for (i = 0; i < aspek_3.length; i++) {
+                if (aspek_3[i] == -1) {
+                    not_applicable += aspek_3[i];
+                } else {
+                    panjang_aspek_3.push(aspek_3[i]);
+                }
+            }
+            var hasil_akhir_aspek_3 = round(((panjang_aspek_3.reduce((a, b) => a + b, 0)) / (panjang_aspek_3.length * 3)) * 100);
+            var confidence_aspek_3 = round((panjang_aspek_3.length / aspek_3.length) * 100);
+
+            panjang_aspek_3 = [];
+            aspek_3 = [];
+
+            var aspek_4 = [
+                {{ report_1.nilai_no_17 }} - 1,
+                {{ report_1.nilai_no_18 }} - 1,
+                {{ report_1.nilai_no_19 }} - 1,
+                {{ report_1.nilai_no_20 }} - 1,
+            ];
+            var panjang_aspek_4 = [];
+            for (i = 0; i < aspek_4.length; i++) {
+                if (aspek_4[i] == -1) {
+                    not_applicable += aspek_4[i];
+                } else {
+                    panjang_aspek_4.push(aspek_4[i]);
+                }
+            }
+            var hasil_akhir_aspek_4 = round(((panjang_aspek_4.reduce((a, b) => a + b, 0)) / (panjang_aspek_4.length * 3)) * 100);
+            var confidence_aspek_4 = round((panjang_aspek_4.length / aspek_4.length) * 100);
+
+            panjang_aspek_4 = [];
+            aspek_4 = [];
+
+            var aspek_5 = [
+                {{ report_1.nilai_no_21 }} - 1,
+                {{ report_1.nilai_no_22 }} - 1,
+                {{ report_1.nilai_no_23 }} - 1,
+                {{ report_1.nilai_no_24 }} - 1,
+                {{ report_1.nilai_no_25 }} - 1,
+                {{ report_1.nilai_no_26 }} - 1,
+                {{ report_1.nilai_no_27 }} - 1,
+                {{ report_1.nilai_no_28 }} - 1,
+                {{ report_1.nilai_no_29 }} - 1,
+                {{ report_1.nilai_no_30 }} - 1,
+                {{ report_1.nilai_no_31 }} - 1,
+                {{ report_1.nilai_no_32 }} - 1,
+                {{ report_1.nilai_no_33 }} - 1,
+                {{ report_1.nilai_no_34 }} - 1,
+                {{ report_1.nilai_no_35 }} - 1,
+                {{ report_1.nilai_no_36 }} - 1,
+                {{ report_1.nilai_no_37 }} - 1
+            ];
+            var panjang_aspek_5 = [];
+            for (i = 0; i < aspek_5.length; i++) {
+                if (aspek_5[i] == -1) {
+                    not_applicable += aspek_5[i];
+                } else {
+                    panjang_aspek_5.push(aspek_5[i]);
+                }
+            }
+            var hasil_akhir_aspek_5 = round(((panjang_aspek_5.reduce((a, b) => a + b, 0)) / (panjang_aspek_5.length * 3)) * 100);
+            var confidence_aspek_5 = round((panjang_aspek_5.length / aspek_5.length) * 100);
+
+            panjang_aspek_5 = [];
+            aspek_5 = [];
+
+            var aspek_6 = [
+                {{ report_1.nilai_no_38 }} - 1,
+                {{ report_1.nilai_no_39 }} - 1,
+                {{ report_1.nilai_no_40 }} - 1,
+                {{ report_1.nilai_no_41 }} - 1,
+            ];
+            var panjang_aspek_6 = [];
+            for (i = 0; i < aspek_6.length; i++) {
+                if (aspek_6[i] == -1) {
+                    not_applicable += aspek_6[i];
+                } else {
+                    panjang_aspek_6.push(aspek_6[i]);
+                }
+            }
+            var hasil_akhir_aspek_6 = round(((panjang_aspek_6.reduce((a, b) => a + b, 0)) / (panjang_aspek_6.length * 3)) * 100);
+            var confidence_aspek_6 = round((panjang_aspek_6.length / aspek_6.length) * 100);
+
+            panjang_aspek_6 = [];
+            aspek_6 = [];
+
+            var aspek_7 = [
+                {{ report_1.nilai_no_42 }} - 1,
+                {{ report_1.nilai_no_43 }} - 1,
+            ];
+            var panjang_aspek_7 = [];
+            for (i = 0; i < aspek_7.length; i++) {
+                if (aspek_7[i] == -1) {
+                    not_applicable += aspek_7[i];
+                } else {
+                    panjang_aspek_7.push(aspek_7[i]);
+                }
+            }
+            var hasil_akhir_aspek_7 = round(((panjang_aspek_7.reduce((a, b) => a + b, 0)) / (panjang_aspek_7.length * 3)) * 100);
+            var confidence_aspek_7 = round((panjang_aspek_7.length / aspek_7.length) * 100);
+
+            panjang_aspek_7 = [];
+            aspek_7 = [];
+
+            var aspek_8 = [
+                {{ report_1.nilai_no_44 }} - 1,
+                {{ report_1.nilai_no_45 }} - 1,
+                {{ report_1.nilai_no_46 }} - 1
+            ];
+            var panjang_aspek_8 = [];
+            for (i = 0; i < aspek_8.length; i++) {
+                if (aspek_8[i] == -1) {
+                    not_applicable += aspek_8[i];
+                } else {
+                    panjang_aspek_8.push(aspek_8[i]);
+                }
+            }
+            var hasil_akhir_aspek_8 = round(((panjang_aspek_8.reduce((a, b) => a + b, 0)) / (panjang_aspek_8.length * 3)) * 100);
+            var confidence_aspek_8 = round((panjang_aspek_8.length / aspek_8.length) * 100);
+
+            panjang_aspek_8 = [];
+            aspek_8 = [];
+
+            var aspek_9 = [
+                {{ report_1.nilai_no_47 }} - 1,
+                {{ report_1.nilai_no_48 }} - 1,
+                {{ report_1.nilai_no_49 }} - 1
+            ];
+            var panjang_aspek_9 = [];
+            for (i = 0; i < aspek_9.length; i++) {
+                if (aspek_9[i] == -1) {
+                    not_applicable += aspek_9[i];
+                } else {
+                    panjang_aspek_9.push(aspek_9[i]);
+                }
+            }
+            var hasil_akhir_aspek_9 = round(((panjang_aspek_9.reduce((a, b) => a + b, 0)) / (panjang_aspek_9.length * 3)) * 100);
+            var confidence_aspek_9 = round((panjang_aspek_9.length / aspek_9.length) * 100);
+
+            panjang_aspek_9 = [];
+            aspek_9 = [];
+
+            var aspek_10 = [
+                {{ report_1.nilai_no_50 }} - 1,
+                {{ report_1.nilai_no_51 }} - 1,
+                {{ report_1.nilai_no_52 }} - 1
+            ];
+            var panjang_aspek_10 = [];
+            for (i = 0; i < aspek_10.length; i++) {
+                if (aspek_10[i] == -1) {
+                    not_applicable += aspek_10[i];
+                } else {
+                    panjang_aspek_10.push(aspek_10[i]);
+                }
+            }
+            var hasil_akhir_aspek_10 = round(((panjang_aspek_10.reduce((a, b) => a + b, 0)) / (panjang_aspek_10.length * 3)) * 100);
+            var confidence_aspek_10 = round((panjang_aspek_10.length / aspek_10.length) * 100);
+
+            panjang_aspek_10 = [];
+            aspek_10 = [];
+
+            var aspek_11 = [
+                {{ report_1.nilai_no_53 }} - 1,
+                {{ report_1.nilai_no_54 }} - 1
+            ];
+            var panjang_aspek_11 = [];
+            for (i = 0; i < aspek_11.length; i++) {
+                if (aspek_11[i] == -1) {
+                    not_applicable += aspek_11[i];
+                } else {
+                    panjang_aspek_11.push(aspek_11[i]);
+                }
+            }
+            var hasil_akhir_aspek_11 = round(((panjang_aspek_11.reduce((a, b) => a + b, 0)) / (panjang_aspek_11.length * 3)) * 100);
+            var confidence_aspek_11 = round((panjang_aspek_11.length / aspek_11.length) * 100);
+
+            panjang_aspek_11 = [];
+            aspek_11 = [];
+
+            // Variable 2
+            var i;
+            var not_applicable = 0;
+            var aspek_1 = [
+                {{ report_2.nilai_no_1 }} - 1,
+                {{ report_2.nilai_no_2 }} - 1,
+                {{ report_2.nilai_no_3 }} - 1,
+                {{ report_2.nilai_no_4 }} - 1,
+                {{ report_2.nilai_no_5 }} - 1
+            ];
+            var panjang_aspek_1 = [];
+            for (i = 0; i < aspek_1.length; i++) {
+                if (aspek_1[i] == -1) {
+                    not_applicable += aspek_1[i];
+                } else {
+                    panjang_aspek_1.push(aspek_1[i]);
+                }
+            }
+            var hasil_akhir_aspek2_1 = round(((panjang_aspek_1.reduce((a, b) => a + b, 0)) / (panjang_aspek_1.length * 3)) * 100);
+            var confidence_aspek2_1 = round((panjang_aspek_1.length / aspek_1.length) * 100);
+
+            panjang_aspek_1 = [];
+            aspek_1 = [];
+
+            var aspek_2 = [
+                {{ report_2.nilai_no_6 }} - 1,
+                {{ report_2.nilai_no_7 }} - 1,
+                {{ report_2.nilai_no_8 }} - 1,
+                {{ report_2.nilai_no_9 }} - 1,
+                {{ report_2.nilai_no_10 }} - 1
+            ];
+            var panjang_aspek_2 = [];
+            for (i = 0; i < aspek_2.length; i++) {
+                if (aspek_2[i] == -1) {
+                    not_applicable += aspek_2[i];
+                } else {
+                    panjang_aspek_2.push(aspek_2[i]);
+                }
+            }
+            var hasil_akhir_aspek2_2 = round(((panjang_aspek_2.reduce((a, b) => a + b, 0)) / (panjang_aspek_2.length * 3)) * 100);
+            var confidence_aspek2_2 = round((panjang_aspek_2.length / aspek_2.length) * 100);
+
+            panjang_aspek_2 = [];
+            aspek_2 = [];
+
+            var aspek_3 = [
+                {{ report_2.nilai_no_11 }} - 1,
+                {{ report_2.nilai_no_12 }} - 1,
+                {{ report_2.nilai_no_13 }} - 1,
+                {{ report_2.nilai_no_14 }} - 1,
+                {{ report_2.nilai_no_15 }} - 1,
+                {{ report_2.nilai_no_16 }} - 1
+            ];
+            var panjang_aspek_3 = [];
+            for (i = 0; i < aspek_3.length; i++) {
+                if (aspek_3[i] == -1) {
+                    not_applicable += aspek_3[i];
+                } else {
+                    panjang_aspek_3.push(aspek_3[i]);
+                }
+            }
+            var hasil_akhir_aspek2_3 = round(((panjang_aspek_3.reduce((a, b) => a + b, 0)) / (panjang_aspek_3.length * 3)) * 100);
+            var confidence_aspek2_3 = round((panjang_aspek_3.length / aspek_3.length) * 100);
+
+            panjang_aspek_3 = [];
+            aspek_3 = [];
+
+            var aspek_4 = [
+                {{ report_2.nilai_no_17 }} - 1,
+                {{ report_2.nilai_no_18 }} - 1,
+                {{ report_2.nilai_no_19 }} - 1,
+                {{ report_2.nilai_no_20 }} - 1,
+            ];
+            var panjang_aspek_4 = [];
+            for (i = 0; i < aspek_4.length; i++) {
+                if (aspek_4[i] == -1) {
+                    not_applicable += aspek_4[i];
+                } else {
+                    panjang_aspek_4.push(aspek_4[i]);
+                }
+            }
+            var hasil_akhir_aspek2_4 = round(((panjang_aspek_4.reduce((a, b) => a + b, 0)) / (panjang_aspek_4.length * 3)) * 100);
+            var confidence_aspek2_4 = round((panjang_aspek_4.length / aspek_4.length) * 100);
+
+            panjang_aspek_4 = [];
+            aspek_4 = [];
+
+            var aspek_5 = [
+                {{ report_2.nilai_no_21 }} - 1,
+                {{ report_2.nilai_no_22 }} - 1,
+                {{ report_2.nilai_no_23 }} - 1,
+                {{ report_2.nilai_no_24 }} - 1,
+                {{ report_2.nilai_no_25 }} - 1,
+                {{ report_2.nilai_no_26 }} - 1,
+                {{ report_2.nilai_no_27 }} - 1,
+                {{ report_2.nilai_no_28 }} - 1,
+                {{ report_2.nilai_no_29 }} - 1,
+                {{ report_2.nilai_no_30 }} - 1,
+                {{ report_2.nilai_no_31 }} - 1,
+                {{ report_2.nilai_no_32 }} - 1,
+                {{ report_2.nilai_no_33 }} - 1,
+                {{ report_2.nilai_no_34 }} - 1,
+                {{ report_2.nilai_no_35 }} - 1,
+                {{ report_2.nilai_no_36 }} - 1,
+                {{ report_2.nilai_no_37 }} - 1
+            ];
+            var panjang_aspek_5 = [];
+            for (i = 0; i < aspek_5.length; i++) {
+                if (aspek_5[i] == -1) {
+                    not_applicable += aspek_5[i];
+                } else {
+                    panjang_aspek_5.push(aspek_5[i]);
+                }
+            }
+            var hasil_akhir_aspek2_5 = round(((panjang_aspek_5.reduce((a, b) => a + b, 0)) / (panjang_aspek_5.length * 3)) * 100);
+            var confidence_aspek2_5 = round((panjang_aspek_5.length / aspek_5.length) * 100);
+
+            panjang_aspek_5 = [];
+            aspek_5 = [];
+
+            var aspek_6 = [
+                {{ report_2.nilai_no_38 }} - 1,
+                {{ report_2.nilai_no_39 }} - 1,
+                {{ report_2.nilai_no_40 }} - 1,
+                {{ report_2.nilai_no_41 }} - 1,
+            ];
+            var panjang_aspek_6 = [];
+            for (i = 0; i < aspek_6.length; i++) {
+                if (aspek_6[i] == -1) {
+                    not_applicable += aspek_6[i];
+                } else {
+                    panjang_aspek_6.push(aspek_6[i]);
+                }
+            }
+            var hasil_akhir_aspek2_6 = round(((panjang_aspek_6.reduce((a, b) => a + b, 0)) / (panjang_aspek_6.length * 3)) * 100);
+            var confidence_aspek2_6 = round((panjang_aspek_6.length / aspek_6.length) * 100);
+
+            panjang_aspek_6 = [];
+            aspek_6 = [];
+
+            var aspek_7 = [
+                {{ report_2.nilai_no_42 }} - 1,
+                {{ report_2.nilai_no_43 }} - 1,
+            ];
+            var panjang_aspek_7 = [];
+            for (i = 0; i < aspek_7.length; i++) {
+                if (aspek_7[i] == -1) {
+                    not_applicable += aspek_7[i];
+                } else {
+                    panjang_aspek_7.push(aspek_7[i]);
+                }
+            }
+            var hasil_akhir_aspek2_7 = round(((panjang_aspek_7.reduce((a, b) => a + b, 0)) / (panjang_aspek_7.length * 3)) * 100);
+            var confidence_aspek2_7 = round((panjang_aspek_7.length / aspek_7.length) * 100);
+
+            panjang_aspek_7 = [];
+            aspek_7 = [];
+
+            var aspek_8 = [
+                {{ report_2.nilai_no_44 }} - 1,
+                {{ report_2.nilai_no_45 }} - 1,
+                {{ report_2.nilai_no_46 }} - 1
+            ];
+            var panjang_aspek_8 = [];
+            for (i = 0; i < aspek_8.length; i++) {
+                if (aspek_8[i] == -1) {
+                    not_applicable += aspek_8[i];
+                } else {
+                    panjang_aspek_8.push(aspek_8[i]);
+                }
+            }
+            var hasil_akhir_aspek2_8 = round(((panjang_aspek_8.reduce((a, b) => a + b, 0)) / (panjang_aspek_8.length * 3)) * 100);
+            var confidence_aspek2_8 = round((panjang_aspek_8.length / aspek_8.length) * 100);
+
+            panjang_aspek_8 = [];
+            aspek_8 = [];
+
+            var aspek_9 = [
+                {{ report_2.nilai_no_47 }} - 1,
+                {{ report_2.nilai_no_48 }} - 1,
+                {{ report_2.nilai_no_49 }} - 1
+            ];
+            var panjang_aspek_9 = [];
+            for (i = 0; i < aspek_9.length; i++) {
+                if (aspek_9[i] == -1) {
+                    not_applicable += aspek_9[i];
+                } else {
+                    panjang_aspek_9.push(aspek_9[i]);
+                }
+            }
+            var hasil_akhir_aspek2_9 = round(((panjang_aspek_9.reduce((a, b) => a + b, 0)) / (panjang_aspek_9.length * 3)) * 100);
+            var confidence_aspek2_9 = round((panjang_aspek_9.length / aspek_9.length) * 100);
+
+            panjang_aspek_9 = [];
+            aspek_9 = [];
+
+            var aspek_10 = [
+                {{ report_2.nilai_no_50 }} - 1,
+                {{ report_2.nilai_no_51 }} - 1,
+                {{ report_2.nilai_no_52 }} - 1
+            ];
+            var panjang_aspek_10 = [];
+            for (i = 0; i < aspek_10.length; i++) {
+                if (aspek_10[i] == -1) {
+                    not_applicable += aspek_10[i];
+                } else {
+                    panjang_aspek_10.push(aspek_10[i]);
+                }
+            }
+            var hasil_akhir_aspek2_10 = round(((panjang_aspek_10.reduce((a, b) => a + b, 0)) / (panjang_aspek_10.length * 3)) * 100);
+            var confidence_aspek2_10 = round((panjang_aspek_10.length / aspek_10.length) * 100);
+
+            panjang_aspek_10 = [];
+            aspek_10 = [];
+
+            var aspek_11 = [
+                {{ report_2.nilai_no_53 }} - 1,
+                {{ report_2.nilai_no_54 }} - 1
+            ];
+            var panjang_aspek_11 = [];
+            for (i = 0; i < aspek_11.length; i++) {
+                if (aspek_11[i] == -1) {
+                    not_applicable += aspek_11[i];
+                } else {
+                    panjang_aspek_11.push(aspek_11[i]);
+                }
+            }
+            var hasil_akhir_aspek2_11 = round(((panjang_aspek_11.reduce((a, b) => a + b, 0)) / (panjang_aspek_11.length * 3)) * 100);
+            var confidence_aspek2_11 = round((panjang_aspek_11.length / aspek_11.length) * 100);
+
+            panjang_aspek_11 = [];
+            aspek_11 = [];
+
+            // Perbandingan Detail
+            var perbandingan_hasil_akhir_aspek_1 = round(hasil_akhir_aspek2_1 - hasil_akhir_aspek_1)
+            var perbandingan_hasil_akhir_aspek_2 = round(hasil_akhir_aspek2_2 - hasil_akhir_aspek_2)
+            var perbandingan_hasil_akhir_aspek_3 = round(hasil_akhir_aspek2_3 - hasil_akhir_aspek_3)
+            var perbandingan_hasil_akhir_aspek_4 = round(hasil_akhir_aspek2_4 - hasil_akhir_aspek_4)
+            var perbandingan_hasil_akhir_aspek_5 = round(hasil_akhir_aspek2_5 - hasil_akhir_aspek_5)
+            var perbandingan_hasil_akhir_aspek_6 = round(hasil_akhir_aspek2_6 - hasil_akhir_aspek_6)
+            var perbandingan_hasil_akhir_aspek_7 = round(hasil_akhir_aspek2_7 - hasil_akhir_aspek_7)
+            var perbandingan_hasil_akhir_aspek_8 = round(hasil_akhir_aspek2_8 - hasil_akhir_aspek_8)
+            var perbandingan_hasil_akhir_aspek_9 = round(hasil_akhir_aspek2_9 - hasil_akhir_aspek_9)
+            var perbandingan_hasil_akhir_aspek_10 = round(hasil_akhir_aspek2_10 - hasil_akhir_aspek_10)
+            var perbandingan_hasil_akhir_aspek_11 = round(hasil_akhir_aspek2_11 - hasil_akhir_aspek_11)
+
+
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+        <script>
+            var ctx_radar_detail = document.getElementById('myChart_radar_detail');
+            var myChart_radar_detail = new Chart(ctx_radar_detail, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Sistem Manajemen Biorisiko',
+                        'Identifikasi Bahaya, Penilaian dan Pengendalian Risiko',
+                        'Peran,Tanggungjawab dan Wewenang',
+                        'Kepedulian, Pelatihan dan Kompetensi',
+                        'Pengendalian Operasional',
+                        'Tanggap Darurat dan Rencana Kontigensi',
+                        'Monitoring dan Pengendalian Inventaris',
+                        'Kesehatan Kerja',
+                        'Pelaporan dan Investigasi Insiden dan Kecelakaan',
+                        'Inspeksi dan Audit',
+                        'Kaji Ulang Manajemen Biorisiko'
+                    ],
+                    datasets: [
+                        {
+                            label: 'Nilai Akhir',
+                            data: [
+                                hasil_akhir_aspek_1,
+                                hasil_akhir_aspek_2,
+                                hasil_akhir_aspek_3,
+                                hasil_akhir_aspek_4,
+                                hasil_akhir_aspek_5,
+                                hasil_akhir_aspek_6,
+                                hasil_akhir_aspek_7,
+                                hasil_akhir_aspek_8,
+                                hasil_akhir_aspek_9,
+                                hasil_akhir_aspek_10,
+                                hasil_akhir_aspek_11,
+                            ],
+                            backgroundColor: 'rgba(203, 159, 196, 0.3)',
+                            borderColor: 'rgba(203, 159, 196, 0.3)',
+                            pointBorderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                            borderWidth: 3
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
+
+            var ctx_bar_detail = document.getElementById('myChart_bar_detail');
+            var myChart_bar_detail = new Chart(ctx_bar_detail, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        '1',
+                        '2',
+                        '3',
+                        '4',
+                        '5',
+                        '6',
+                        '7',
+                        '8',
+                        '9',
+                        '10',
+                        '11',
+                    ],
+                    datasets: [
+                        {
+                            label: 'Nilai Akhir',
+                            data: [
+                                hasil_akhir_aspek_1,
+                                hasil_akhir_aspek_2,
+                                hasil_akhir_aspek_3,
+                                hasil_akhir_aspek_4,
+                                hasil_akhir_aspek_5,
+                                hasil_akhir_aspek_6,
+                                hasil_akhir_aspek_7,
+                                hasil_akhir_aspek_8,
+                                hasil_akhir_aspek_9,
+                                hasil_akhir_aspek_10,
+                                hasil_akhir_aspek_11,
+                            ],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(153, 102, 255, 0.4)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(153, 102, 255, 0.4)'
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
+        </script>
+
+        <script>
+            // Nilai 1
+            document.getElementById("hasil_akhir_aspek_1").innerHTML = hasil_akhir_aspek_1;
+            document.getElementById("hasil_akhir_aspek_2").innerHTML = hasil_akhir_aspek_2;
+            document.getElementById("hasil_akhir_aspek_3").innerHTML = hasil_akhir_aspek_3;
+            document.getElementById("hasil_akhir_aspek_4").innerHTML = hasil_akhir_aspek_4;
+            document.getElementById("hasil_akhir_aspek_5").innerHTML = hasil_akhir_aspek_5;
+            document.getElementById("hasil_akhir_aspek_6").innerHTML = hasil_akhir_aspek_6;
+            document.getElementById("hasil_akhir_aspek_7").innerHTML = hasil_akhir_aspek_7;
+            document.getElementById("hasil_akhir_aspek_8").innerHTML = hasil_akhir_aspek_8;
+            document.getElementById("hasil_akhir_aspek_9").innerHTML = hasil_akhir_aspek_9;
+            document.getElementById("hasil_akhir_aspek_10").innerHTML = hasil_akhir_aspek_10;
+            document.getElementById("hasil_akhir_aspek_11").innerHTML = hasil_akhir_aspek_11;
+
+            document.getElementById("confidence_aspek_1").innerHTML = confidence_aspek_1;
+            document.getElementById("confidence_aspek_2").innerHTML = confidence_aspek_2;
+            document.getElementById("confidence_aspek_3").innerHTML = confidence_aspek_3;
+            document.getElementById("confidence_aspek_4").innerHTML = confidence_aspek_4;
+            document.getElementById("confidence_aspek_5").innerHTML = confidence_aspek_5;
+            document.getElementById("confidence_aspek_6").innerHTML = confidence_aspek_6;
+            document.getElementById("confidence_aspek_7").innerHTML = confidence_aspek_7;
+            document.getElementById("confidence_aspek_8").innerHTML = confidence_aspek_8;
+            document.getElementById("confidence_aspek_9").innerHTML = confidence_aspek_9;
+            document.getElementById("confidence_aspek_10").innerHTML = confidence_aspek_10;
+            document.getElementById("confidence_aspek_11").innerHTML = confidence_aspek_11;
+
+            // Nilai 2
+            document.getElementById("hasil_akhir_aspek2_1").innerHTML = hasil_akhir_aspek2_1;
+            document.getElementById("hasil_akhir_aspek2_2").innerHTML = hasil_akhir_aspek2_2;
+            document.getElementById("hasil_akhir_aspek2_3").innerHTML = hasil_akhir_aspek2_3;
+            document.getElementById("hasil_akhir_aspek2_4").innerHTML = hasil_akhir_aspek2_4;
+            document.getElementById("hasil_akhir_aspek2_5").innerHTML = hasil_akhir_aspek2_5;
+            document.getElementById("hasil_akhir_aspek2_6").innerHTML = hasil_akhir_aspek2_6;
+            document.getElementById("hasil_akhir_aspek2_7").innerHTML = hasil_akhir_aspek2_7;
+            document.getElementById("hasil_akhir_aspek2_8").innerHTML = hasil_akhir_aspek2_8;
+            document.getElementById("hasil_akhir_aspek2_9").innerHTML = hasil_akhir_aspek2_9;
+            document.getElementById("hasil_akhir_aspek2_10").innerHTML = hasil_akhir_aspek2_10;
+            document.getElementById("hasil_akhir_aspek2_11").innerHTML = hasil_akhir_aspek2_11;
+
+            document.getElementById("confidence_aspek2_1").innerHTML = confidence_aspek2_1;
+            document.getElementById("confidence_aspek2_2").innerHTML = confidence_aspek2_2;
+            document.getElementById("confidence_aspek2_3").innerHTML = confidence_aspek2_3;
+            document.getElementById("confidence_aspek2_4").innerHTML = confidence_aspek2_4;
+            document.getElementById("confidence_aspek2_5").innerHTML = confidence_aspek2_5;
+            document.getElementById("confidence_aspek2_6").innerHTML = confidence_aspek2_6;
+            document.getElementById("confidence_aspek2_7").innerHTML = confidence_aspek2_7;
+            document.getElementById("confidence_aspek2_8").innerHTML = confidence_aspek2_8;
+            document.getElementById("confidence_aspek2_9").innerHTML = confidence_aspek2_9;
+            document.getElementById("confidence_aspek2_10").innerHTML = confidence_aspek2_10;
+            document.getElementById("confidence_aspek2_11").innerHTML = confidence_aspek2_11;
+
+            //Perbandingan
+            document.getElementById("perbandingan_hasil_akhir_aspek_1").innerHTML = perbandingan_hasil_akhir_aspek_1;
+            document.getElementById("perbandingan_hasil_akhir_aspek_2").innerHTML = perbandingan_hasil_akhir_aspek_2;
+            document.getElementById("perbandingan_hasil_akhir_aspek_3").innerHTML = perbandingan_hasil_akhir_aspek_3;
+            document.getElementById("perbandingan_hasil_akhir_aspek_4").innerHTML = perbandingan_hasil_akhir_aspek_4;
+            document.getElementById("perbandingan_hasil_akhir_aspek_5").innerHTML = perbandingan_hasil_akhir_aspek_5;
+            document.getElementById("perbandingan_hasil_akhir_aspek_6").innerHTML = perbandingan_hasil_akhir_aspek_6;
+            document.getElementById("perbandingan_hasil_akhir_aspek_7").innerHTML = perbandingan_hasil_akhir_aspek_7;
+            document.getElementById("perbandingan_hasil_akhir_aspek_8").innerHTML = perbandingan_hasil_akhir_aspek_8;
+            document.getElementById("perbandingan_hasil_akhir_aspek_9").innerHTML = perbandingan_hasil_akhir_aspek_9;
+            document.getElementById("perbandingan_hasil_akhir_aspek_10").innerHTML = perbandingan_hasil_akhir_aspek_10;
+            document.getElementById("perbandingan_hasil_akhir_aspek_11").innerHTML = perbandingan_hasil_akhir_aspek_11;
+        </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var cell = $('td.color-grade');
+
+                cell.each(function () {
+                    var cell_value = parseFloat($(this).html());
+
+                    if ((cell_value <= 20)) {
+                        $(this).css({
+                            'background-color': '#FF4242',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_value >= 20) && (cell_value <= 40)) {
+                        $(this).css({
+                            'background-color': '#FF8800',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_value >= 40) && (cell_value <= 60)) {
+                        $(this).css({
+                            'background-color': '#ffcc66',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_value >= 60) && (cell_value <= 80)) {
+                        $(this).css({
+                            'background-color': '#66ff66',
+                            'font-weight': '600'
+                        });
+                    } else if (cell_value >= 80) {
+                        $(this).css({
+                            'background-color': '#00cc00',
+                            'font-weight': '600'
+                        });
+                    } else {
+                        $(this).css({
+                            'background-color': '#ADADAD',
+                            'font-weight': '600'
+                        });
+                    }
+                });
+
+                var cell_confidence = $('td.color-grade-confidence');
+
+                cell_confidence.each(function () {
+                    var cell_confidence_value = parseFloat($(this).html());
+
+                    if ((cell_confidence_value <= 69)) {
+                        $(this).css({
+                            'background-color': '#FF4242',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_confidence_value >= 69) && (cell_confidence_value <= 89)) {
+                        $(this).css({
+                            'background-color': '#ffcc66',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_confidence_value >= 89)) {
+                        $(this).css({
+                            'background-color': '#00cc00',
+                            'font-weight': '600'
+                        });
+                    }
+                    else {
+                        $(this).css({
+                            'background-color': '#ADADAD',
+                            'font-weight': '600'
+                        });
+                    }
+                });
+
+                var cell_perubahan = $('td.color-grade-perubahan');
+
+                cell_perubahan.each(function () {
+                    var cell_perubahan_value = parseFloat($(this).html());
+
+                    if ((cell_perubahan_value <= -30)) {
+                        $(this).css({
+                            'background-color': '#FF4242',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_perubahan_value >= -30) && (cell_perubahan_value <= -1)) {
+                        $(this).css({
+                            'background-color': '#FF8800',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_perubahan_value >= -1) && (cell_perubahan_value <= 30)) {
+                        $(this).css({
+                            'background-color': '#ffcc66',
+                            'font-weight': '600'
+                        });
+                    } else if (cell_perubahan_value >= 30) {
+                        $(this).css({
+                            'background-color': '#00cc00',
+                            'font-weight': '600'
+                        });
+                    } else {
+                        $(this).css({
+                            'background-color': '#ADADAD',
+                            'font-weight': '600'
+                        });
+                    }
+                });
+
+            });
+        </script>
+
+        {% else %}
+            <div class="alert alert-warning">
+                Silahkan Pilih Laporan. Jika laporan yang anda pilih belum ada, silahkan pilih laporan yang lain
+            </div>
+        {% endif %}
+    </div>
+</article>
+{% endblock content%}

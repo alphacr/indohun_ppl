@@ -35,5 +35,5 @@ urlpatterns = [
     # path('report_35001/<int:pk>/delete', ReportDeleteView.as_view(), name='report_delete_35001'),
     # path('tentang_35001/', views.tentang_35001, name='tentang_35001'),
     # path('pdf_view_35001/<int:pk>/', ReportPDFView.as_view(), name='pdf_view_35001'),
-    # path('compare_laporan_35001/', views.compare_laporan_35001, name='compare_laporan_35001'),
+    path('compare_laporan_35001/', views.compare_laporan_35001, name='compare_laporan_35001'),
 ]
