@@ -800,14 +800,21 @@
                 <td>{{ report_2.rekomendasi_no_54 }}</td>
             </tr>
         </table>
+        <br>
+
+        <button onclick=window.print() class="btn btn-danger btn-sm mt-1 mb-1"
+                style="background-color: #61b9e2; border-color: #61b9e2;">Download</button>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        
         <script>
             function round(num) {
                 num = Math.round(num + "e" + 2);
                 return Number(num + "e" + -2);
             }
+        </script>
 
+        <script>
             // Nilai 1
             var i;
             var not_applicable = 0;
@@ -1575,6 +1582,8 @@
         </script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+        <!-- Color Grade Scripts -->
         <script type="text/javascript">
             $(document).ready(function () {
                 var cell = $('td.color-grade');
@@ -1633,12 +1642,6 @@
                     } else if ((cell_confidence_value >= 89)) {
                         $(this).css({
                             'background-color': '#00cc00',
-                            'font-weight': '600'
-                        });
-                    }
-                    else {
-                        $(this).css({
-                            'background-color': '#ADADAD',
                             'font-weight': '600'
                         });
                     }
