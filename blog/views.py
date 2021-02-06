@@ -434,3 +434,18 @@ class ReportUpdateView35001(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
               'nilai_no_53', 'keterangan_no_53', 'rekomendasi_no_53',
               'nilai_no_54', 'keterangan_no_54', 'rekomendasi_no_54',
               'kelemahan_utama', 'kekuatan_utama', 'saran_untuk_perbaikan', ]
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        questionnaire = self.get_object()
+        if self.request.user == questionnaire.author:
+            return True
+        return False
+
+class ReportPDFView35001(LoginRequiredMixin, DetailView):
+    model = Questionnaire35001  # <app>/<model>_<viewtype>.html
+    context_object_name = 'report35001'
+    template_name = 'blog/report35001_pdf.html'

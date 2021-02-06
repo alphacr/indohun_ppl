@@ -10,7 +10,8 @@ from .views import (
     ReportListView35001,
     ReportDetailView35001,
     ReportDeleteView35001,
-    ReportUpdateView35001
+    ReportUpdateView35001,
+    ReportPDFView35001
 )
 from . import views
 
@@ -35,6 +36,6 @@ urlpatterns = [
     path('tentang_35001/', views.tentang_35001, name='tentang_35001'),
     path('report_35001/<int:pk>/update', ReportUpdateView35001.as_view(), name='report_update_35001'),
     path('report_35001/<int:pk>/delete', ReportDeleteView35001.as_view(), name='report_delete_35001'),
-    # path('pdf_view_35001/<int:pk>/', ReportPDFView.as_view(), name='pdf_view_35001'),
+    path('pdf_view_35001/<int:pk>/', ReportPDFView35001.as_view(), name='pdf_view_35001'),
     path('compare_laporan_35001/', views.compare_laporan_35001, name='compare_laporan_35001'),
 ]

@@ -1,5 +1,33 @@
-{% extends "blog/base.html" %}
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'blog/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/custom_style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/libs/css/custom_style.css'%}">
+
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/datepicker/tempusdominus-bootstrap-4.css' %}" />
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/inputmask/css/inputmask.css' %}" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.css" />
+
+    {% if title %}
+    <title>Indohun PPL - {{ title }}</title>
+    {% else %}
+    <title>Indohun PPL</title>
+    {% endif %}
+</head>
+
+<body>
     <article class="media content-section">
         <div class="media-body">
             <div class="article-metadata">
@@ -620,19 +648,13 @@
                     <td colspan="4">{{ report35001.saran_untuk_perbaikan }}</td>
                 </tr>
             </table>
-            {% if report35001.author == user %}
-                <br/>
-                <div style="float: right;">
-
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'report_update_35001' report35001.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3;">Perbarui</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'report_delete_35001' report35001.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4;">
-                        Hapus</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'pdf_view_35001' report35001.id %}" style="background-color: #61b9e2; border-color: #61b9e2;">Download</a>
-                </div>
-
-            {% endif %}
         </div>
 
+        <script type="text/javascript">
+            setTimeout(function () { window.print(); }, 500);
+            window.onfocus = function () { setTimeout(function () { history.back(); }, 500); }
+        </script>
+        
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
         <script>
             function round(num) {
@@ -1083,4 +1105,5 @@
             });
         </script>
     </article>
-{% endblock content %}
+</body>
+</html>
