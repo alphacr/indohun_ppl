@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, SplitUpdateForm
 from .models import Profile
 from blog.models import Questionnaire, Questionnaire35001
+from itertools import chain
 
 # Create your views here.
 
@@ -51,15 +52,23 @@ def profile_page(request):
     try:
         reports = Questionnaire.objects.filter(author=request.user)
         reports_35001 = Questionnaire35001.objects.filter(author=request.user)
-        all_reports = reports.union(reports_35001)
+        all_reports = reports.union(reports_35001).order_by('-date_posted')
+        total_count = all_reports.count()
+        table_list = sorted(list(reports_35001) + list(reports), key=lambda x: x.date_posted.date(), reverse=True)
+        latest_id =  sorted(list(reports_35001) + list(reports), key=lambda x: x.date_posted.date(), reverse=True)[0]
     except:
         reports = None
         reports_35001 = None
-        all_reports = None
+        total_count = None
+        latest_id = None
+        table_list = None
+
     context = {
         'posts': Profile.objects.filter(user=request.user),
-        'all_reports' : all_reports,
-        'report_id': all_reports.order_by('-id')[0],
-        'total_count': all_reports.count()
+        'all_reports' : table_list,
+        'latest_id': latest_id,
+        'total_count': total_count,
+        'reports' : reports,
+        'reports_35001' : reports_35001
     }
     return render(request, 'users/profile_page.html', context)
