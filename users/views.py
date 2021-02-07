@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, SplitUpdateForm
 from .models import Profile
-from blog.models import Questionnaire
+from blog.models import Questionnaire, Questionnaire35001
 
 # Create your views here.
 
@@ -49,15 +49,17 @@ def profile(request):
 @login_required
 def profile_page(request):
     try:
-        latest_id = Questionnaire.objects.filter(
-            author=request.user).order_by('-id')[0]
+        reports = Questionnaire.objects.filter(author=request.user)
+        reports_35001 = Questionnaire35001.objects.filter(author=request.user)
+        all_reports = reports.union(reports_35001)
     except:
-        latest_id = None
-
+        reports = None
+        reports_35001 = None
+        all_reports = None
     context = {
         'posts': Profile.objects.filter(user=request.user),
-        'reports': Questionnaire.objects.filter(author=request.user),
-        'report_id': latest_id,
-        'report_count': Questionnaire.objects.filter(author=request.user).count()
+        'all_reports' : all_reports,
+        'report_id': all_reports.order_by('-id')[0],
+        'total_count': all_reports.count()
     }
     return render(request, 'users/profile_page.html', context)
