@@ -5,3 +5,4 @@ django-crispy-forms==1.9.1
 pycodestyle==2.6.0
 pytz==2020.1
 sqlparse==0.3.1
+django-email-verification==0.1.0
