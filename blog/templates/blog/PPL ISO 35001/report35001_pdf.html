@@ -27,9 +27,9 @@
     {% endif %}
 </head>
 
-<body>
+<body style="-webkit-print-color-adjust:exact; color-adjust: exact;">
     <article class="media content-section">
-        <div class="media-body">
+        <div id='printableArea' class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="#">{{ report35001.author }}</a>
                 <small class="text-muted">{{ report35001.date_posted|date:"F d, Y" }}</small>
@@ -79,7 +79,7 @@
             </div>
 
             <!-- Report Information -->
-            <table class="table">
+            <table>
                 <tr style="background-color: white;">
                     <td style="background-color: #0e0c28; color: white">Penilai</td>
                     <td colspan="3">{{ report35001.penilai }}</td>
@@ -106,10 +106,10 @@
 
 
             <div class="row">
-                <div class="col-md-6 ">
+                <div class="col-md-8">
                     <canvas id="myChart_radar_detail"></canvas>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <canvas id="myChart_bar_detail"></canvas>
                 </div>
             </div>
@@ -117,7 +117,7 @@
             <br/>
             <br/>
 
-            <table class="table">
+            <table >
                 <thead style="background-color: #0e0c28;">
                     <tr>
                         <th style="color: white; ">No</th>
@@ -202,7 +202,7 @@
             <br/>
 
             <h3>Isi Laporan</h3>
-            <table class="table">
+            <table >
                 <thead style="background-color: #0e0c28;">
                     <tr>
                         <th style="color: white;">No</th>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.contrib import messages
 from django.urls import reverse
 from .forms import ContactUsForm
@@ -38,7 +38,7 @@ def home(request):
 
 class ReportListView(LoginRequiredMixin, ListView):
     model = Questionnaire
-    template_name = 'blog/report_list.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'blog/SMBL SNI 8340_2016/report_list.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'reports'
     ordering = ['-date_posted']
 
@@ -47,13 +47,21 @@ class ReportListView(LoginRequiredMixin, ListView):
         return Questionnaire.objects.filter(author=user)
 
 
-class ReportDetailView(LoginRequiredMixin, DetailView):
+class ReportDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Questionnaire  # <app>/<model>_<viewtype>.html
+    template_name = 'blog/SMBL SNI 8340_2016/questionnaire_detail.html'
     context_object_name = 'report'
+
+    def test_func(self):
+        questionnaire = self.get_object()
+        if self.request.user == questionnaire.author:
+            return True
+        return False
 
 
 class ReportCreateView(LoginRequiredMixin, CreateView):
     model = Questionnaire  # <app>/<model>_form.html
+    template_name = 'blog/SMBL SNI 8340_2016/questionnaire_form.html'
     fields = ['judul_laporan', 'penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
               'nilai_no_2', 'keterangan_tujuan_dan_program_manajemen_biorisiko', 'rekomendasi_tujuan_dan_program_manajemen_biorisiko',
@@ -118,6 +126,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
 
 class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Questionnaire  # <app>/<model>_form.html
+    template_name = 'blog/SMBL SNI 8340_2016/questionnaire_form.html'
     context_object_name = 'report'
     fields = ['judul_laporan', 'penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_kebijakan_sistem_manajemen_biorisiko', 'rekomendasi_kebijakan_sistem_manajemen_biorisiko',
@@ -189,6 +198,7 @@ class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class ReportDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Questionnaire  # <app>/<model>_<viewtype>.html
+    template_name = 'blog/SMBL SNI 8340_2016/questionnaire_confirm_delete.html'
     context_object_name = 'report'
     success_url = '/report'
 
@@ -211,18 +221,22 @@ def tentang_biorisiko(request):
 
 @login_required
 def tentang_SMBL(request):
-    return render(request, 'blog/tentang_SMBL.html')
+    return render(request, 'blog/SMBL SNI 8340_2016/tentang_SMBL.html')
 
 @login_required
 def tentang_35001(request):
-    return render(request, 'blog/tentang_35001.html')
+    return render(request, 'blog/PPL ISO 35001/tentang_35001.html')
 
-
-class ReportPDFView(LoginRequiredMixin, DetailView):
+class ReportPDFView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Questionnaire  # <app>/<model>_<viewtype>.html
     context_object_name = 'report'
-    template_name = 'blog/report_pdf.html'
+    template_name = 'blog/SMBL SNI 8340_2016/report_pdf.html'
 
+    def test_func(self):
+        questionnaire = self.get_object()
+        if self.request.user == questionnaire.author:
+            return True
+        return False
 
 @login_required
 def compare_laporan(request):
@@ -245,20 +259,20 @@ def compare_laporan(request):
                 'report_2': report_2,
                 'reports': reports,
             }
-            return render(request, 'blog/compare_laporan.html', context)
+            return render(request, 'blog/SMBL SNI 8340_2016/compare_laporan.html', context)
     else:
         form = CompareReportForm(instance=request.user)
         context_2 = {
             'this_form': form,
             'reports': Questionnaire.objects.filter(author=request.user)
         }
-        return render(request, 'blog/compare_laporan.html', context_2)
+        return render(request, 'blog/SMBL SNI 8340_2016/compare_laporan.html', context_2)
 
 
 #### New Report ####
 class ReportListView35001(LoginRequiredMixin, ListView):
     model = Questionnaire35001
-    template_name = 'blog/report35001_list.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'blog/PPL ISO 35001/report35001_list.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'reports35001'
     ordering = ['-date_posted']
 
@@ -266,13 +280,20 @@ class ReportListView35001(LoginRequiredMixin, ListView):
         user = self.request.user
         return Questionnaire35001.objects.filter(author=user)
 
-
-class ReportDetailView35001(LoginRequiredMixin, DetailView):
+class ReportDetailView35001(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Questionnaire35001  # <app>/<model>_<viewtype>.html
+    template_name = 'blog/PPL ISO 35001/questionnaire35001_detail.html'
     context_object_name = 'report35001'
+
+    def test_func(self):
+        questionnaire = self.get_object()
+        if self.request.user == questionnaire.author:
+            return True
+        return False
 
 class ReportCreateView35001(LoginRequiredMixin, CreateView):
     model = Questionnaire35001  # <app>/<model>_form.html
+    template_name = 'blog/PPL ISO 35001/questionnaire35001_form.html'
     fields = ['judul_laporan', 'penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_no_1', 'rekomendasi_no_1',
               'nilai_no_2', 'keterangan_no_2', 'rekomendasi_no_2',
@@ -355,17 +376,18 @@ def compare_laporan_35001(request):
                 'report_2': report_2,
                 'reports': reports,
             }
-            return render(request, 'blog/compare_laporan_35001.html', context)
+            return render(request, 'blog/PPL ISO 35001/compare_laporan_35001.html', context)
     else:
         form = CompareReportForm(instance=request.user)
         context_2 = {
             'this_form': form,
             'reports': Questionnaire35001.objects.filter(author=request.user)
         }
-        return render(request, 'blog/compare_laporan_35001.html', context_2)
+        return render(request, 'blog/PPL ISO 35001/compare_laporan_35001.html', context_2)
 
 class ReportDeleteView35001(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Questionnaire35001  # <app>/<model>_<viewtype>.html
+    template_name = 'blog/PPL ISO 35001/questionnaire35001_confirm_delete.html'
     context_object_name = 'report'
     success_url = '/report_35001'
 
@@ -377,6 +399,7 @@ class ReportDeleteView35001(LoginRequiredMixin, UserPassesTestMixin, DeleteView)
 
 class ReportUpdateView35001(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Questionnaire35001  # <app>/<model>_form.html
+    template_name = 'blog/PPL ISO 35001/questionnaire35001_form.html'
     context_object_name = 'report'
     fields = ['judul_laporan', 'penilai', 'afiliasi_penilai', 'jenis_penilaian', 'personel_yang_diwawancarai',
               'nilai_no_1', 'keterangan_no_1', 'rekomendasi_no_1',
@@ -445,7 +468,13 @@ class ReportUpdateView35001(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
             return True
         return False
 
-class ReportPDFView35001(LoginRequiredMixin, DetailView):
+class ReportPDFView35001(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Questionnaire35001  # <app>/<model>_<viewtype>.html
     context_object_name = 'report35001'
-    template_name = 'blog/report35001_pdf.html'
+    template_name = 'blog/PPL ISO 35001/report35001_pdf.html'
+
+    def test_func(self):
+        questionnaire = self.get_object()
+        if self.request.user == questionnaire.author:
+            return True
+        return False
