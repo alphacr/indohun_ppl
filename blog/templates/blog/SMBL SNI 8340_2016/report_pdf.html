@@ -1,0 +1,1341 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'blog/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/custom_style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/libs/css/custom_style.css'%}">
+
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/datepicker/tempusdominus-bootstrap-4.css' %}" />
+    <link rel="stylesheet" href="{% static 'blog/assets/vendor/inputmask/css/inputmask.css' %}" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.css" />
+
+    {% if title %}
+    <title>Indohun PPL - {{ title }}</title>
+    {% else %}
+    <title>Indohun PPL</title>
+    {% endif %}
+</head>
+
+<body style="-webkit-print-color-adjust:exact; color-adjust: exact;">
+    <article class="media content-section">
+        <div id='printableArea' class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">{{ report.author }}</a>
+                <small class="text-muted">{{ report.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2 class="article-title" style="margin-top: 10px;">Hasil Laporan: {{ report.judul_laporan }}</h2>
+
+            <!-- Legend Bar -->
+            <div class="alert alert-primary" role="alert">
+                Angka yang ditampilkan pada table merupakan sebuah persentasi penilaian dari kondisi ideal (100%).
+                Penandaan warna atas penilaian lab adalah sebagai berikut: </br>
+                0-19.9%: <span style="color: #FF4242">Merah</span>,
+                20-39.9%: <span style="color: #FF8800">Oranye</span>,
+                40-599%: <span style="color: #ffcc66">Kuning</span>,
+                60-79.9%: <span style="color: #66ff66">Hijau Muda</span>,
+                80-100%: <span style="color: #00cc00">Hijau Tua</span>,
+                NaN (Tidak diisi): <span style="color: #ADADAD">Abu-abu</span>
+                </br></br>
+                Confidence/keandalan dari hasil bergantung pada persentase yang diisi dalam setiap pertanyaan pada
+                kuesioner. Penandaan warna atas tingkat confidence hasil penilaian adalah sebagai berikut: </br>
+                0-69%: <span style="color: #ff0000">Merah</span>,
+                70-89%: <span style="color: #ffcc66">Kuning</span>,
+                90-100%: <span style="color: #00cc00">Hijau Tua</span>
+            </div>
+
+            <table>
+                <tr style="background-color: white;">
+                    <td style="background-color: #0e0c28; color: white">Penilai</td>
+                    <td colspan="3">{{ report.penilai }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="background-color: #0e0c28; color: white">Afiliasi Penilai</td>
+                    <td colspan="3">{{ report.afiliasi_penilai }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="background-color: #0e0c28; color: white">Jenis Penilaian</td>
+                    <td colspan="3">{{ report.jenis_penilaian }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="background-color: #0e0c28; color: white">Personel yang Diwawancarai</td>
+                    <td colspan="3">{{ report.personel_yang_diwawancarai }}</td>
+                </tr>
+            </table>
+
+            <br />
+            <br />
+            <h3 class="article-title">Ringkasan Hasil Penilaian</h3>
+            <div class="container-chart">
+                <div class="row">
+                    <div class="col-md-8 ">
+                        <canvas id="myChart_radar"></canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <canvas id="myChart_bar"></canvas>
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <table>
+                <thead style="background-color: #0e0c28;">
+                    <tr>
+                        <th style="color: #ffff;">No</th>
+                        <th style="color: #ffff;">Semua Hasil Aspek PPL Terhadap Laboratorium {{ report.author }}</th>
+                        <th style="color: #ffff;">Penilaian {{ report.judul_laporan }}</th>
+                    </tr>
+                </thead>
+                <tr style="background-color: rgba(54, 162, 235, 0.4);">
+                    <td>1</td>
+                    <td>Kebijakan Sistem Manajemen Biorisiko</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_1"></td>
+                </tr>
+                <tr style="background-color: rgba(255, 206, 86, 0.4);">
+                    <td>2</td>
+                    <td>Perencanaan Kerja Dengan Bahan Biologik</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_2"></td>
+                </tr>
+                <tr style="background-color: rgba(75, 192, 192, 0.4);">
+                    <td>3</td>
+                    <td>Pengendalian Operasional</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_3"></td>
+                </tr>
+                <tr style="background-color: rgba(255, 99, 132, 0.4);">
+                    <td>4</td>
+                    <td>Pelaksanaan dan Operasi</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4"></td>
+                </tr>
+                <tr style="background-color: rgba(153, 102, 255, 0.4);">
+                    <td>5</td>
+                    <td>Checking dan Perbaikan</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_5"></td>
+                </tr>
+            </table>
+
+
+            <br />
+            <br />
+
+            <h3>Detail Hasil Penilaian</h3>
+            <div class="row">
+                <div class="col-md-8 ">
+                    <canvas id="myChart_radar_detail"></canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <canvas id="myChart_bar_detail"></canvas>
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            <h3>Isi Laporan</h3>
+            <table>
+                <thead style="background-color: #0e0c28;">
+                    <tr>
+                        <th style="color: white; ">No</th>
+                        <th style="color: white; ">Semua Hasil Aspek PPL terhadap Laboratorium {{ report.author }}</th>
+                        <th style="color: white; ">Penilaian Saat ini {{ report.judul_laporan }}</th>
+                        <th style="color: white; ">Confidence</th>
+                    </tr>
+                </thead>
+                <tr style="background-color:rgba(54, 162, 235, 0.4); ">
+                    <td style="font-weight: bold; ">1.1</td>
+                    <td>Sistem Manajemen Biorisiko</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_1_detail"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_1"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 206, 86, 0.4); ">
+                    <td style="font-weight: bold;">2.1</td>
+                    <td>Penilaian Risiko</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_2_1"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_2_1"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 206, 86, 0.4); ">
+                    <td style="font-weight: bold;"> 2.2</td>
+                    <td>Informasi dan Inventarisasi Bahan Biologik dan Bahan Toksin</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_2_2"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_2_2"></td>
+                </tr>
+                <tr style="background-color:rgba(75, 192, 192, 0.4); ">
+                    <td style="font-weight: bold;"> 3.1</td>
+                    <td>General Safety</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_3_detail"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_3"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;">4.1</td>
+                    <td>Personalia dan Kompetensi</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_1"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_1"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;"> 4.2</td>
+                    <td>Good Microbiological Technique</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_2"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_2"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;">4.3</td>
+                    <td>Alat Pelindung Diri</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_3"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_3"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;"> 4.4</td>
+                    <td>Latar Belakang SDM</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_4"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_4"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;">4.5</td>
+                    <td>Program Kesehatan Kerja</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_5"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_5"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;"> 4.6</td>
+                    <td>Tanggap Darurat dan Perencanaan Kontingensi</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_6"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_6" style="background-color: black;"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;">4.7</td>
+                    <td>Persyaratan Fasilitas Fisik</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_7"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_7"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;">4.8</td>
+                    <td>Peralatan dan Pemeliharaan</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_8"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_8"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;"> 4.9</td>
+                    <td>Dekontaminasi, Disinfeksi, dan Sterilisasi</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_9"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_9"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;">4.10</td>
+                    <td>Transportasi Bahan Biologik dan Bahan Berbahaya lainnya</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_10"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_10"></td>
+                </tr>
+                <tr style="background-color:rgba(255, 99, 132, 0.4); ">
+                    <td style="font-weight: bold;"> 4.11</td>
+                    <td>Biosecurity</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_4_11"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_4_11"></td>
+                </tr>
+                <tr style="background-color:rgba(153, 102, 255, 0.4); ">
+                    <td style="font-weight: bold;">5.1</td>
+                    <td>Investigasi Kecelakaan dan Insiden</td>
+                    <td class="color-grade" id="hasil_akhir_aspek_5_detail"></td>
+                    <td class="color-grade-confidence" id="confidence_aspek_5"></td>
+                </tr>
+            </table>
+
+            <h3>Isi Laporan</h3>
+            <table class="table">
+                <thead style="background-color: #0e0c28;">
+                    <tr>
+                        <th style="color: white;">No</th>
+                        <th style="color: white;">Elemen</th>
+                        <th style="color: white;">Nilai</th>
+                        <th style="color: white;">Keterangan</th>
+                        <th style="color: white;">Rekomendasi</th>
+                    </tr>
+                </thead>
+                <tr style="background-color: rgba(54, 162, 235, 0.4);">
+                    <td colspan="5">1. Kebijakan Manajemen Biorisiko</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">1.1 Sistem Manajemen Biorisiko</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>1</td>
+                    <td>Kebijakan sistem manajemen biorisiko</td>
+                    <td>{{ report.nilai_no_1 }}</td>
+                    <td>{{ report.keterangan_kebijakan_sistem_manajemen_biorisiko }}</td>
+                    <td>{{ report.rekomendasi_kebijakan_sistem_manajemen_biorisiko }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>2</td>
+                    <td>Tujuan dan program manajemen biorisiko (digabung dengan langkah pencegahan)</td>
+                    <td>{{ report.nilai_no_2 }}</td>
+                    <td>{{ report.keterangan_tujuan_dan_program_manajemen_biorisiko }}</td>
+                    <td>{{ report.rekomendasi_tujuan_dan_program_manajemen_biorisiko }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>3</td>
+                    <td>Tanggung jawab dan wewenang</td>
+                    <td>{{ report.nilai_no_3 }}</td>
+                    <td>{{ report.keterangan_tanggung_jawab_dan_wewenang }}</td>
+                    <td>{{ report.rekomendasi_tanggung_jawab_dan_wewenang }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>4</td>
+                    <td>Pencatatan, dokumen dan pengendalian dokumen</td>
+                    <td>{{ report.nilai_no_4 }}</td>
+                    <td>{{ report.keterangan_pencatatan_dokumen_dan_pengendalian_dokumen }}</td>
+                    <td>{{ report.rekomendasi_pencatatan_dokumen_dan_pengendalian_dokumen }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>5</td>
+                    <td>Perubahan terkait manajemen biorisiko</td>
+                    <td>{{ report.nilai_no_5 }}</td>
+                    <td>{{ report.keterangan_perubahan_terkait_manajemen_biorisiko }}</td>
+                    <td>{{ report.rekomendasi_perubahan_terkait_manajemen_biorisiko }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>6</td>
+                    <td>Komunikasi dan konsultasi</td>
+                    <td>{{ report.nilai_no_6 }}</td>
+                    <td>{{ report.keterangan_komunikasi_dan_konsultasi }}</td>
+                    <td>{{ report.rekomendasi_komunikasi_dan_konsultasi }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>7</td>
+                    <td>Perencanaan dan program kerja</td>
+                    <td>{{ report.nilai_no_7 }}</td>
+                    <td>{{ report.keterangan_perencanaan_dan_program_kerja }}</td>
+                    <td>{{ report.rekomendasi_perencanaan_dan_program_kerja }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>8</td>
+                    <td>Persyaratan legal (aturan/izin)</td>
+                    <td>{{ report.nilai_no_8 }}</td>
+                    <td>{{ report.keterangan_persyaratan_legal_aturan_atau_izin }}</td>
+                    <td>{{ report.rekomendasi_persyaratan_legal_aturan_atau_izin }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>9</td>
+                    <td>Inspeksi dan audit</td>
+                    <td>{{ report.nilai_no_9 }}</td>
+                    <td>{{ report.keterangan_inspeksi_dan_audit }}</td>
+                    <td>{{ report.rekomendasi_inspeksi_dan_audit }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>10</td>
+                    <td>Pengendalian ketidaksesuaian dan perbaikan</td>
+                    <td>{{ report.nilai_no_10 }}</td>
+                    <td>{{ report.keterangan_pengendalian_ketidaksesuaian_dan_perbaikan }}</td>
+                    <td>{{ report.rekomendasi_pengendalian_ketidaksesuaian_dan_perbaikan }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>11</td>
+                    <td>Pengembangan berkelanjutan</td>
+                    <td>{{ report.nilai_no_11 }}</td>
+                    <td>{{ report.keterangan_pengembangan_berkelanjutan }}</td>
+                    <td>{{ report.rekomendasi_pengembangan_berkelanjutan }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>12</td>
+                    <td>Kontraktor and suplier (purchasing)</td>
+                    <td>{{ report.nilai_no_12 }}</td>
+                    <td>{{ report.keterangan_kontraktor_dan_suplier_purchasing }}</td>
+                    <td>{{ report.rekomendasi_kontraktor_dan_suplier_purchasing }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>13</td>
+                    <td>Review dan perbaikan manajemen biorisiko</td>
+                    <td>{{ report.nilai_no_13 }}</td>
+                    <td>{{ report.keterangan_review_dan_perbaikan_manajemen_biorisiko }}</td>
+                    <td>{{ report.rekomendasi_review_dan_perbaikan_manajemen_biorisiko }}</td>
+                </tr>
+                <tr style="background-color: rgba(255, 206, 86, 0.4);">
+                    <td colspan="5">II. Perencanaan Kerja dengan Bahan Biologik</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">2.1 Penilaian Risiko</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>14</td>
+                    <td>Proses, metode dan prosedur</td>
+                    <td>{{ report.nilai_no_14 }}</td>
+                    <td>{{ report.keterangan_proses_metode_dan_prosedur }}</td>
+                    <td>{{ report.rekomendasi_proses_metode_dan_prosedur }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>15</td>
+                    <td>Ruang lingkup dan penjadwalan</td>
+                    <td>{{ report.nilai_no_15 }}</td>
+                    <td>{{ report.keterangan_ruang_lingkup_dan_penjadwalan }}</td>
+                    <td>{{ report.rekomendasi_ruang_lingkup_dan_penjadwalan }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>16</td>
+                    <td>Peran dan tanggung jawab</td>
+                    <td>{{ report.nilai_no_16 }}</td>
+                    <td>{{ report.keterangan_peran_dan_tanggung_jawab }}</td>
+                    <td>{{ report.rekomendasi_peran_dan_tanggung_jawab }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>17</td>
+                    <td>Identifikasi hazard</td>
+                    <td>{{ report.nilai_no_17 }}</td>
+                    <td>{{ report.keterangan_identifikasi_hazard }}</td>
+                    <td>{{ report.rekomendasi_identifikasi_hazard }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>18</td>
+                    <td>Pengendalian risiko</td>
+                    <td>{{ report.nilai_no_18 }}</td>
+                    <td>{{ report.keterangan_pengendalian_risiko }}</td>
+                    <td>{{ report.rekomendasi_pengendalian_risiko }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">2.2 Informasi dan Inventarisasi Bahan Biologik dan Toksin lainnya</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>19</td>
+                    <td>Inventarisasi, informasi dan pencatatan</td>
+                    <td>{{ report.nilai_no_19 }}</td>
+                    <td>{{ report.keterangan_inventarisasi_informasi_dan_pencatatan }}</td>
+                    <td>{{ report.rekomendasi_inventarisasi_informasi_dan_pencatatan }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>20</td>
+                    <td>Penyimpanan bahan biologik dan bahan berbahaya lainnya</td>
+                    <td>{{ report.nilai_no_20 }}</td>
+                    <td>{{ report.keterangan_penyimpanan_bahan_biologik_dan_bahan_berbahaya_lainnya }}</td>
+                    <td>{{ report.rekomendasi_penyimpanan_bahan_biologik_dan_bahan_berbahaya_lainnya }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>21</td>
+                    <td>Transfer bahan biologik dan bahan berbahaya lainnya</td>
+                    <td>{{ report.nilai_no_21 }}</td>
+                    <td>{{ report.keterangan_transfer_bahan_biologik_dan_bahan_berbahaya_lainnya }}</td>
+                    <td>{{ report.rekomendasi_transfer_bahan_biologik_dan_bahan_berbahaya_lainnya }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>22</td>
+                    <td>Pengendalian dan monitoring</td>
+                    <td>{{ report.nilai_no_22 }}</td>
+                    <td>{{ report.keterangan_pengendalian_dan_monitoring }}</td>
+                    <td>{{ report.rekomendasi_pengendalian_dan_monitoring }}</td>
+                </tr>
+                <tr style="background-color: rgba(75, 192, 192, 0.4);">
+                    <td colspan="5">3. Pengendalian Operasional</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">3.1 General Safety</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>23</td>
+                    <td>General safety</td>
+                    <td>{{ report.nilai_no_23 }}</td>
+                    <td>{{ report.keterangan_general_safety }}</td>
+                    <td>{{ report.rekomendasi_general_safety }}</td>
+                </tr>
+                <tr style="background-color: rgba(255, 99, 132, 0.4);">
+                    <td colspan="5">4. Pelaksanaan dan Operasi</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.1 Personalia dan Kompetensi</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>24</td>
+                    <td>Rekrutmen, pelatihan dan kompetensi</td>
+                    <td>{{ report.nilai_no_24 }}</td>
+                    <td>{{ report.keterangan_rekrutmen_pelatihan_dan_kompetensi }}</td>
+                    <td>{{ report.rekomendasi_rekrutmen_pelatihan_dan_kompetensi }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>25</td>
+                    <td>Suksesi dan eksklusi</td>
+                    <td>{{ report.nilai_no_25 }}</td>
+                    <td>{{ report.keterangan_suksesi_dan_eksklusi }}</td>
+                    <td>{{ report.rekomendasi_suksesi_dan_eksklusi }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.2 Good Microbiological Technique</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>26</td>
+                    <td>GMT: Personel</td>
+                    <td>{{ report.nilai_no_26 }}</td>
+                    <td>{{ report.keterangan_GMT_personel }}</td>
+                    <td>{{ report.rekomendasi_GMT_personel }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>27</td>
+                    <td>GMT: Peralatan</td>
+                    <td>{{ report.nilai_no_27 }}</td>
+                    <td>{{ report.keterangan_GMT_peralatan }}</td>
+                    <td>{{ report.rekomendasi_GMT_peralatan }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>28</td>
+                    <td>Pelabelan</td>
+                    <td>{{ report.nilai_no_28 }}</td>
+                    <td>{{ report.keterangan_pelabelan }}</td>
+                    <td>{{ report.rekomendasi_pelabelan }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.3 Alat Pelindung Diri</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>29</td>
+                    <td>Pengadaan alat pelindung diri (APD)</td>
+                    <td>{{ report.nilai_no_29 }}</td>
+                    <td>{{ report.keterangan_pengadaan_alat_pelindung_diri }}</td>
+                    <td>{{ report.rekomendasi_pengadaan_alat_pelindung_diri }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>30</td>
+                    <td>APD (Personel)</td>
+                    <td>{{ report.nilai_no_30 }}</td>
+                    <td>{{ report.keterangan_APD_personel }}</td>
+                    <td>{{ report.rekomendasi_APD_personel }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>31</td>
+                    <td>Pemeliharaan dan dekontaminasi reusable APD</td>
+                    <td>{{ report.nilai_no_31 }}</td>
+                    <td>{{ report.keterangan_pemeliharaan_dan_dekontaminasi_reusable_apd }}</td>
+                    <td>{{ report.rekomendasi_pemeliharaan_dan_dekontaminasi_reusable_apd }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.4 Latar Belakang SDM</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>32</td>
+                    <td>Latar belakang SDM</td>
+                    <td>{{ report.nilai_no_32 }}</td>
+                    <td>{{ report.keterangan_latar_belakang_sdm }}</td>
+                    <td>{{ report.rekomendasi_latar_belakang_sdm }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.5 Program Kesehatan Kerja</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>33</td>
+                    <td>Program kesehatan kerja</td>
+                    <td>{{ report.nilai_no_33 }}</td>
+                    <td>{{ report.keterangan_program_kesehatan_kerja }}</td>
+                    <td>{{ report.rekomendasi_program_kesehatan_kerja }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>34</td>
+                    <td>Vaksinasi</td>
+                    <td>{{ report.nilai_no_34 }}</td>
+                    <td>{{ report.keterangan_vaksinasi }}</td>
+                    <td>{{ report.rekomendasi_vaksinasi }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>35</td>
+                    <td>Kedaruratan medik</td>
+                    <td>{{ report.nilai_no_35 }}</td>
+                    <td>{{ report.keterangan_kedaruratan_medik }}</td>
+                    <td>{{ report.rekomendasi_kedaruratan_medik }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.6 Tanggap Darurat dan Perencanaan Kontingensi</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>36</td>
+                    <td>Identifikasi, perencanaan, dan respon keadaan darurat</td>
+                    <td>{{ report.nilai_no_36 }}</td>
+                    <td>{{ report.keterangan_identifikasi_perencanaan_dan_respon_keadaan_darurat }}</td>
+                    <td>{{ report.rekomendasi_identifikasi_perencanaan_dan_respon_keadaan_darurat }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>37</td>
+                    <td>Simulasi dan pelatihan tanggap darurat</td>
+                    <td>{{ report.nilai_no_37 }}</td>
+                    <td>{{ report.keterangan_simulasi_dan_pelatihan_tanggap_darurat }}</td>
+                    <td>{{ report.rekomendasi_simulasi_dan_pelatihan_tanggap_darurat }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>38</td>
+                    <td>Rencana tanggap darurat menghadapi kejadian luar duga (kontingensi)</td>
+                    <td>{{ report.nilai_no_38 }}</td>
+                    <td>{{ report.keterangan_rencana_tanggap_darurat_menghadapi_kejadian_luar_duga }}</td>
+                    <td>{{ report.rekomendasi_rencana_tanggap_darurat_menghadapi_kejadian_luar_duga }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>39</td>
+                    <td>Ketersediaan peralatan keselamatan untuk tanggap darurat</td>
+                    <td>{{ report.nilai_no_39 }}</td>
+                    <td>{{ report.keterangan_ketersediaan_peralatan_keselamatan_untuk_tanggap_darurat }}</td>
+                    <td>{{ report.rekomendasi_ketersediaan_peralatan_keselamatan_untuk_tanggap_darurat }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.7 Persyaratan Fasilitas Fisik</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>40</td>
+                    <td>Perencanaan, desain dan verifikasi (mencakup commisioning dan decommision-ing)</td>
+                    <td>{{ report.nilai_no_40 }}</td>
+                    <td>{{ report.keterangan_perencanaan_desain_dan_verifikasi_mencakup_commissioning_dan_decommisioning }}
+                    </td>
+                    <td>{{ report.rekomendasi_perencanaan_desain_dan_verifikasi_mencakup_commissioning_dan_decommisioning }}
+                    </td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>41</td>
+                    <td>Infrastruktur dan operasional</td>
+                    <td>{{ report.nilai_no_41 }}</td>
+                    <td>{{ report.keterangan_infrastruktur_dan_operasional }}</td>
+                    <td>{{ report.rekomendasi_infrastruktur_dan_operasional }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.8 Peralatan dan Pemeliharaan</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>42</td>
+                    <td>Manajemen pemeliharaan</td>
+                    <td>{{ report.nilai_no_42 }}</td>
+                    <td>{{ report.keterangan_manajemen_pemeliharaan }}</td>
+                    <td>{{ report.rekomendasi_manajemen_pemeliharaan }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>43</td>
+                    <td>Monitoring peralatan</td>
+                    <td>{{ report.nilai_no_43 }}</td>
+                    <td>{{ report.keterangan_monitoring_peralatan }}</td>
+                    <td>{{ report.rekomendasi_monitoring_peralatan }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>44</td>
+                    <td>Kalibrasi</td>
+                    <td>{{ report.nilai_no_44 }}</td>
+                    <td>{{ report.keterangan_kalibrasi }}</td>
+                    <td>{{ report.rekomendasi_kalibrasi }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>45</td>
+                    <td>Sertifikasi</td>
+                    <td>{{ report.nilai_no_45 }}</td>
+                    <td>{{ report.keterangan_sertifikasi }}</td>
+                    <td>{{ report.rekomendasi_sertifikasi }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>46</td>
+                    <td>Validasi</td>
+                    <td>{{ report.nilai_no_46 }}</td>
+                    <td>{{ report.keterangan_validasi }}</td>
+                    <td>{{ report.rekomendasi_validasi }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.9 Dekontaminasi, Disinfeksi, dan Sterilisasi</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>47</td>
+                    <td>Pengolahan limbah dan bahan berbahaya (biologi, kimia)</td>
+                    <td>{{ report.nilai_no_47 }}</td>
+                    <td>{{ report.keterangan_pengolahan_limbah_dan_bahan_berbahaya_biologi_kimia }}</td>
+                    <td>{{ report.rekomendasi_pengolahan_limbah_dan_bahan_berbahaya_biologi_kimia }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>48</td>
+                    <td>Inaktivasi bahan biologik dan bahan berbahaya lainnya</td>
+                    <td>{{ report.nilai_no_48 }}</td>
+                    <td>{{ report.keterangan_inaktivasi_bahan_biologik_dan_bahan_berbahaya_lainnya }}</td>
+                    <td>{{ report.rekomendasi_inaktivasi_bahan_biologik_dan_bahan_berbahaya_lainnya }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>49</td>
+                    <td>Dekontaminasi dan disinfeksi peralatan</td>
+                    <td>{{ report.nilai_no_49 }}</td>
+                    <td>{{ report.keterangan_dekontaminasi_dan_disinfeksi_peralatan }}</td>
+                    <td>{{ report.rekomendasi_dekontaminasi_dan_disinfeksi_peralatan }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.10 Transportasi Bahan Biologik dan Bahan Berbahaya lainnya</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>50</td>
+                    <td>Prosedur penerimaan dan pengiriman bahan biologik dan bahan berbahaya lainnya</td>
+                    <td>{{ report.nilai_no_50 }}</td>
+                    <td>{{ report.keterangan_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya }}</td>
+                    <td>{{ report.rekomendasi_prosedur_penerimaan_dan_pengiriman_bahan_biologik_dan_bahan_berbahaya_lainnya }}</td>
+                </tr>
+                <tr style="background-color: #c7c8d0;">
+                    <td colspan="5">4.11 Biosecurity</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>51</td>
+                    <td>Keamanan fisik dan pengendalian personel</td>
+                    <td>{{ report.nilai_no_51 }}</td>
+                    <td>{{ report.keterangan_keamanan_fisik_dan_pengendalian_personel }}</td>
+                    <td>{{ report.rekomendasi_keamanan_fisik_dan_pengendalian_personel }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>52</td>
+                    <td>Keamanan Informasi</td>
+                    <td>{{ report.nilai_no_52 }}</td>
+                    <td>{{ report.keterangan_keamanan_informasi }}</td>
+                    <td>{{ report.rekomendasi_keamanan_informasi }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>53</td>
+                    <td>Pengendalian personel</td>
+                    <td>{{ report.nilai_no_53 }}</td>
+                    <td>{{ report.keterangan_pengendalian_personel }}</td>
+                    <td>{{ report.rekomendasi_pengendalian_personel }}</td>
+                </tr>
+                <tr style="background-color: rgba(153, 102, 255, 1);">
+                    <td colspan="5">5.1 Investigasi Kecelakaan dan Insiden</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>54</td>
+                    <td>Investigasi kecelakaan dan insiden</td>
+                    <td>{{ report.nilai_no_54 }}</td>
+                    <td>{{ report.keterangan_investigasi_kecelakaan_dan_insiden }}</td>
+                    <td>{{ report.rekomendasi_investigasi_kecelakaan_dan_insiden }}</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr style="background-color: rgba(0, 12, 255, 0.3);">
+                    <td colspan="5">Hasil Analisis PPL terhadap {{ report.judul_laporan }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>Kesenjangan/Kelemahan Utama</td>
+                    <td colspan="4">{{ report.kelemahan_utama }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>Kekuatan Utama</td>
+                    <td colspan="4">{{ report.kekuatan_utama }}</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>Saran untuk Perbaikan</td>
+                    <td colspan="4">{{ report.saran_untuk_perbaikan }}</td>
+                </tr>
+            </table>
+        </div>
+
+
+        <script type="text/javascript">
+            setTimeout(function () { window.print(); }, 500);
+            window.onfocus = function () { setTimeout(function () { history.back(); }, 500); }
+        </script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script>
+            function round(num) {
+                num = Math.round(num + "e" + 2);
+                return Number(num + "e" + -2);
+            }
+
+            var i;
+            var not_applicable = 0;
+            var aspek_1 = [
+                {{ report.nilai_no_1 }} - 1,
+                    {{ report.nilai_no_2 }} - 1,
+                        {{ report.nilai_no_3 }} - 1,
+                            {{ report.nilai_no_4 }} - 1,
+                                {{ report.nilai_no_5 }} - 1,
+                                    {{ report.nilai_no_6 }} - 1,
+                                        {{ report.nilai_no_7 }} - 1,
+                                            {{ report.nilai_no_8 }} - 1,
+                                                {{ report.nilai_no_9 }} - 1,
+                                                    {{ report.nilai_no_10 }} - 1,
+                                                        {{ report.nilai_no_11 }} - 1,
+                                                            {{ report.nilai_no_12 }} - 1,
+                                                                {{ report.nilai_no_13 }} - 1,
+    ];
+            var panjang_aspek_1 = [];
+            for (i = 0; i < aspek_1.length; i++) {
+                if (aspek_1[i] == -1) {
+                    not_applicable += aspek_1[i];
+                } else {
+                    panjang_aspek_1.push(aspek_1[i]);
+                }
+            }
+            var hasil_akhir_aspek_1 = round(((panjang_aspek_1.reduce((a, b) => a + b, 0)) / (panjang_aspek_1.length * 3)) * 100);
+            var confidence_aspek_1 = round((panjang_aspek_1.length / aspek_1.length) * 100);
+
+            panjang_aspek_1 = [];
+            aspek_1 = [];
+
+            var aspek_2_1 = [
+                {{ report.nilai_no_14 }} - 1,
+                    {{ report.nilai_no_15 }} - 1,
+                        {{ report.nilai_no_16 }} - 1,
+                            {{ report.nilai_no_17 }} - 1,
+                                {{ report.nilai_no_18 }} - 1,
+    ];
+            var aspek_2_2 = [
+                {{ report.nilai_no_19 }} - 1,
+                    {{ report.nilai_no_20 }} - 1,
+                        {{ report.nilai_no_21 }} - 1,
+                            {{ report.nilai_no_22 }} - 1,
+    ];
+            var panjang_aspek_2_1 = [];
+            var panjang_aspek_2_2 = [];
+            for (i = 0; i < aspek_2_1.length; i++) {
+                if (aspek_2_1[i] == -1) {
+                    not_applicable += aspek_2_1[i];
+                } else {
+                    panjang_aspek_2_1.push(aspek_2_1[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_2_2.length; i++) {
+                if (aspek_2_2[i] == -1) {
+                    not_applicable += aspek_2_2[i];
+                } else {
+                    panjang_aspek_2_2.push(aspek_2_2[i]);
+                }
+            }
+
+            var hasil_akhir_aspek_2_1 = round(((panjang_aspek_2_1.reduce((a, b) => a + b, 0)) / (panjang_aspek_2_1.length * 3)) * 100);
+            var hasil_akhir_aspek_2_2 = round(((panjang_aspek_2_2.reduce((a, b) => a + b, 0)) / (panjang_aspek_2_2.length * 3)) * 100);
+
+            var panjang_aspek_2 = panjang_aspek_2_1.concat(panjang_aspek_2_2);
+
+            var confidence_aspek_2_1 = round((panjang_aspek_2_1.length / aspek_2_1.length) * 100);
+            var confidence_aspek_2_2 = round((panjang_aspek_2_2.length / aspek_2_2.length) * 100);
+
+            var hasil_akhir_aspek_2 = round(((panjang_aspek_2.reduce((a, b) => a + b, 0)) / (panjang_aspek_2.length * 3)) * 100);
+
+            aspek_2_1 = [];
+            aspek_2_2 = [];
+            panjang_aspek_2_1 = [];
+            panjang_aspek_2_2 = [];
+            panjang_aspek_2 = [];
+
+            var aspek_3 = [
+                {{ report.nilai_no_23 }} - 1,
+    ];
+            var panjang_aspek_3 = [];
+            for (i = 0; i < aspek_3.length; i++) {
+                if (aspek_3[i] == -1) {
+                    not_applicable += aspek_3[i];
+                } else {
+                    panjang_aspek_3.push(aspek_3[i]);
+                }
+            }
+
+            var hasil_akhir_aspek_3 = round(((panjang_aspek_3.reduce((a, b) => a + b, 0)) / (panjang_aspek_3.length * 3)) * 100);
+            var confidence_aspek_3 = round((panjang_aspek_3.length / aspek_3.length) * 100);
+
+            aspek_3 = [];
+            panjang_aspek_3 = [];
+
+            var aspek_4_1 = [
+                {{ report.nilai_no_24 }} - 1,
+                    {{ report.nilai_no_25 }} - 1,
+    ];
+            var aspek_4_2 = [
+                {{ report.nilai_no_26 }} - 1,
+                    {{ report.nilai_no_27 }} - 1,
+                        {{ report.nilai_no_28 }} - 1,
+    ];
+            var aspek_4_3 = [
+                {{ report.nilai_no_29 }} - 1,
+                    {{ report.nilai_no_30 }} - 1,
+                        {{ report.nilai_no_31 }} - 1,
+    ];
+            var aspek_4_4 = [
+                {{ report.nilai_no_32 }} - 1,
+    ];
+            var aspek_4_5 = [
+                {{ report.nilai_no_33 }} - 1,
+                    {{ report.nilai_no_34 }} - 1,
+                        {{ report.nilai_no_35 }} - 1,
+    ];
+            var aspek_4_6 = [
+                {{ report.nilai_no_36 }} - 1,
+                    {{ report.nilai_no_37 }} - 1,
+                        {{ report.nilai_no_38 }} - 1,
+                            {{ report.nilai_no_39 }} - 1,
+    ];
+            var aspek_4_7 = [
+                {{ report.nilai_no_40 }} - 1,
+                    {{ report.nilai_no_41 }} - 1,
+    ];
+            var aspek_4_8 = [
+                {{ report.nilai_no_42 }} - 1,
+                    {{ report.nilai_no_43 }} - 1,
+                        {{ report.nilai_no_44 }} - 1,
+                            {{ report.nilai_no_45 }} - 1,
+                                {{ report.nilai_no_46 }} - 1,
+    ];
+            var aspek_4_9 = [
+                {{ report.nilai_no_47 }} - 1,
+                    {{ report.nilai_no_48 }} - 1,
+                        {{ report.nilai_no_49 }} - 1,
+    ];
+            var aspek_4_10 = [
+                {{ report.nilai_no_50 }} - 1,
+    ];
+            var aspek_4_11 = [
+                {{ report.nilai_no_51 }} - 1,
+                    {{ report.nilai_no_52 }} - 1,
+                        {{ report.nilai_no_53 }} - 1,
+    ];
+
+            var panjang_aspek_4_1 = [];
+            var panjang_aspek_4_2 = [];
+            var panjang_aspek_4_3 = [];
+            var panjang_aspek_4_4 = [];
+            var panjang_aspek_4_5 = [];
+            var panjang_aspek_4_6 = [];
+            var panjang_aspek_4_7 = [];
+            var panjang_aspek_4_8 = [];
+            var panjang_aspek_4_9 = [];
+            var panjang_aspek_4_10 = [];
+            var panjang_aspek_4_11 = [];
+
+            for (i = 0; i < aspek_4_1.length; i++) {
+                if (aspek_4_1[i] == -1) {
+                    not_applicable += aspek_4_1[i];
+                } else {
+                    panjang_aspek_4_1.push(aspek_4_1[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_2.length; i++) {
+                if (aspek_4_2[i] == -1) {
+                    not_applicable += aspek_4_2[i];
+                } else {
+                    panjang_aspek_4_2.push(aspek_4_2[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_3.length; i++) {
+                if (aspek_4_3[i] == -1) {
+                    not_applicable += aspek_4_3[i];
+                } else {
+                    panjang_aspek_4_3.push(aspek_4_3[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_4.length; i++) {
+                if (aspek_4_4[i] == -1) {
+                    not_applicable += aspek_4_4[i];
+                } else {
+                    panjang_aspek_4_4.push(aspek_4_4[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_5.length; i++) {
+                if (aspek_4_5[i] == -1) {
+                    not_applicable += aspek_4_5[i];
+                } else {
+                    panjang_aspek_4_5.push(aspek_4_5[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_6.length; i++) {
+                if (aspek_4_6[i] == -1) {
+                    not_applicable += aspek_4_6[i];
+                } else {
+                    panjang_aspek_4_6.push(aspek_4_6[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_7.length; i++) {
+                if (aspek_4_7[i] == -1) {
+                    not_applicable += aspek_4_7[i];
+                } else {
+                    panjang_aspek_4_7.push(aspek_4_7[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_8.length; i++) {
+                if (aspek_4_8[i] == -1) {
+                    not_applicable += aspek_4_8[i];
+                } else {
+                    panjang_aspek_4_8.push(aspek_4_8[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_9.length; i++) {
+                if (aspek_4_9[i] == -1) {
+                    not_applicable += aspek_4_9[i];
+                } else {
+                    panjang_aspek_4_9.push(aspek_4_9[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_10.length; i++) {
+                if (aspek_4_10[i] == -1) {
+                    not_applicable += aspek_4_10[i];
+                } else {
+                    panjang_aspek_4_10.push(aspek_4_10[i]);
+                }
+            }
+
+            for (i = 0; i < aspek_4_11.length; i++) {
+                if (aspek_4_11[i] == -1) {
+                    not_applicable += aspek_4_11[i];
+                } else {
+                    panjang_aspek_4_11.push(aspek_4_11[i]);
+                }
+            }
+
+            var hasil_akhir_aspek_4_1 = round(((panjang_aspek_4_1.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_1.length * 3)) * 100);
+            var hasil_akhir_aspek_4_2 = round(((panjang_aspek_4_2.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_2.length * 3)) * 100);
+            var hasil_akhir_aspek_4_3 = round(((panjang_aspek_4_3.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_3.length * 3)) * 100);
+            var hasil_akhir_aspek_4_4 = round(((panjang_aspek_4_4.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_4.length * 3)) * 100);
+            var hasil_akhir_aspek_4_5 = round(((panjang_aspek_4_5.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_5.length * 3)) * 100);
+            var hasil_akhir_aspek_4_6 = round(((panjang_aspek_4_6.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_6.length * 3)) * 100);
+            var hasil_akhir_aspek_4_7 = round(((panjang_aspek_4_7.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_7.length * 3)) * 100);
+            var hasil_akhir_aspek_4_8 = round(((panjang_aspek_4_8.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_8.length * 3)) * 100);
+            var hasil_akhir_aspek_4_9 = round(((panjang_aspek_4_9.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_9.length * 3)) * 100);
+            var hasil_akhir_aspek_4_10 = round(((panjang_aspek_4_10.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_10.length * 3)) * 100);
+            var hasil_akhir_aspek_4_11 = round(((panjang_aspek_4_11.reduce((a, b) => a + b, 0)) / (panjang_aspek_4_11.length * 3)) * 100);
+
+            var panjang_aspek_4 = panjang_aspek_4_1.concat(panjang_aspek_4_2, panjang_aspek_4_3, panjang_aspek_4_4, panjang_aspek_4_5, panjang_aspek_4_6, panjang_aspek_4_7, panjang_aspek_4_8, panjang_aspek_4_9, panjang_aspek_4_10, panjang_aspek_4_11);
+
+            var hasil_akhir_aspek_4 = round(((panjang_aspek_4.reduce((a, b) => a + b, 0)) / (panjang_aspek_4.length * 3)) * 100);
+            var confidence_aspek_4_1 = round((panjang_aspek_4_1.length / aspek_4_1.length) * 100);
+            var confidence_aspek_4_2 = round((panjang_aspek_4_2.length / aspek_4_2.length) * 100);
+            var confidence_aspek_4_3 = round((panjang_aspek_4_3.length / aspek_4_3.length) * 100);
+            var confidence_aspek_4_4 = round((panjang_aspek_4_4.length / aspek_4_4.length) * 100);
+            var confidence_aspek_4_5 = round((panjang_aspek_4_5.length / aspek_4_5.length) * 100);
+            var confidence_aspek_4_6 = round((panjang_aspek_4_6.length / aspek_4_6.length) * 100);
+            var confidence_aspek_4_7 = round((panjang_aspek_4_7.length / aspek_4_7.length) * 100);
+            var confidence_aspek_4_8 = round((panjang_aspek_4_8.length / aspek_4_8.length) * 100);
+            var confidence_aspek_4_9 = round((panjang_aspek_4_9.length / aspek_4_9.length) * 100);
+            var confidence_aspek_4_10 = round((panjang_aspek_4_10.length / aspek_4_10.length) * 100);
+            var confidence_aspek_4_11 = round((panjang_aspek_4_11.length / aspek_4_11.length) * 100);
+
+            aspek_4_1 = [];
+            aspek_4_2 = [];
+            aspek_4_3 = [];
+            aspek_4_4 = [];
+            aspek_4_5 = [];
+            aspek_4_6 = [];
+            aspek_4_7 = [];
+            aspek_4_8 = [];
+            aspek_4_9 = [];
+            aspek_4_10 = [];
+            aspek_4_11 = [];
+            panjang_aspek_4_1 = [];
+            panjang_aspek_4_2 = [];
+            panjang_aspek_4_3 = [];
+            panjang_aspek_4_4 = [];
+            panjang_aspek_4_5 = [];
+            panjang_aspek_4_6 = [];
+            panjang_aspek_4_7 = [];
+            panjang_aspek_4_8 = [];
+            panjang_aspek_4_9 = [];
+            panjang_aspek_4_10 = [];
+            panjang_aspek_4_11 = [];
+            panjang_aspek_4 = [];
+
+            var aspek_5 = [
+                {{ report.nilai_no_54 }} - 1,
+    ];
+            var panjang_aspek_5 = [];
+            for (i = 0; i < aspek_5.length; i++) {
+                if (aspek_5[i] == -1) {
+                    not_applicable += aspek_5[i];
+                } else {
+                    panjang_aspek_5.push(aspek_5[i]);
+                }
+            }
+            var hasil_akhir_aspek_5 = round(((panjang_aspek_5.reduce((a, b) => a + b, 0)) / (panjang_aspek_5.length * 3)) * 100);
+            var confidence_aspek_5 = round((panjang_aspek_5.length / aspek_5.length) * 100);
+
+            aspek_5 = [];
+            panjang_aspek_5 = [];
+
+            var ctx_radar = document.getElementById('myChart_radar');
+            var myChart_radar = new Chart(ctx_radar, {
+                type: 'radar',
+                data: {
+                    labels: ['Kebijakan Manajemen Biorisiko', 'Perencanaan Kerja dengan Bahan Biologik', 'Pengendalian Operasional', 'Pelaksanaan dan Operasi', 'Checking dan Perbaikan'],
+                    datasets: [{
+                        label: 'Nilai Akhir',
+                        data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
+                        backgroundColor: 'rgba(203, 159, 196, 0.3)',
+                        borderColor: 'rgba(203, 159, 196, 0.3)',
+                        pointBorderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var ctx_bar = document.getElementById('myChart_bar');
+            var myChart_bar = new Chart(ctx_bar, {
+                type: 'bar',
+                data: {
+                    labels: ['1', '2', '3', '4', '5'],
+                    datasets: [{
+                        label: 'Nilai Akhir',
+                        data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4, hasil_akhir_aspek_5,],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.4)',
+                            'rgba(255, 206, 86, 0.4)',
+                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(153, 102, 255, 0.4)',
+                            'rgba(255, 159, 64, 0.4)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+        <script>
+            document.getElementById("hasil_akhir_aspek_1").innerHTML = hasil_akhir_aspek_1;
+            document.getElementById("hasil_akhir_aspek_2").innerHTML = hasil_akhir_aspek_2;
+            document.getElementById("hasil_akhir_aspek_3").innerHTML = hasil_akhir_aspek_3;
+            document.getElementById("hasil_akhir_aspek_4").innerHTML = hasil_akhir_aspek_4;
+            document.getElementById("hasil_akhir_aspek_5").innerHTML = hasil_akhir_aspek_5;
+        </script>
+
+        <script>
+            var ctx_radar_detail = document.getElementById('myChart_radar_detail');
+            var myChart_radar_detail = new Chart(ctx_radar_detail, {
+                type: 'radar',
+                data: {
+                    labels: ['Sistem Manajemen Biorisiko', 'Penilaian Risiko', 'Informasi dan Inventarisasi Bahan Biologik dan Bahan Toksin', 'General Safety', 'Personalia dan Kompetensi', 'Good Microbiological Technique', 'Alat Pelindung Diri', 'Latar Belakang SDM', 'Program Kesehatan Kerja', 'Tanggap Darurat dan Perencanaan Kontingensi', 'Persyaratan Fasilitas Fisik', 'Peralatan dan Pemeliharaan', 'Dekontaminasi, Disinfeksi, dan Sterilisasi', 'Transportasi Bahan Biologik dan Bahan Berbahaya lainnya', 'Biosecurity', 'Investigasi Kecelakaan dan Insiden'],
+                    datasets: [{
+                        label: 'Nilai Akhir',
+                        data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5,],
+                        backgroundColor: 'rgba(203, 159, 196, 0.3)',
+                        borderColor: 'rgba(203, 159, 196, 0.3)',
+                        pointBorderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var ctx_bar_detail = document.getElementById('myChart_bar_detail');
+            var myChart_bar_detail = new Chart(ctx_bar_detail, {
+                type: 'bar',
+                data: {
+                    labels: ['1.1', '2.1', '2.2', '3.1', '4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '4.10', '4.11', '5.1'],
+                    datasets: [{
+                        label: 'Nilai Akhir',
+                        data: [hasil_akhir_aspek_1, hasil_akhir_aspek_2_1, hasil_akhir_aspek_2_2, hasil_akhir_aspek_3, hasil_akhir_aspek_4_1, hasil_akhir_aspek_4_2, hasil_akhir_aspek_4_3, hasil_akhir_aspek_4_4, hasil_akhir_aspek_4_5, hasil_akhir_aspek_4_6, hasil_akhir_aspek_4_7, hasil_akhir_aspek_4_8, hasil_akhir_aspek_4_9, hasil_akhir_aspek_4_10, hasil_akhir_aspek_4_11, hasil_akhir_aspek_5,],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.4)',
+                            'rgba(255, 206, 86, 0.4)',
+                            'rgba(255, 206, 86, 0.4)',
+                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(153, 102, 255, 0.4)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 0.4)',
+                            'rgba(255, 206, 86, 0.4)',
+                            'rgba(255, 206, 86, 0.4)',
+                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(153, 102, 255, 0.4)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+
+        <script>
+            document.getElementById("hasil_akhir_aspek_1_detail").innerHTML = hasil_akhir_aspek_1;
+            document.getElementById("hasil_akhir_aspek_2_1").innerHTML = hasil_akhir_aspek_2_1;
+            document.getElementById("hasil_akhir_aspek_2_2").innerHTML = hasil_akhir_aspek_2_2;
+            document.getElementById("hasil_akhir_aspek_3_detail").innerHTML = hasil_akhir_aspek_3;
+            document.getElementById("hasil_akhir_aspek_4_1").innerHTML = hasil_akhir_aspek_4_1;
+            document.getElementById("hasil_akhir_aspek_4_2").innerHTML = hasil_akhir_aspek_4_2;
+            document.getElementById("hasil_akhir_aspek_4_3").innerHTML = hasil_akhir_aspek_4_3;
+            document.getElementById("hasil_akhir_aspek_4_4").innerHTML = hasil_akhir_aspek_4_4;
+            document.getElementById("hasil_akhir_aspek_4_5").innerHTML = hasil_akhir_aspek_4_5;
+            document.getElementById("hasil_akhir_aspek_4_6").innerHTML = hasil_akhir_aspek_4_6;
+            document.getElementById("hasil_akhir_aspek_4_7").innerHTML = hasil_akhir_aspek_4_7;
+            document.getElementById("hasil_akhir_aspek_4_8").innerHTML = hasil_akhir_aspek_4_8;
+            document.getElementById("hasil_akhir_aspek_4_9").innerHTML = hasil_akhir_aspek_4_9;
+            document.getElementById("hasil_akhir_aspek_4_10").innerHTML = hasil_akhir_aspek_4_10;
+            document.getElementById("hasil_akhir_aspek_4_11").innerHTML = hasil_akhir_aspek_4_11;
+            document.getElementById("hasil_akhir_aspek_5_detail").innerHTML = hasil_akhir_aspek_5;
+            document.getElementById("confidence_aspek_1").innerHTML = confidence_aspek_1;
+            document.getElementById("confidence_aspek_2_1").innerHTML = confidence_aspek_2_1;
+            document.getElementById("confidence_aspek_2_2").innerHTML = confidence_aspek_2_2;
+            document.getElementById("confidence_aspek_3").innerHTML = confidence_aspek_3;
+            document.getElementById("confidence_aspek_4_1").innerHTML = confidence_aspek_4_1;
+            document.getElementById("confidence_aspek_4_2").innerHTML = confidence_aspek_4_2;
+            document.getElementById("confidence_aspek_4_3").innerHTML = confidence_aspek_4_3;
+            document.getElementById("confidence_aspek_4_4").innerHTML = confidence_aspek_4_4;
+            document.getElementById("confidence_aspek_4_5").innerHTML = confidence_aspek_4_5;
+            document.getElementById("confidence_aspek_4_6").innerHTML = confidence_aspek_4_6;
+            document.getElementById("confidence_aspek_4_7").innerHTML = confidence_aspek_4_7;
+            document.getElementById("confidence_aspek_4_8").innerHTML = confidence_aspek_4_8;
+            document.getElementById("confidence_aspek_4_9").innerHTML = confidence_aspek_4_9;
+            document.getElementById("confidence_aspek_4_10").innerHTML = confidence_aspek_4_10;
+            document.getElementById("confidence_aspek_4_11").innerHTML = confidence_aspek_4_11;
+            document.getElementById("confidence_aspek_5").innerHTML = confidence_aspek_5;
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var cell = $('td.color-grade');
+
+                cell.each(function () {
+                    var cell_value = parseFloat($(this).html());
+
+                    if ((cell_value <= 20)) {
+                        $(this).css({
+                            'background-color': '#FF4242',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_value >= 20) && (cell_value <= 40)) {
+                        $(this).css({
+                            'background-color': '#FF8800',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_value >= 40) && (cell_value <= 60)) {
+                        $(this).css({
+                            'background-color': '#ffcc66',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_value >= 60) && (cell_value <= 80)) {
+                        $(this).css({
+                            'background-color': '#66ff66',
+                            'font-weight': '600'
+                        });
+                    } else if (cell_value >= 80) {
+                        $(this).css({
+                            'background-color': '#00cc00',
+                            'font-weight': '600'
+                        });
+                    } else {
+                        $(this).css({
+                            'background-color': '#ADADAD',
+                            'font-weight': '600'
+                        });
+                    }
+                });
+
+                var cell_confidence = $('td.color-grade-confidence');
+
+                cell_confidence.each(function () {
+                    var cell_confidence_value = parseFloat($(this).html());
+
+                    if ((cell_confidence_value <= 69)) {
+                        $(this).css({
+                            'background-color': '#ff0000',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_confidence_value >= 69) && (cell_confidence_value <= 89)) {
+                        $(this).css({
+                            'background-color': '#ffcc66',
+                            'font-weight': '600'
+                        });
+                    } else if ((cell_confidence_value >= 89)) {
+                        $(this).css({
+                            'background-color': '#00cc00',
+                            'font-weight': '600'
+                        });
+                    }
+                });
+            });
+        </script>
+
+</body>
+
+</html>

@@ -1,142 +1,163 @@
 {% extends "blog/base.html"%}
 {% block content %}
-    <h1>Halaman Profil</h1>
+<h1>Halaman Profil</h1>
 {% for post in posts %}
-    {% if post.nama_lengkap_laboratorium != "" %}
+{% if post.nama_lengkap_laboratorium != "" %}
 
-    <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card influencer-profile-data">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
-                            <div class="text-center">
-                                <img src="../static/blog/assets/images/avatar-1.png" alt="User Avatar" class="rounded-circle user-avatar-xxl">
-                                </div>
-                            </div>
-                            <div class="col-xl-10 col-lg-8 col-md-8 col-sm-8 col-12">
-                                <div class="user-avatar-info">
-                                    <div class="m-b-20">
-                                        <div class="user-avatar-name">
-                                            {% if post.nama_lengkap_laboratorium == "" %}
-                                            <h2 class="mb-1">Nama Lengkap Laboratorium</h2>
-                                            {% else %}
-                                            <h2 class="mb-1">{{ post.nama_lengkap_laboratorium }}</h2>
-                                            {% endif %}
-                                        </div>
-                                        <div class="d-inline-block">
-                                        #{{ post.akronim_laboratorium }}
-                                        </div>
-                                    </div>
-                                    <div class="user-avatar-address">
-                                        <p class="border-bottom pb-3">
-                                            <span class="d-xl-inline-block d-block mb-2"><i class="fa fa-map-marker-alt mr-2 text-primary "></i>{{ post.alamat_lengkap}} {{ post.kab_kota }}</span>
-                                            <span class=" mb-2 d-xl-inline-block d-block ml-xl-4"><i class="fa fa-phone mr-2 text-primary "></i>{{ post.nomor_telepon }}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
-                            <i class="fa fa-eye fa-fw fa-sm text-info"></i>
-                        </div>
-                        <h5 class= "text-muted">Laporan Terakhir</h5>
-                        {% if reports %}
-                        <h3><a class="mb-0" href="{% url 'report-detail' report_id.id %}">
-                        {{ report_id.judul_laporan }}</a></h3>
-                        {% else %}
-                        <h3 class="mb-0">-</h3>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
-                            <i class="fa fa-user fa-fw fa-sm text-primary"></i>
-                        </div>
-                        <h5 class= "text-muted">Total Laporan</h5>
-                        {% if reports %}
-                        <h2 class="mb-0">{{ report_count }}</h2> <!-- # TODO FIX ME -->
-                        {% else %}
-                        <h2 class="mb-0">0</h2>
-                        {% endif %}
-                        
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
-                <div class="campaign-table table-responsive">
-                    
-                    <table class="table">
-                        <thead>
-                            <tr class="border-0">
-                                <th class="border-0">Nama Laporan</th>
-                                <th class="border-0">Waktu Penilaian</th>
-                                <th class="border-0">Terakhir Diubah</th>
-                                <th class="border-0">Aksi</th>
-                            </tr>
-                        </thead>
-                        {% if report_id %}
-                        {% for report in reports %}
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a class="article-title" href="{% url 'report-detail' report.id %}">{{ report.judul_laporan }}</a>
-                                </td>
-                                <td>{{ report.date_posted|date:"F d, Y / H:i" }}</td>
-                                <td>{{ report.date_updated|date:"F d, Y / H:i" }}</td>
-                                <td>                                    
-                                    <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report-update' report.id %}" style="background-color: #7ea4b3; border-color: #7ea4b3; color: white;">Perbarui</a>
-                                    <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report-delete' report.id %}" style="background-color: #cb9fc4; border-color: #cb9fc4; color: white;">Hapus</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        {% endfor %}
-                        {% else %}
-                        <div class="alert alert-warning">
-                            Belum ada laporan yang dibuat
-                        </div>
-                        {% endif %}
-                    </table>
-                </div>
-            </div>
-            </div>
-        </div>
-    {% else %}
-
-    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="card">
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card influencer-profile-data">
             <div class="card-body">
-                <a href="{% url 'profile' %}">
-                    <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
-                        <i class="fa fa-user fa-fw fa-sm text-primary"></i>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="text-center">
+                            <img src="../static/blog/assets/images/avatar-1.png" alt="User Avatar"
+                                class="rounded-circle user-avatar-xxl">
+                        </div>
                     </div>
-                    <h5 class= "text-muted">Halaman profil anda masih kosong!</h5>
-                    <h2 class="mb-0">Klik disini untuk mengisi halaman profil!</h2>
-                </a>
+                    <div class="col-xl-10 col-lg-8 col-md-8 col-sm-8 col-12">
+                        <div class="user-avatar-info">
+                            <div class="m-b-20">
+                                <div class="user-avatar-name">
+                                    {% if post.nama_lengkap_laboratorium == "" %}
+                                    <h2 class="mb-1">Nama Lengkap Laboratorium</h2>
+                                    {% else %}
+                                    <h2 class="mb-1">{{ post.nama_lengkap_laboratorium }}</h2>
+                                    {% endif %}
+                                </div>
+                                <div class="d-inline-block">
+                                    #{{ post.akronim_laboratorium }}
+                                </div>
+                            </div>
+                            <div class="user-avatar-address">
+                                <p class="border-bottom pb-3">
+                                    <span class="d-xl-inline-block d-block mb-2"><i
+                                            class="fa fa-map-marker-alt mr-2 text-primary "></i>{{ post.alamat_lengkap}}
+                                        {{ post.kab_kota }}</span>
+                                    <span class=" mb-2 d-xl-inline-block d-block ml-xl-4"><i
+                                            class="fa fa-phone mr-2 text-primary "></i>{{ post.nomor_telepon }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
-    {% endif %}
+</div>
+<br>
+<div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
+                    <i class="fa fa-eye fa-fw fa-sm text-info"></i>
+                </div>
+                <h5 class="text-muted">Laporan Terakhir</h5>
+                {% if latest_id %}
+                <h3>
+                    {% if latest_id in reports_35001 %}
+                        <a class="mb-0" href="{% url 'report_detail_35001' latest_id.id %}">{{ latest_id.judul_laporan }}</a>
+                    {% elif latest_id in reports %}
+                        <a class="mb-0" href="{% url 'report-detail' latest_id.id %}">{{ latest_id.judul_laporan }}</a>
+                    {% endif %}
+                </h3>
+                {% else %}
+                <h3 class="mb-0">-</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
+                    <i class="fa fa-user fa-fw fa-sm text-primary"></i>
+                </div>
+                <h5 class="text-muted">Total Laporan</h5>
+                {% if total_count %}
+                <h2 class="mb-0">{{ total_count }}</h2> <!-- # TODO FIX ME -->
+                {% else %}
+                <h2 class="mb-0">0</h2>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="campaign-table table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr class="border-0">
+                            <th class="border-0">Nama Laporan</th>
+                            <th class="border-0">Waktu Penilaian</th>
+                            <th class="border-0">Terakhir Diubah</th>
+                            <th class="border-0">Aksi</th>
+                        </tr>
+                    </thead>
+                    {% if all_reports %}
+                    {% for report in all_reports %}
+                    <tbody>
+                        <tr>
+                            <td>
+                                {% if report in reports_35001 %}
+                                    <a class="article-title" href="{% url 'report_detail_35001' report.id %}">{{ report.judul_laporan }}</a>
+                                {% elif report in reports %}
+                                    <a class="article-title" href="{% url 'report-detail' report.id %}">{{ report.judul_laporan }}</a>
+                                {% endif %}
+                            </td>
+                            <td>{{ report.date_posted|date:"F d, Y / H:i" }}</td>
+                            <td>{{ report.date_updated|date:"F d, Y / H:i" }}</td>
+                            <td>
+                            {% if report in reports_35001 %}
+                                <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report_update_35001' report.id %}"
+                                    style="background-color: #7ea4b3; border-color: #7ea4b3; color: white;">Perbarui</a>
+                                <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report_delete_35001' report.id %}"
+                                    style="background-color: #cb9fc4; border-color: #cb9fc4; color: white;">Hapus</a>
+                            {% elif report in reports %}
+                                <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report-update' report.id %}"
+                                    style="background-color: #7ea4b3; border-color: #7ea4b3; color: white;">Perbarui</a>
+                                <a class="btn btn-sm mt-1 mb-1 col-5" href="{% url 'report-delete' report.id %}"
+                                    style="background-color: #cb9fc4; border-color: #cb9fc4; color: white;">Hapus</a>
+                            {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                    {% else %}
+                    <div class="alert alert-warning">
+                        Belum ada laporan yang dibuat
+                    </div>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+    <div class="card">
+        <div class="card-body">
+            <a href="{% url 'profile' %}">
+                <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
+                    <i class="fa fa-user fa-fw fa-sm text-primary"></i>
+                </div>
+                <h5 class="text-muted">Halaman profil anda masih kosong!</h5>
+                <h2 class="mb-0">Klik disini untuk mengisi halaman profil!</h2>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endif %}
 {% endfor %}
 
 {% endblock content%}

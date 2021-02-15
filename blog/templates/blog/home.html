@@ -9,39 +9,43 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<link rel="stylesheet" href="{% static 'blog/assets/libs/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'blog/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/owl.carousel.css' %}">
-    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/owl.theme.default.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/assets/libs/css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/assets/libs/css/owl.theme.default.css' %}">
 
 	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'blog/assets/libs/css/index.css' %}">
-	<link rel="icon" type="image/png" href="{% static 'blog/assets/images/favicon.ico' %}"/>
+	<link rel="stylesheet" href="{% static 'blog/assets/libs/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/assets/libs/css/index.css' %}">
+	<link rel="icon" type="image/png" href="{% static 'blog/assets/images/favicon.ico' %}" />
 
 	<title>Indohun PPL</title>
 
 	<script>
-	  var shiftWindow = function() { scrollBy(0, -100) };
-	  window.addEventListener("hashchange", shiftWindow);
-	  function load() { if (window.location.hash) shiftWindow(); }
+		var shiftWindow = function () { scrollBy(0, -100) };
+		window.addEventListener("hashchange", shiftWindow);
+		function load() { if (window.location.hash) shiftWindow(); }
 	</script>
 </head>
+
 <body onload="load()" style="padding-top: 100px;">
 	<nav class=" navbar navbar-expand-lg navbar-light bg-light fixed-top">
 		<div class="container container-ppl">
-			<a class="navbar-brand" href="#"><img src="{% static 'blog/assets/images/indohun.png' %}" alt="Logo" class="logo-img"></a>
+			<a class="navbar-brand" href="#"><img src="{% static 'blog/assets/images/indohun.png' %}" alt="Logo"
+					class="logo-img"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
 				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" style="font-family: sans-serif; font-size: 20px"id="navbarNavAltMarkup">
+			<div class="collapse navbar-collapse" style="font-family: sans-serif; font-size: 20px"
+				id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-item nav-link nav-link-navbar active" href="#">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-item nav-link nav-link-navbar active" href="#">Home <span
+							class="sr-only">(current)</span></a>
 					<a class="nav-item nav-link nav-link-navbar" href="#about_ppl">Tentang PPL</a>
 					<a class="nav-item nav-link nav-link-navbar" href="#type_ppl">Tipe PPL</a>
 					<a class="nav-item nav-link nav-link-navbar" href="#pedoman">Pedoman</a>
@@ -49,16 +53,16 @@
 				</div>
 				<div class="navbar-nav ml-auto">
 					{% if user.is_authenticated %}
-						<a class="nav-item nav-link nav-link-navbar" href="{% url 'profile_page' %}">Masuk</a>
+					<a class="nav-item nav-link nav-link-navbar" href="{% url 'profile_page' %}">Masuk</a>
 					{% else %}
-						<a class="nav-item nav-link nav-link-navbar" href="{% url 'register' %}">Register</a>
-						<a class="nav-item nav-link nav-link-navbar" href="{% url 'login' %}">Login</a>
+					<a class="nav-item nav-link nav-link-navbar" href="{% url 'register' %}">Register</a>
+					<a class="nav-item nav-link nav-link-navbar" href="{% url 'login' %}">Login</a>
 					{% endif %}
 				</div>
 			</div>
 		</div>
 	</nav>
-		
+
 	<div id="indexCarousel" class="carousel slide" data-ride="carousel">
 		<ol class="carousel-indicators">
 			<li data-target="#indexCarousel" data-slide-to="0" class="active"></li>
@@ -67,13 +71,16 @@
 		</ol>
 		<div class="carousel-inner" style="max-height: 700px;">
 			<div class="carousel-item active">
-				<img class="d-block w-100 article-img" src="{% static 'blog/assets/images/Section 1-1.png' %}" alt="First slide">
+				<img class="d-block w-100 article-img" src="{% static 'blog/assets/images/Section 1-1.png' %}"
+					alt="First slide">
 			</div>
 			<div class="carousel-item">
-				<img class="d-block w-100 article-img" src="{% static 'blog/assets/images/Section 1-2.png' %}" alt="Second slide">
+				<img class="d-block w-100 article-img" src="{% static 'blog/assets/images/Section 1-2.png' %}"
+					alt="Second slide">
 			</div>
 			<div class="carousel-item">
-				<img class="d-block w-100 article-img" src="{% static 'blog/assets/images/Section 1-3.png' %}" alt="Third slide">
+				<img class="d-block w-100 article-img" src="{% static 'blog/assets/images/Section 1-3.png' %}"
+					alt="Third slide">
 			</div>
 		</div>
 		<a class="carousel-control-prev" href="#indexCarousel" role="button" data-slide="prev">
@@ -92,18 +99,22 @@
 					<div class="card-body">
 						<div class="section-title">
 							<div class="title">
-								<div class= "title-ppl title-ppl-1rem">Apa itu </div>
-								<div class= "title-ppl">Perangkat Penilaian 
-									<br>Laboratorium (PPL)?</div>
+								<div class="title-ppl title-ppl-1rem">Apa itu </div>
+								<div class="title-ppl">Perangkat Penilaian
+									<br>Laboratorium (PPL)?
+								</div>
 							</div>
 							<div class="col-md-4 img-ppl-mobile" data-aos="zoom-out-left" data-aos-duration="2000">
 								<article class="article thumb-article">
 									<div class="article-img">
-										<img class="d-block w-100" src="{% static 'blog/assets/images/section-2.png' %}" alt="section-2">
+										<img class="d-block w-100" src="{% static 'blog/assets/images/section-2.png' %}"
+											alt="section-2">
 									</div>
 								</article>
 							</div>
-							<div class="desk-ppl">Perangkat Penilaian Laboratorium (PPL) adalah sistem yang dikembangkan untuk memudahkan pengelola laboratorium ilmu hayati (kesehatan, kesehatan hewan, lingkungan, perikanan) dalam menilai kapasitas laboratorium secara real-time
+							<div class="desk-ppl">Perangkat Penilaian Laboratorium (PPL) adalah sistem yang dikembangkan
+								untuk memudahkan pengelola laboratorium ilmu hayati (kesehatan, kesehatan hewan,
+								lingkungan, perikanan) dalam menilai kapasitas laboratorium secara real-time
 							</div>
 						</div>
 					</div>
@@ -111,7 +122,8 @@
 				<div class="col-md-4 img-ppl" data-aos="zoom-out-left" data-aos-duration="2000">
 					<article class="article thumb-article">
 						<div class="article-img">
-							<img class="d-block w-100" src="{% static 'blog/assets/images/section-2.png' %}" alt="section-2">
+							<img class="d-block w-100" src="{% static 'blog/assets/images/section-2.png' %}"
+								alt="section-2">
 						</div>
 					</article>
 				</div>
@@ -125,7 +137,8 @@
 				<div class="col-md-4 img-ppl" data-aos="zoom-in-right">
 					<article class="article thumb-article">
 						<div class="article-img">
-							<img class="d-block w-100" src="{% static 'blog/assets/images/section-3.png' %}" alt="section-3">
+							<img class="d-block w-100" src="{% static 'blog/assets/images/section-3.png' %}"
+								alt="section-3">
 						</div>
 					</article>
 				</div>
@@ -133,18 +146,23 @@
 					<div class="card-body">
 						<div class="section-title">
 							<div class="title">
-								<div class= "title-ppl title-ppl-1rem">Apa saja</div>
-								<div class= "title-ppl">Tipe Perangkat Penilaian
-									<br>Laboratorium?</div>
+								<div class="title-ppl title-ppl-1rem">Apa saja</div>
+								<div class="title-ppl">Tipe Perangkat Penilaian
+									<br>Laboratorium?
+								</div>
 							</div>
 							<div class="col-md-4 img-ppl-mobile" data-aos="zoom-out-left" data-aos-duration="2000">
 								<article class="article thumb-article">
 									<div class="article-img">
-										<img class="d-block w-100" src="{% static 'blog/assets/images/section-3.png' %}" alt="section-3">
+										<img class="d-block w-100" src="{% static 'blog/assets/images/section-3.png' %}"
+											alt="section-3">
 									</div>
 								</article>
 							</div>
-							<div class="desk-ppl">Kami mengembangkan PPL untuk diterapkan oleh pengelola laboratorium sebagai perangkat mutakhir yang mencakup pemetaan kapasitas dasar dan penilaian lanjut (<i>advance</i>). Saat ini, PPL yang tersedia adalah aspek implementasi manajemen biorisiko sesuai SNI 8340:2016
+							<div class="desk-ppl">Kami mengembangkan PPL untuk diterapkan oleh pengelola laboratorium
+								sebagai perangkat mutakhir yang mencakup pemetaan kapasitas dasar dan penilaian lanjut
+								(<i>advance</i>). Saat ini, PPL yang tersedia adalah aspek implementasi manajemen
+								biorisiko sesuai SNI 8340:2016
 							</div>
 						</div>
 					</div>
@@ -160,18 +178,23 @@
 					<div class="card-body">
 						<div class="section-title">
 							<div class="title">
-								<div class= "title-ppl title-ppl-1rem">Bagaimana cara</div>
-								<div class= "title-ppl">Menggunakan perangkat
-									<br>penilaian laboratorium?</div>
+								<div class="title-ppl title-ppl-1rem">Bagaimana cara</div>
+								<div class="title-ppl">Menggunakan perangkat
+									<br>penilaian laboratorium?
+								</div>
 							</div>
 							<div class="col-md-4 img-ppl-mobile" data-aos="zoom-out-left" data-aos-duration="2000">
 								<article class="article thumb-article">
 									<div class="article-img">
-										<img class="d-block w-100" src="{% static 'blog/assets/images/section-4.png' %}" alt="First slide">
+										<img class="d-block w-100" src="{% static 'blog/assets/images/section-4.png' %}"
+											alt="First slide">
 									</div>
 								</article>
 							</div>
-							<div class="desk-ppl">Kami telah mengembangkan petunjuk penggunaan untuk setiap PPL sebagai acuan oleh pengelola laboratorium dalam penilaian mandiri (<i>self-assessment</i>). Kami juga dapat melakukan pendampingan penilaian (<i>technical assistance</i>) dan pelatihan penilaian bagi pengelola laboratorium
+							<div class="desk-ppl">Kami telah mengembangkan petunjuk penggunaan untuk setiap PPL sebagai
+								acuan oleh pengelola laboratorium dalam penilaian mandiri (<i>self-assessment</i>). Kami
+								juga dapat melakukan pendampingan penilaian (<i>technical assistance</i>) dan pelatihan
+								penilaian bagi pengelola laboratorium
 							</div>
 						</div>
 					</div>
@@ -179,7 +202,8 @@
 				<div class="col-md-4 img-ppl" data-aos="zoom-in-left" data-aos-duration="900">
 					<article class="article thumb-article">
 						<div class="article-img">
-							<img class="d-block w-100" src="{% static 'blog/assets/images/section-4.png' %}" alt="section-4.png">
+							<img class="d-block w-100" src="{% static 'blog/assets/images/section-4.png' %}"
+								alt="section-4.png">
 						</div>
 					</article>
 				</div>
@@ -216,37 +240,42 @@
 					<!-- footer copyright -->
 					<div class="col-md-8 mt-5">
 						{% if messages %}
-				        {% for message in messages %}
-				        <div class="alert alert-{{ message.tags }}">
-				            {{ message }}
-				        </div>
-				        {% endfor %}
-				        {% endif %}
-					  <form method="POST">
-					   {% csrf_token %}
-						   <fieldset class="form-group">
-						    <div class="form-row">
-								<div class="form-group col-md-6">
-									<input type="text" name="nama_lengkap" maxlength="50" class="textinput textInput form-control" required id="id_nama_lengkap" placeholder="Nama Lengkap">
+						{% for message in messages %}
+						<div class="alert alert-{{ message.tags }}">
+							{{ message }}
+						</div>
+						{% endfor %}
+						{% endif %}
+						<form method="POST">
+							{% csrf_token %}
+							<fieldset class="form-group">
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<input type="text" name="nama_lengkap" maxlength="50"
+											class="textinput textInput form-control" required id="id_nama_lengkap"
+											placeholder="Nama Lengkap">
+									</div>
+									<div class="form-group col-md-6">
+										<input type="email" name="email" class="emailinput form-control" required
+											id="id_email" placeholder="Email">
+									</div>
 								</div>
-								<div class="form-group col-md-6">
-									<input type="email" name="email" class="emailinput form-control" required id="id_email" placeholder="Email">
+								<div class="form-group">
+									<input type="text" name="alamat" maxlength="100"
+										class="textinput textInput form-control" id="id_alamat" placeholder="Alamat">
 								</div>
-							</div>
+								<div class="form-group">
+									<textarea name="pesan" cols="40" rows="10" class="textarea form-control" required
+										id="id_pesan"></textarea>
+								</div>
+							</fieldset>
 							<div class="form-group">
-								<input type="text" name="alamat" maxlength="100" class="textinput textInput form-control" id="id_alamat" placeholder="Alamat">
+								<button type="submit" class="btn btn-primary btn-footer">Kirim Pesan</button>
 							</div>
-							<div class="form-group">
-								<textarea name="pesan" cols="40" rows="10" class="textarea form-control" required id="id_pesan"></textarea>
-							</div>
-						   </fieldset>
-						   <div class="form-group">
-						    <button type="submit" class="btn btn-primary btn-footer">Kirim Pesan</button>
-						   </div>
-					  </form>
-					  <div class="border-top pt-3">
-					  </div>
-					 </div>
+						</form>
+						<div class="border-top pt-3">
+						</div>
+					</div>
 					<!-- /footer copyright -->
 				</div>
 				<!-- /ROW -->
@@ -258,23 +287,23 @@
 	<!-- /FOOTER -->
 
 	<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
-    </script>
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
+	</script>
 
-    <script src="{% static 'blog/assets/libs/js/main-js.js' %}"></script>
-    <script src="{% static 'blog/assets/libs/js/owl.carousel.min.js' %}"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<script src="{% static 'blog/assets/libs/js/main-js.js' %}"></script>
+	<script src="{% static 'blog/assets/libs/js/owl.carousel.min.js' %}"></script>
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    
 
-    <script>
-        AOS.init();
-    </script>
+
+	<script>
+		AOS.init();
+	</script>
 </body>
 
 </html>
